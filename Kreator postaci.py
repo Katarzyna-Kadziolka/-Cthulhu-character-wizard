@@ -95,9 +95,14 @@ def second_window():
     label_f_name = Label(frame_2, text="Imię:").grid(row=0, column=0, stick=E)
     label_l_name = Label(frame_2, text="Nazwisko:").grid(row=1, column=0, stick=E)
     label_age = Label(frame_2, text="Wiek:").grid(row=2, column=0, stick=E)
-    e_f_name = Entry(frame_2).grid(row=0, column=1, padx=10)
-    e_l_name = Entry(frame_2).grid(row=1, column=1, padx=10)
-    e_age = Entry(frame_2).grid(row=2, column=1, padx=10)
+    e_f_name = Entry(frame_2)
+    e_l_name = Entry(frame_2)
+    e_age = Entry(frame_2)
+
+    e_f_name.grid(row=0, column=1, padx=10)
+    e_l_name.grid(row=1, column=1, padx=10)
+    e_age.grid(row=2, column=1, padx=10)
+
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: to_window(2)).grid(row=3, column=1, pady=20, stick=E)
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: to_window(0)).grid(row=3, column=0, pady=20, stick=W)
     btn_random_names = Button(frame_2, text="Random", command=lambda: random(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
@@ -116,12 +121,19 @@ def third_window():
     global e_power
     global e_luck
 
-    frame_3 = Label(root).place(relx=0.5, rely=0.4, anchor=CENTER)
-    frame_3_0 = Label(frame_3).grid(row=0, column=0, columnspan=2)
-    frame_3_1 = Label(frame_3).grid(row=1, column=0, padx=10)
-    frame_3_2 = Label(frame_3).grid(row=1, column=1)
-    frame_3_3 = Label(frame_3).grid(row=2, column=0, columnspan=2)
-    frame_3_4 = Label(frame_3).grid(row=3, column=0, columnspan=2)
+    frame_3 = Label(root)
+    frame_3_0 = Label(frame_3)
+    frame_3_1 = Label(frame_3)
+    frame_3_2 = Label(frame_3)
+    frame_3_3 = Label(frame_3)
+    frame_3_4 = Label(frame_3)
+
+    frame_3.place(relx=0.5, rely=0.4, anchor=CENTER)
+    frame_3_0.grid(row=0, column=0, columnspan=2)
+    frame_3_1.grid(row=1, column=0, padx=10)
+    frame_3_2.grid(row=1, column=1)
+    frame_3_3.grid(row=2, column=0, columnspan=2)
+    frame_3_4.grid(row=3, column=0, columnspan=2)
 
 
     #frame_3_0
@@ -134,26 +146,40 @@ def third_window():
     l_size = Label(frame_3_1, text="Budowa ciała:").grid(row=2, column=0, stick=E, padx=4)
     l_dexterity = Label(frame_3_1, text="Zręczność:").grid(row=3, column=0, stick=E, padx=4)
 
-    e_strength = Entry(frame_3_1, width=5).grid(row=0, column=1)
-    e_condition = Entry(frame_3_1, width=5).grid(row=1, column=1)
-    e_size = Entry(frame_3_1, width=5).grid(row=2, column=1)
-    e_dexterity = Entry(frame_3_1, width=5).grid(row=3, column=1)
+    e_strength = Entry(frame_3_1, width=5)
+    e_condition = Entry(frame_3_1, width=5)
+    e_size = Entry(frame_3_1, width=5)
+    e_dexterity = Entry(frame_3_1, width=5)
+
+    e_strength.grid(row=0, column=1)
+    e_condition.grid(row=1, column=1)
+    e_size.grid(row=2, column=1)
+    e_dexterity.grid(row=3, column=1)
 
     e_strength.bind('<Return>', lambda event:callback(event, e_strength, e_half_strength, e_one_fifth_strength))
     e_condition.bind('<Return>', lambda event:callback(event, e_condition, e_half_condition, e_one_fifth_condition))
     e_size.bind('<Return>', lambda event:callback(event, e_size, e_half_size, e_one_fifth_size))
     e_dexterity.bind('<Return>', lambda event:callback(event, e_dexterity, e_half_dexterity, e_one_fifth_dexterity))
 
-    e_half_strength = Entry(frame_3_1, width=4).grid(row=0, column=2)
-    e_half_condition = Entry(frame_3_1, width=4).grid(row=1, column=2)
-    e_half_size = Entry(frame_3_1, width=4).grid(row=2, column=2)
-    e_half_dexterity = Entry(frame_3_1, width=4).grid(row=3, column=2)
+    e_half_strength = Entry(frame_3_1, width=4)
+    e_half_condition = Entry(frame_3_1, width=4)
+    e_half_size = Entry(frame_3_1, width=4)
+    e_half_dexterity = Entry(frame_3_1, width=4)
 
-    e_one_fifth_strength = Entry(frame_3_1, width=4).grid(row=0, column=3)
-    e_one_fifth_condition = Entry(frame_3_1, width=4).grid(row=1, column=3)
-    e_one_fifth_size = Entry(frame_3_1, width=4).grid(row=2, column=3)
-    e_one_fifth_dexterity = Entry(frame_3_1, width=4).grid(row=3, column=3)
+    e_half_strength.grid(row=0, column=2)
+    e_half_condition.grid(row=1, column=2)
+    e_half_size.grid(row=2, column=2)
+    e_half_dexterity.grid(row=3, column=2)
 
+    e_one_fifth_strength = Entry(frame_3_1, width=4)
+    e_one_fifth_condition = Entry(frame_3_1, width=4)
+    e_one_fifth_size = Entry(frame_3_1, width=4)
+    e_one_fifth_dexterity = Entry(frame_3_1, width=4)
+
+    e_one_fifth_strength.grid(row=0, column=3)
+    e_one_fifth_condition.grid(row=1, column=3)
+    e_one_fifth_size.grid(row=2, column=3)
+    e_one_fifth_dexterity.grid(row=3, column=3)
 
     #frame_3_2
     l_appearance = Label(frame_3_2, text="Wygląd:").grid(row=0, column=0, stick=E, padx=4)
@@ -161,35 +187,53 @@ def third_window():
     l_intelligence = Label(frame_3_2, text="Inteligencja:").grid(row=2, column=0, stick=E, padx=4)
     l_power = Label(frame_3_2, text="Moc:").grid(row=3, column=0, stick=E, padx=4)
 
-    e_appearance = Entry(frame_3_2, width=5).grid(row=0, column=1)
-    e_education = Entry(frame_3_2, width=5).grid(row=1, column=1)
-    e_intelligence = Entry(frame_3_2, width=5).grid(row=2, column=1)
-    e_power = Entry(frame_3_2, width=5).grid(row=3, column=1)
+    e_appearance = Entry(frame_3_2, width=5)
+    e_education = Entry(frame_3_2, width=5)
+    e_intelligence = Entry(frame_3_2, width=5)
+    e_power = Entry(frame_3_2, width=5)
+
+    e_appearance.grid(row=0, column=1)
+    e_education.grid(row=1, column=1)
+    e_intelligence.grid(row=2, column=1)
+    e_power.grid(row=3, column=1)
 
     e_appearance.bind('<Return>', lambda event:callback(event, e_appearance, e_half_appearance, e_one_fifth_appearance))
     e_education.bind('<Return>', lambda event:callback(event, e_education, e_half_education, e_one_fifth_education))
     e_intelligence.bind('<Return>', lambda event:callback(event, e_intelligence, e_half_intelligence, e_one_fifth_intelligence))
     e_power.bind('<Return>', lambda event:callback(event, e_power, e_half_power, e_one_fifth_power))
 
-    e_half_appearance = Entry(frame_3_2, width=4).grid(row=0, column=2)
-    e_half_education = Entry(frame_3_2, width=4).grid(row=1, column=2)
-    e_half_intelligence = Entry(frame_3_2, width=4).grid(row=2, column=2)
-    e_half_power = Entry(frame_3_2, width=4).grid(row=3, column=2)
+    e_half_appearance = Entry(frame_3_2, width=4)
+    e_half_education = Entry(frame_3_2, width=4)
+    e_half_intelligence = Entry(frame_3_2, width=4)
+    e_half_power = Entry(frame_3_2, width=4)
 
-    e_one_fifth_appearance = Entry(frame_3_2, width=4).grid(row=0, column=3)
-    e_one_fifth_education = Entry(frame_3_2, width=4).grid(row=1, column=3)
-    e_one_fifth_intelligence = Entry(frame_3_2, width=4).grid(row=2, column=3)
-    e_one_fifth_power = Entry(frame_3_2, width=4).grid(row=3, column=3)
+    e_half_appearance.grid(row=0, column=2)
+    e_half_education.grid(row=1, column=2)
+    e_half_intelligence.grid(row=2, column=2)
+    e_half_power .grid(row=3, column=2)
+
+    e_one_fifth_appearance = Entry(frame_3_2, width=4)
+    e_one_fifth_education = Entry(frame_3_2, width=4)
+    e_one_fifth_intelligence = Entry(frame_3_2, width=4)
+    e_one_fifth_power = Entry(frame_3_2, width=4)
+
+    e_one_fifth_appearance.grid(row=0, column=3)
+    e_one_fifth_education.grid(row=1, column=3)
+    e_one_fifth_intelligence.grid(row=2, column=3)
+    e_one_fifth_power.grid(row=3, column=3)
 
 
     #frame_3_3
     l_luck = Label(frame_3_3, text="Szczęście:").grid(row=1, column=0)
-    e_luck = Entry(frame_3_3, width=5).grid(row=1, column=1, stick=W)
-    e_half_luck = Entry(frame_3_3, width=4).grid(row=1, column=2, stick=W)
-    e_one_fifth_luck = Entry(frame_3_3, width=4).grid(row=1, column=3, stick=W)
+    e_luck = Entry(frame_3_3, width=5)
+    e_half_luck = Entry(frame_3_3, width=4)
+    e_one_fifth_luck = Entry(frame_3_3, width=4)
 
     e_luck.bind('<Return>', lambda event:callback(event, e_luck, e_half_luck, e_one_fifth_luck))
 
+    e_luck.grid(row=1, column=1, stick=W)
+    e_half_luck.grid(row=1, column=2, stick=W)
+    e_one_fifth_luck.grid(row=1, column=3, stick=W)
 
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: to_window(3)).grid(row=0, column=1, pady=20, padx=50, stick=E)
