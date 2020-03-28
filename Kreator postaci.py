@@ -62,25 +62,6 @@ def to_window(var):
         fourth_window()
 
     elif var == 4:
-        data['half_strength'] = e_half_strength.get()
-        data['half_condition'] = e_half_condition.get()
-        data['half_size'] = e_half_size.get()
-        data['half_dexterity'] = e_half_dexterity.get()
-        data['half_appearance'] = e_half_appearance.get()
-        data['half_education'] = e_half_education.get()
-        data['half_intelligence'] = e_half_intelligence.get()
-        data['half_power'] = e_half_power.get()
-        data['half_luck'] = e_half_luck.get()
-
-        data['one_fifth_strength'] = e_one_fifth_strength.get()
-        data['one_fifth_condition'] = e_one_fifth_condition.get()
-        data['one_fifth_size'] = e_one_fifth_size.get()
-        data['one_fifth_dexterity'] = e_one_fifth_dexterity.get()
-        data['one_fifth_appearance'] = e_one_fifth_appearance.get()
-        data['one_fifth_education'] = e_one_fifth_education.get()
-        data['one_fifth_intelligence'] = e_one_fifth_intelligence.get()
-        data['one_fifth_power'] = e_one_fifth_power.get()
-        data['one_fifth_luck'] = e_one_fifth_luck.get()
 
         frame_4_0.destroy()
         frame_4_1.destroy()
@@ -279,24 +260,6 @@ def fourth_window():
     global frame_4_2
     global frame_4_3
     global frame_4_4
-    global e_half_strength
-    global e_half_condition
-    global e_half_size
-    global e_half_dexterity
-    global e_half_appearance
-    global e_half_education
-    global e_half_intelligence
-    global e_half_power
-    global e_half_luck
-    global e_one_fifth_strength
-    global e_one_fifth_condition
-    global e_one_fifth_size
-    global e_one_fifth_dexterity
-    global e_one_fifth_appearance
-    global e_one_fifth_education
-    global e_one_fifth_intelligence
-    global e_one_fifth_power
-    global e_one_fifth_luck
 
     frame_4_0 = Label(root)
     frame_4_1 = Label(root)
@@ -361,7 +324,7 @@ def fourth_window():
     e_one_fifth_dexterity.grid(row=3, column=3)
 
 
-    #frame_3_2
+    #frame_4_2
     l_appearance = Label(frame_4_2, text="Wygląd:")
     l_education = Label(frame_4_2, text="Wykształcenie:")
     l_intelligence = Label(frame_4_2, text="Inteligencja:")
@@ -402,7 +365,7 @@ def fourth_window():
     e_one_fifth_intelligence.grid(row=2, column=3)
     e_one_fifth_power.grid(row=3, column=3)
 
-    #frame_3_3
+    #frame_4_3
     l_luck = Label(frame_4_3, text="Szczęście:")
     e_luck = Entry(frame_4_3, width=5, state=DISABLED)
     e_half_luck = Entry(frame_4_3, width=4, state=DISABLED)
