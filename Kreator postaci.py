@@ -10,43 +10,16 @@ root.geometry("400x400")
 data = {}
 
 def half_value (num):
-    result = num/2
-    rounded_result = math.floor(result)
-    return rounded_result
+    result = math.floor(num/2)
+    return result
 
 def one_fifth (num):
-    result = num/5
-    rounded_result = math.floor(result)
-    return rounded_result
+    result = math.floor(num/5)
+    return result
 
-def callback(event, num):
-    if num == 1:
-        e_half_strength.insert(0, half_value(int(e_strength.get())))
-        e_one_fifth_strength.insert(0, one_fifth(int(e_strength.get())))
-    elif num == 2:
-        e_half_condition.insert(0, half_value(int(e_condition.get())))
-        e_one_fifth_condition.insert(0, one_fifth(int(e_condition.get())))
-    elif num == 3:
-        e_half_size.insert(0, half_value(int(e_size.get())))
-        e_one_fifth_size.insert(0, one_fifth(int(e_size.get())))
-    elif num == 4:
-        e_half_dexterity.insert(0, half_value(int(e_dexterity.get())))
-        e_one_fifth_dexterity.insert(0, one_fifth(int(e_dexterity.get())))
-    elif num == 5:
-        e_half_appearance.insert(0, half_value(int(e_appearance.get())))
-        e_one_fifth_appearance.insert(0, one_fifth(int(e_appearance.get())))
-    elif num == 6:
-        e_half_education.insert(0, half_value(int(e_education.get())))
-        e_one_fifth_education.insert(0, one_fifth(int(e_education.get())))
-    elif num == 7:
-        e_half_intelligence.insert(0, half_value(int(e_intelligence.get())))
-        e_one_fifth_intelligence.insert(0, one_fifth(int(e_intelligence.get())))
-    elif num == 8:
-        e_half_power.insert(0, half_value(int(e_power.get())))
-        e_one_fifth_power.insert(0, one_fifth(int(e_power.get())))
-    elif num == 9:
-        e_half_luck.insert(0, half_value(int(e_luck.get())))
-        e_one_fifth_luck.insert(0, one_fifth(int(e_luck.get())))
+def callback(event, name, e_half, e_one_fifth):
+    e_half.insert(0, half_value(int(name.get())))
+    e_one_fifth.insert(0, one_fifth(int(name.get())))
 
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
@@ -54,7 +27,15 @@ def close_program():
         root.destroy()
         return
 
-def random():
+def random(var):
+    if var == 1:
+        return
+    elif var == 2:
+        return
+    elif var == 3:
+        random_K6()
+
+def random_K6():
     return
 
 def to_window(var):
@@ -98,7 +79,7 @@ def first_window():
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: to_window(1))
-    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=to_window)
+    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: random(1))
     btn_close = Button(frame, text="Zamknij", command=close_program)
 
     btn_second_window.grid(row=0, column=0, pady=2, sticky=W + E + N + S)
@@ -122,7 +103,7 @@ def second_window():
     e_age = Entry(frame_2)
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: to_window(2))
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: to_window(0))
-    btn_random_names = Button(frame_2, text="Random", command=random)
+    btn_random_names = Button(frame_2, text="Random", command=lambda: random(2))
 
     label_f_name.grid(row=0, column=0, stick=E)
     label_l_name.grid(row=1, column=0, stick=E)
@@ -147,24 +128,7 @@ def third_window():
     global e_intelligence
     global e_power
     global e_luck
-    global e_half_strength
-    global e_half_condition
-    global e_half_size
-    global e_half_dexterity
-    global e_one_fifth_strength
-    global e_one_fifth_condition
-    global e_one_fifth_size
-    global e_one_fifth_dexterity
-    global e_half_appearance
-    global e_half_education
-    global e_half_intelligence
-    global e_half_power
-    global e_one_fifth_appearance
-    global e_one_fifth_education
-    global e_one_fifth_intelligence
-    global e_one_fifth_power
-    global e_half_luck
-    global e_one_fifth_luck
+
 
     frame_3 = Label(root)
     frame_3_0 = Label(frame_3)
@@ -197,10 +161,10 @@ def third_window():
     e_size = Entry(frame_3_1, width=5)
     e_dexterity = Entry(frame_3_1, width=5)
 
-    e_strength.bind('<Return>', lambda event:callback(event, 1))
-    e_condition.bind('<Return>', lambda event:callback(event, 2))
-    e_size.bind('<Return>', lambda event:callback(event, 3))
-    e_dexterity.bind('<Return>', lambda event:callback(event, 4))
+    e_strength.bind('<Return>', lambda event:callback(event, e_strength, e_half_strength, e_one_fifth_strength))
+    e_condition.bind('<Return>', lambda event:callback(event, e_condition, e_half_condition, e_one_fifth_condition))
+    e_size.bind('<Return>', lambda event:callback(event, e_size, e_half_size, e_one_fifth_size))
+    e_dexterity.bind('<Return>', lambda event:callback(event, e_dexterity, e_half_dexterity, e_one_fifth_dexterity))
 
     e_half_strength = Entry(frame_3_1, width=4)
     e_half_condition = Entry(frame_3_1, width=4)
@@ -244,10 +208,10 @@ def third_window():
     e_intelligence = Entry(frame_3_2, width=5)
     e_power = Entry(frame_3_2, width=5)
 
-    e_appearance.bind('<Return>', lambda event:callback(event, 5))
-    e_education.bind('<Return>', lambda event:callback(event, 6))
-    e_intelligence.bind('<Return>', lambda event:callback(event, 7))
-    e_power.bind('<Return>', lambda event:callback(event, 8))
+    e_appearance.bind('<Return>', lambda event:callback(event, e_appearance, e_half_appearance, e_one_fifth_appearance))
+    e_education.bind('<Return>', lambda event:callback(event, e_education, e_half_education, e_one_fifth_education))
+    e_intelligence.bind('<Return>', lambda event:callback(event, e_intelligence, e_half_intelligence, e_one_fifth_intelligence))
+    e_power.bind('<Return>', lambda event:callback(event, e_power, e_half_power, e_one_fifth_power))
 
     e_half_appearance = Entry(frame_3_2, width=4)
     e_half_education = Entry(frame_3_2, width=4)
@@ -285,7 +249,7 @@ def third_window():
     e_half_luck = Entry(frame_3_3, width=4)
     e_one_fifth_luck = Entry(frame_3_3, width=4)
 
-    e_luck.bind('<Return>', lambda event:callback(event, 9))
+    e_luck.bind('<Return>', lambda event:callback(event, e_luck, e_half_luck, e_one_fifth_luck))
 
     l_luck.grid(row=1, column=0)
     e_luck.grid(row=1, column=1, stick=W)
@@ -295,7 +259,7 @@ def third_window():
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: to_window(3))
     btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: to_window(2))
-    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random())
+    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random(3))
 
     btn_fourth_window.grid(row=0, column=1, pady=20, padx=50, stick=E)
     btn_back_window_2.grid(row=0, column=0, pady=20, padx=50, stick=W)
