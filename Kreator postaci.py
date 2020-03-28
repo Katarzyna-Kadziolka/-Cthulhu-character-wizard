@@ -19,6 +19,35 @@ def one_fifth (num):
     rounded_result = math.floor(result)
     return rounded_result
 
+def callback(event, num):
+    if num == 1:
+        e_half_strength.insert(0, half_value(int(e_strength.get())))
+        e_one_fifth_strength.insert(0, one_fifth(int(e_strength.get())))
+    elif num == 2:
+        e_half_condition.insert(0, half_value(int(e_condition.get())))
+        e_one_fifth_condition.insert(0, one_fifth(int(e_condition.get())))
+    elif num == 3:
+        e_half_size.insert(0, half_value(int(e_size.get())))
+        e_one_fifth_size.insert(0, one_fifth(int(e_size.get())))
+    elif num == 4:
+        e_half_dexterity.insert(0, half_value(int(e_dexterity.get())))
+        e_one_fifth_dexterity.insert(0, one_fifth(int(e_dexterity.get())))
+    elif num == 5:
+        e_half_appearance.insert(0, half_value(int(e_appearance.get())))
+        e_one_fifth_appearance.insert(0, one_fifth(int(e_appearance.get())))
+    elif num == 6:
+        e_half_education.insert(0, half_value(int(e_education.get())))
+        e_one_fifth_education.insert(0, one_fifth(int(e_education.get())))
+    elif num == 7:
+        e_half_intelligence.insert(0, half_value(int(e_intelligence.get())))
+        e_one_fifth_intelligence.insert(0, one_fifth(int(e_intelligence.get())))
+    elif num == 8:
+        e_half_power.insert(0, half_value(int(e_power.get())))
+        e_one_fifth_power.insert(0, one_fifth(int(e_power.get())))
+    elif num == 9:
+        e_half_luck.insert(0, half_value(int(e_luck.get())))
+        e_one_fifth_luck.insert(0, one_fifth(int(e_luck.get())))
+
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
     if sExit > 0:
@@ -52,22 +81,14 @@ def to_window(var):
         data['power'] = e_power.get()
         data['luck'] = e_luck.get()
 
-        frame_3_0.destroy()
-        frame_3_1.destroy()
-        frame_3_2.destroy()
-        frame_3_3.destroy()
-        frame_3_4.destroy()
+        frame_3.destroy()
 
         print(data)
         fourth_window()
 
     elif var == 4:
 
-        frame_4_0.destroy()
-        frame_4_1.destroy()
-        frame_4_2.destroy()
-        frame_4_3.destroy()
-        frame_4_4.destroy()
+        frame_4.destroy()
 
 
 def first_window():
@@ -116,11 +137,7 @@ def second_window():
 
 def third_window():
 
-    global frame_3_0
-    global frame_3_1
-    global frame_3_2
-    global frame_3_3
-    global frame_3_4
+    global frame_3
     global e_strength
     global e_condition
     global e_size
@@ -130,13 +147,33 @@ def third_window():
     global e_intelligence
     global e_power
     global e_luck
+    global e_half_strength
+    global e_half_condition
+    global e_half_size
+    global e_half_dexterity
+    global e_one_fifth_strength
+    global e_one_fifth_condition
+    global e_one_fifth_size
+    global e_one_fifth_dexterity
+    global e_half_appearance
+    global e_half_education
+    global e_half_intelligence
+    global e_half_power
+    global e_one_fifth_appearance
+    global e_one_fifth_education
+    global e_one_fifth_intelligence
+    global e_one_fifth_power
+    global e_half_luck
+    global e_one_fifth_luck
 
+    frame_3 = Label(root)
+    frame_3_0 = Label(frame_3)
+    frame_3_1 = Label(frame_3)
+    frame_3_2 = Label(frame_3)
+    frame_3_3 = Label(frame_3)
+    frame_3_4 = Label(frame_3)
 
-    frame_3_0 = Label(root)
-    frame_3_1 = Label(root)
-    frame_3_2 = Label(root)
-    frame_3_3 = Label(root)
-    frame_3_4 = Label(root)
+    frame_3.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     frame_3_0.grid(row=0, column=0, columnspan=2)
 
@@ -160,15 +197,20 @@ def third_window():
     e_size = Entry(frame_3_1, width=5)
     e_dexterity = Entry(frame_3_1, width=5)
 
-    e_half_strength = Entry(frame_3_1, width=4, state=DISABLED)
-    e_half_condition = Entry(frame_3_1, width=4, state=DISABLED)
-    e_half_size = Entry(frame_3_1, width=4, state=DISABLED)
-    e_half_dexterity = Entry(frame_3_1, width=4, state=DISABLED)
+    e_strength.bind('<Return>', lambda event:callback(event, 1))
+    e_condition.bind('<Return>', lambda event:callback(event, 2))
+    e_size.bind('<Return>', lambda event:callback(event, 3))
+    e_dexterity.bind('<Return>', lambda event:callback(event, 4))
 
-    e_one_fifth_strength = Entry(frame_3_1, width=4, state=DISABLED)
-    e_one_fifth_condition = Entry(frame_3_1, width=4, state=DISABLED)
-    e_one_fifth_size = Entry(frame_3_1, width=4, state=DISABLED)
-    e_one_fifth_dexterity = Entry(frame_3_1, width=4, state=DISABLED)
+    e_half_strength = Entry(frame_3_1, width=4)
+    e_half_condition = Entry(frame_3_1, width=4)
+    e_half_size = Entry(frame_3_1, width=4)
+    e_half_dexterity = Entry(frame_3_1, width=4)
+
+    e_one_fifth_strength = Entry(frame_3_1, width=4)
+    e_one_fifth_condition = Entry(frame_3_1, width=4)
+    e_one_fifth_size = Entry(frame_3_1, width=4)
+    e_one_fifth_dexterity = Entry(frame_3_1, width=4)
 
     l_strength.grid(row=0, column=0, stick=E, padx=4)
     l_condition.grid(row=1, column=0, stick=E, padx=4)
@@ -202,15 +244,20 @@ def third_window():
     e_intelligence = Entry(frame_3_2, width=5)
     e_power = Entry(frame_3_2, width=5)
 
-    e_half_appearance = Entry(frame_3_2, width=4, state=DISABLED)
-    e_half_education = Entry(frame_3_2, width=4, state=DISABLED)
-    e_half_intelligence = Entry(frame_3_2, width=4, state=DISABLED)
-    e_half_power = Entry(frame_3_2, width=4, state=DISABLED)
+    e_appearance.bind('<Return>', lambda event:callback(event, 5))
+    e_education.bind('<Return>', lambda event:callback(event, 6))
+    e_intelligence.bind('<Return>', lambda event:callback(event, 7))
+    e_power.bind('<Return>', lambda event:callback(event, 8))
 
-    e_one_fifth_appearance = Entry(frame_3_2, width=4, state=DISABLED)
-    e_one_fifth_education = Entry(frame_3_2, width=4, state=DISABLED)
-    e_one_fifth_intelligence = Entry(frame_3_2, width=4, state=DISABLED)
-    e_one_fifth_power = Entry(frame_3_2, width=4, state=DISABLED)
+    e_half_appearance = Entry(frame_3_2, width=4)
+    e_half_education = Entry(frame_3_2, width=4)
+    e_half_intelligence = Entry(frame_3_2, width=4)
+    e_half_power = Entry(frame_3_2, width=4)
+
+    e_one_fifth_appearance = Entry(frame_3_2, width=4)
+    e_one_fifth_education = Entry(frame_3_2, width=4)
+    e_one_fifth_intelligence = Entry(frame_3_2, width=4)
+    e_one_fifth_power = Entry(frame_3_2, width=4)
 
     l_appearance.grid(row=0, column=0, stick=E, padx=4)
     l_education.grid(row=1, column=0, stick=E, padx=4)
@@ -235,8 +282,10 @@ def third_window():
     #frame_3_3
     l_luck = Label(frame_3_3, text="Szczęście:")
     e_luck = Entry(frame_3_3, width=5)
-    e_half_luck = Entry(frame_3_3, width=4, state=DISABLED)
-    e_one_fifth_luck = Entry(frame_3_3, width=4, state=DISABLED)
+    e_half_luck = Entry(frame_3_3, width=4)
+    e_one_fifth_luck = Entry(frame_3_3, width=4)
+
+    e_luck.bind('<Return>', lambda event:callback(event, 9))
 
     l_luck.grid(row=1, column=0)
     e_luck.grid(row=1, column=1, stick=W)
@@ -253,138 +302,10 @@ def third_window():
     btn_random_values_window_3.grid(row=1, column=0, columnspan=2, pady=5)
 
 
+
 def fourth_window():
 
-    global frame_4_0
-    global frame_4_1
-    global frame_4_2
-    global frame_4_3
-    global frame_4_4
-
-    frame_4_0 = Label(root)
-    frame_4_1 = Label(root)
-    frame_4_2 = Label(root)
-    frame_4_3 = Label(root)
-    frame_4_4 = Label(root)
-
-    frame_4_0.grid(row=0, column=0, columnspan=2)
-
-    frame_4_1.grid(row=1, column=0, padx=10)
-    frame_4_2.grid(row=1, column=1)
-    frame_4_3.grid(row=2, column=0, columnspan=2)
-    frame_4_4.grid(row=3, column=0, columnspan=2)
-
-    #frame_4_0
-    l_instruction = Label(frame_4_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11))
-    l_instruction.grid(row=0, column=0, pady=10)
-
-    #frame_4_1
-    l_strength = Label(frame_4_1, text="Siła:")
-    l_condition = Label(frame_4_1, text="Kondycja:")
-    l_size = Label(frame_4_1, text="Budowa ciała:")
-    l_dexterity = Label(frame_4_1, text="Zręczność:")
-
-    e_strength = Entry(frame_4_1, width=5, state=DISABLED)
-    e_condition = Entry(frame_4_1, width=5, state=DISABLED)
-    e_size = Entry(frame_4_1, width=5, state=DISABLED)
-    e_dexterity = Entry(frame_4_1, width=5, state=DISABLED)
-
-    e_strength.insert(0, data['strength'])
-
-    e_half_strength = Entry(frame_4_1, width=4, state=DISABLED)
-    e_half_condition = Entry(frame_4_1, width=4, state=DISABLED)
-    e_half_size = Entry(frame_4_1, width=4, state=DISABLED)
-    e_half_dexterity = Entry(frame_4_1, width=4, state=DISABLED)
-
-    e_strength.insert(0, half_value(int(data['strength'])))
-
-    e_one_fifth_strength = Entry(frame_4_1, width=4, state=DISABLED)
-    e_one_fifth_condition = Entry(frame_4_1, width=4, state=DISABLED)
-    e_one_fifth_size = Entry(frame_4_1, width=4, state=DISABLED)
-    e_one_fifth_dexterity = Entry(frame_4_1, width=4, state=DISABLED)
-
-    l_strength.grid(row=0, column=0, stick=E, padx=4)
-    l_condition.grid(row=1, column=0, stick=E, padx=4)
-    l_size.grid(row=2, column=0, stick=E, padx=4)
-    l_dexterity.grid(row=3, column=0, stick=E, padx=4)
-
-    e_strength.grid(row=0, column=1)
-    e_condition.grid(row=1, column=1)
-    e_size.grid(row=2, column=1)
-    e_dexterity.grid(row=3, column=1)
-
-    e_half_strength.grid(row=0, column=2)
-    e_half_condition.grid(row=1, column=2)
-    e_half_size.grid(row=2, column=2)
-    e_half_dexterity.grid(row=3, column=2)
-
-    e_one_fifth_strength.grid(row=0, column=3)
-    e_one_fifth_condition.grid(row=1, column=3)
-    e_one_fifth_size.grid(row=2, column=3)
-    e_one_fifth_dexterity.grid(row=3, column=3)
-
-
-    #frame_4_2
-    l_appearance = Label(frame_4_2, text="Wygląd:")
-    l_education = Label(frame_4_2, text="Wykształcenie:")
-    l_intelligence = Label(frame_4_2, text="Inteligencja:")
-    l_power = Label(frame_4_2, text="Moc:")
-
-    e_appearance = Entry(frame_4_2, width=5, state=DISABLED)
-    e_education = Entry(frame_4_2, width=5, state=DISABLED)
-    e_intelligence = Entry(frame_4_2, width=5, state=DISABLED)
-    e_power = Entry(frame_4_2, width=5, state=DISABLED)
-
-    e_half_appearance = Entry(frame_4_2, width=4, state=DISABLED)
-    e_half_education = Entry(frame_4_2, width=4, state=DISABLED)
-    e_half_intelligence = Entry(frame_4_2, width=4, state=DISABLED)
-    e_half_power = Entry(frame_4_2, width=4, state=DISABLED)
-
-    e_one_fifth_appearance = Entry(frame_4_2, width=4, state=DISABLED)
-    e_one_fifth_education = Entry(frame_4_2, width=4, state=DISABLED)
-    e_one_fifth_intelligence = Entry(frame_4_2, width=4, state=DISABLED)
-    e_one_fifth_power = Entry(frame_4_2, width=4, state=DISABLED)
-
-    l_appearance.grid(row=0, column=0, stick=E, padx=4)
-    l_education.grid(row=1, column=0, stick=E, padx=4)
-    l_intelligence.grid(row=2, column=0, stick=E, padx=4)
-    l_power.grid(row=3, column=0, stick=E, padx=4)
-
-    e_appearance.grid(row=0, column=1)
-    e_education.grid(row=1, column=1)
-    e_intelligence.grid(row=2, column=1)
-    e_power.grid(row=3, column=1)
-
-    e_half_appearance.grid(row=0, column=2)
-    e_half_education.grid(row=1, column=2)
-    e_half_intelligence.grid(row=2, column=2)
-    e_half_power.grid(row=3, column=2)
-
-    e_one_fifth_appearance.grid(row=0, column=3)
-    e_one_fifth_education.grid(row=1, column=3)
-    e_one_fifth_intelligence.grid(row=2, column=3)
-    e_one_fifth_power.grid(row=3, column=3)
-
-    #frame_4_3
-    l_luck = Label(frame_4_3, text="Szczęście:")
-    e_luck = Entry(frame_4_3, width=5, state=DISABLED)
-    e_half_luck = Entry(frame_4_3, width=4, state=DISABLED)
-    e_one_fifth_luck = Entry(frame_4_3, width=4, state=DISABLED)
-
-    l_luck.grid(row=1, column=0)
-    e_luck.grid(row=1, column=1, stick=W)
-    e_half_luck.grid(row=1, column=2, stick=W)
-    e_one_fifth_luck.grid(row=1, column=3, stick=W)
-
-    #frame_4_4
-    btn_fifth_window = Button(frame_4_4, text="Dalej", width=10, command=lambda: to_window(4))
-    btn_back_window_3 = Button(frame_4_4, text="Cofnij", width=10, command=lambda: to_window(3))
-
-    btn_fifth_window.grid(row=0, column=1, pady=20, padx=50, stick=E)
-    btn_back_window_3.grid(row=0, column=0, pady=20, padx=50, stick=W)
-
-
-
+    global frame_4
 
 frame = Label(root)
 frame.place(relx=0.5, rely=0.4, anchor=CENTER)
