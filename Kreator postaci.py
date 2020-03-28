@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import sqlite3
 import math
+import random
 
 root = Tk()
 root.title("Kreator Badaczy Tajemnic")
@@ -27,7 +28,7 @@ def close_program():
         root.destroy()
         return
 
-def random(var):
+def randoms(var):
     if var == 1:
         return
     elif var == 2:
@@ -36,7 +37,35 @@ def random(var):
         random_K6()
 
 def random_K6():
-    return
+
+    e_strength.delete(0, END)
+    e_condition.delete(0, END)
+    e_size.delete(0, END)
+    e_dexterity.delete(0, END)
+    e_appearance.delete(0, END)
+    e_education.delete(0, END)
+    e_intelligence.delete(0, END)
+    e_power.delete(0, END)
+    e_luck.delete(0, END)
+
+    #random numbers
+    control_number = 9
+    list_of_value = []
+    while control_number > 0:
+        value = (random.randint(3, 18)) * 5
+        list_of_value.append(value)
+        control_number -= 1
+
+    e_strength.insert(0, list_of_value[0])
+    e_condition.insert(0, list_of_value[1])
+    e_size.insert(0, list_of_value[2])
+    e_dexterity.insert(0, list_of_value[3])
+    e_appearance.insert(0, list_of_value[4])
+    e_education.insert(0, list_of_value[5])
+    e_intelligence.insert(0, list_of_value[6])
+    e_power.insert(0, list_of_value[7])
+    e_luck.insert(0, list_of_value[8])
+
 
 def to_window(var):
     if var == 0:
@@ -79,7 +108,7 @@ def first_window():
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: to_window(1)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
-    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: random(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
+    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: randoms(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
     btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
 
@@ -105,7 +134,7 @@ def second_window():
 
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: to_window(2)).grid(row=3, column=1, pady=20, stick=E)
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: to_window(0)).grid(row=3, column=0, pady=20, stick=W)
-    btn_random_names = Button(frame_2, text="Random", command=lambda: random(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
+    btn_random_names = Button(frame_2, text="Random", command=lambda: randoms(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
 
 
 def third_window():
@@ -238,7 +267,7 @@ def third_window():
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: to_window(3)).grid(row=0, column=1, pady=20, padx=50, stick=E)
     btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: to_window(2)).grid(row=0, column=0, pady=20, padx=50, stick=W)
-    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random(3)).grid(row=1, column=0, columnspan=2, pady=5)
+    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: randoms(3)).grid(row=1, column=0, columnspan=2, pady=5)
 
 
 def fourth_window():
