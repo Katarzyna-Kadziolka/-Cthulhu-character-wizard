@@ -79,23 +79,16 @@ def random_K6():
     e_luck.insert(0, list_of_value[8])
 
 
-def to_window(var):
-    if var == 0:
-
+def to_window(window_number):
+    if window_number == 1:
         first_window()
-    elif var == 1:
+    elif window_number == 2:
         second_window()
-
-    elif var == 2:
-        frame_2.destroy()
+    elif window_number == 3:
         third_window()
-    elif var == 3:
-        frame_3.destroy()
+    elif window_number == 4:
         print(data)
         fourth_window()
-
-    elif var == 4:
-        return
 
 def save_data(sv, name):
     data[name] = sv.get()
@@ -107,7 +100,7 @@ def first_window():
     frame = Label(root)
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
-    btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: clean_frame(frame, 1)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
+    btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: clean_frame(frame, 2)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
     btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: randoms(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
     btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
@@ -136,8 +129,8 @@ def second_window():
     e_l_name.grid(row=1, column=1, padx=10)
     e_age.grid(row=2, column=1, padx=10)
 
-    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 2)).grid(row=3, column=1, pady=20, stick=E)
-    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 0)).grid(row=3, column=0, pady=20, stick=W)
+    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=3, column=1, pady=20, stick=E)
+    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=3, column=0, pady=20, stick=W)
     btn_random_names = Button(frame_2, text="Random", command=lambda: randoms(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
 
 
@@ -287,8 +280,8 @@ def third_window():
     e_one_fifth_luck.grid(row=1, column=3, stick=W)
 
     #frame_3_4
-    btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 3)).grid(row=0, column=1, pady=20, padx=50, stick=E)
-    btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: clean_frame(frame_3, 1)).grid(row=0, column=0, pady=20, padx=50, stick=W)
+    btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 4)).grid(row=0, column=1, pady=20, padx=50, stick=E)
+    btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: clean_frame(frame_3, 2)).grid(row=0, column=0, pady=20, padx=50, stick=W)
     btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: randoms(3)).grid(row=1, column=0, columnspan=2, pady=5)
 
 
