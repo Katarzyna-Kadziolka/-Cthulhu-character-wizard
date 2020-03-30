@@ -37,56 +37,17 @@ def clean_frame(frame_name, num):
     to_window(num)
 
 
-def randoms(var):
-    if var == 1:
-        return
-    elif var == 2:
-        return
-    elif var == 3:
-        random_K6()
+def random_abilities(list_of_abilities):
 
-def random_K6():
+    for ability in list_of_abilities:
+        random_value = 0
+        if ability['dice'] == 3:
+            random_value = (random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6))*5
+        elif ability['dice'] == 2:
+            random_value = (random.randint(1, 6) + random.randint(1, 6) + 6)*5
 
-    e_strength.delete(0, END)
-    e_condition.delete(0, END)
-    e_size.delete(0, END)
-    e_dexterity.delete(0, END)
-    e_appearance.delete(0, END)
-    e_education.delete(0, END)
-    e_intelligence.delete(0, END)
-    e_power.delete(0, END)
-    e_luck.delete(0, END)
-
-    #random numbers
-    control_number_3D6 = 5
-    list_of_value_3D6 = []
-    while control_number_3D6 > 0:
-        value_1_3D6 = (random.randint(1, 6))
-        value_2_3D6= (random.randint(1, 6))
-        value_3_3D6 = (random.randint(1, 6))
-        list_of_value_3D6.append((value_1_3D6 + value_2_3D6 + value_3_3D6)*5)
-        control_number_3D6 -= 1
-
-    control_number_2D6 = 4
-    list_of_value_2D6 = []
-    while control_number_2D6 > 0:
-        value_1_2D6 = (random.randint(1, 6))
-        value_2_2D6 = (random.randint(1, 6))
-        list_of_value_2D6.append((value_1_2D6 + value_2_2D6 + 6)*5)
-        control_number_2D6 -= 1
-
-
-    e_strength.insert(0, list_of_value_3D6[0])
-    e_condition.insert(0, list_of_value_3D6[1])
-    e_dexterity.insert(0, list_of_value_3D6[2])
-    e_appearance.insert(0, list_of_value_3D6[3])
-    e_power.insert(0, list_of_value_3D6[4])
-
-
-    e_size.insert(0, list_of_value_2D6[0])
-    e_education.insert(0, list_of_value_2D6[1])
-    e_intelligence.insert(0, list_of_value_2D6[2])
-    e_luck.insert(0, list_of_value_2D6[3])
+        ability['e_ability'].delete(0, END)
+        ability['e_ability'].insert(0, random_value)
 
 
 def to_window(window_number):
@@ -111,12 +72,11 @@ def first_window():
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: clean_frame(frame, 2)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
-    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: randoms(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
+    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: random_abilities(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
     btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
 
 def second_window():
-    global frame_2
 
     frame_2 = Label(root)
     frame_2.place(relx=0.5, rely=0.4, anchor=CENTER)
@@ -141,21 +101,10 @@ def second_window():
 
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=3, column=1, pady=20, stick=E)
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=3, column=0, pady=20, stick=W)
-    btn_random_names = Button(frame_2, text="Random", command=lambda: randoms(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
+    btn_random_names = Button(frame_2, text="Random", command=lambda: random_abilities(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W + E + N + S)
 
 
 def third_window():
-
-    global frame_3
-    global e_strength
-    global e_condition
-    global e_size
-    global e_dexterity
-    global e_appearance
-    global e_education
-    global e_intelligence
-    global e_power
-    global e_luck
 
     frame_3 = Label(root)
     frame_3_0 = Label(frame_3)
@@ -172,23 +121,23 @@ def third_window():
     frame_3_4.grid(row=3, column=0, columnspan=2)
 
     sv_strenght = StringVar()
-    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: update_ability(sv_strenght, e_half_strength, e_one_fifth_strength, "strength"))
+    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: update_ability(sv, e_half_strength, e_one_fifth_strength, "strength"))
     sv_condition = StringVar()
-    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: update_ability(sv_condition, e_half_condition, e_one_fifth_condition, "condition"))
+    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: update_ability(sv, e_half_condition, e_one_fifth_condition, "condition"))
     sv_size = StringVar()
-    sv_size.trace("w", lambda name, index, mode, sv=sv_size: update_ability(sv_size, e_half_size, e_one_fifth_size, "size"))
+    sv_size.trace("w", lambda name, index, mode, sv=sv_size: update_ability(sv, e_half_size, e_one_fifth_size, "size"))
     sv_dexterity = StringVar()
-    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: update_ability(sv_dexterity, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
+    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: update_ability(sv, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
     sv_appearance = StringVar()
-    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: update_ability(sv_appearance, e_half_appearance, e_one_fifth_appearance, "appearance"))
+    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: update_ability(sv, e_half_appearance, e_one_fifth_appearance, "appearance"))
     sv_education = StringVar()
-    sv_education.trace("w", lambda name, index, mode, sv=sv_education: update_ability(sv_education, e_half_education, e_one_fifth_education, "education"))
+    sv_education.trace("w", lambda name, index, mode, sv=sv_education: update_ability(sv, e_half_education, e_one_fifth_education, "education"))
     sv_intelligence = StringVar()
-    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: update_ability(sv_intelligence, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
+    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: update_ability(sv, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
     sv_power = StringVar()
-    sv_power.trace("w", lambda name, index, mode, sv=sv_power: update_ability(sv_power, e_half_power, e_one_fifth_power, "power"))
+    sv_power.trace("w", lambda name, index, mode, sv=sv_power: update_ability(sv, e_half_power, e_one_fifth_power, "power"))
     sv_luck = StringVar()
-    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: update_ability(sv_luck, e_half_luck, e_one_fifth_luck, "luck"))
+    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: update_ability(sv, e_half_luck, e_one_fifth_luck, "luck"))
 
     #frame_3_0
     l_instruction = Label(frame_3_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
@@ -282,10 +231,39 @@ def third_window():
     e_one_fifth_intelligence.grid(row=1, column=7)
     e_one_fifth_luck.grid(row=2, column=7)
 
+    list_of_abilities = [{
+        'name': "strength",
+        'dice': 3,
+        'e_ability': e_strength},
+        {'name': "condition",
+         'dice': 3,
+         'e_ability': e_condition},
+        {'name': "size",
+         'dice': 2,
+         'e_ability': e_size},
+        {'name': "dexterity",
+         'dice': 3,
+         'e_ability': e_dexterity},
+        {'name': "appearance",
+         'dice': 3,
+         'e_ability': e_appearance},
+        {'name': "education",
+         'dice': 2,
+         'e_ability': e_education},
+        {'name': "intelligence",
+         'dice': 2,
+         'e_ability': e_intelligence},
+        {'name': "power",
+         'dice': 3,
+         'e_ability': e_power},
+        {'name': "luck",
+         'dice': 2,
+         'e_ability': e_luck}]
+
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 4)).grid(row=0, column=1, pady=20, padx=50, stick=E)
     btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: clean_frame(frame_3, 2)).grid(row=0, column=0, pady=20, padx=50, stick=W)
-    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: randoms(3)).grid(row=1, column=0, columnspan=2, pady=5)
+    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random_abilities(list_of_abilities)).grid(row=1, column=0, columnspan=2, pady=5)
 
 
 def fourth_window():
