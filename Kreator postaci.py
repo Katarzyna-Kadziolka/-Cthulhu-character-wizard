@@ -18,16 +18,13 @@ def one_fifth (num):
     result = math.floor(num/5)
     return result
 
-def callback(event, name, e_half, e_one_fifth):
-    e_half.insert(0, half_value(int(name.get())))
-    e_one_fifth.insert(0, one_fifth(int(name.get())))
-
-def callback_random(sv, e_half, e_one_fifth, name):
-    e_half.delete(0, END)
-    e_one_fifth.delete(0, END)
-    e_half.insert(0, half_value(int(sv.get())))
-    e_one_fifth.insert(0, one_fifth(int(sv.get())))
-    save_data(sv, name)
+def update_ability(sv, e_half, e_one_fifth, name):
+    if sv.get() != "":
+        e_half.delete(0, END)
+        e_one_fifth.delete(0, END)
+        e_half.insert(0, half_value(int(sv.get())))
+        e_one_fifth.insert(0, one_fifth(int(sv.get())))
+        save_data(sv, name)
 
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
@@ -162,23 +159,23 @@ def third_window():
     frame_3_4.grid(row=3, column=0, columnspan=2)
 
     sv_strenght = StringVar()
-    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: callback_random(sv_strenght, e_half_strength, e_one_fifth_strength, "strength"))
+    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: update_ability(sv_strenght, e_half_strength, e_one_fifth_strength, "strength"))
     sv_condition = StringVar()
-    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: callback_random(sv_condition, e_half_condition, e_one_fifth_condition, "condition"))
+    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: update_ability(sv_condition, e_half_condition, e_one_fifth_condition, "condition"))
     sv_size = StringVar()
-    sv_size.trace("w", lambda name, index, mode, sv=sv_size: callback_random(sv_size, e_half_size, e_one_fifth_size, "size"))
+    sv_size.trace("w", lambda name, index, mode, sv=sv_size: update_ability(sv_size, e_half_size, e_one_fifth_size, "size"))
     sv_dexterity = StringVar()
-    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: callback_random(sv_dexterity, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
+    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: update_ability(sv_dexterity, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
     sv_appearance = StringVar()
-    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: callback_random(sv_appearance, e_half_appearance, e_one_fifth_appearance, "appearance"))
+    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: update_ability(sv_appearance, e_half_appearance, e_one_fifth_appearance, "appearance"))
     sv_education = StringVar()
-    sv_education.trace("w", lambda name, index, mode, sv=sv_education: callback_random(sv_education, e_half_education, e_one_fifth_education, "education"))
+    sv_education.trace("w", lambda name, index, mode, sv=sv_education: update_ability(sv_education, e_half_education, e_one_fifth_education, "education"))
     sv_intelligence = StringVar()
-    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: callback_random(sv_intelligence, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
+    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: update_ability(sv_intelligence, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
     sv_power = StringVar()
-    sv_power.trace("w", lambda name, index, mode, sv=sv_power: callback_random(sv_power, e_half_power, e_one_fifth_power, "power"))
+    sv_power.trace("w", lambda name, index, mode, sv=sv_power: update_ability(sv_power, e_half_power, e_one_fifth_power, "power"))
     sv_luck = StringVar()
-    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: callback_random(sv_luck, e_half_luck, e_one_fifth_luck, "luck"))
+    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: update_ability(sv_luck, e_half_luck, e_one_fifth_luck, "luck"))
 
     #frame_3_0
     l_instruction = Label(frame_3_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
@@ -199,11 +196,6 @@ def third_window():
     e_condition.grid(row=1, column=1)
     e_size.grid(row=2, column=1)
     e_dexterity.grid(row=3, column=1)
-
-    e_strength.bind('<Return>', lambda event:callback(event, e_strength, e_half_strength, e_one_fifth_strength))
-    e_condition.bind('<Return>', lambda event:callback(event, e_condition, e_half_condition, e_one_fifth_condition))
-    e_size.bind('<Return>', lambda event:callback(event, e_size, e_half_size, e_one_fifth_size))
-    e_dexterity.bind('<Return>', lambda event:callback(event, e_dexterity, e_half_dexterity, e_one_fifth_dexterity))
 
     e_half_strength = Entry(frame_3_1, width=4)
     e_half_condition = Entry(frame_3_1, width=4)
@@ -241,11 +233,6 @@ def third_window():
     e_intelligence.grid(row=2, column=1)
     e_power.grid(row=3, column=1)
 
-    e_appearance.bind('<Return>', lambda event:callback(event, e_appearance, e_half_appearance, e_one_fifth_appearance))
-    e_education.bind('<Return>', lambda event:callback(event, e_education, e_half_education, e_one_fifth_education))
-    e_intelligence.bind('<Return>', lambda event:callback(event, e_intelligence, e_half_intelligence, e_one_fifth_intelligence))
-    e_power.bind('<Return>', lambda event:callback(event, e_power, e_half_power, e_one_fifth_power))
-
     e_half_appearance = Entry(frame_3_2, width=4)
     e_half_education = Entry(frame_3_2, width=4)
     e_half_intelligence = Entry(frame_3_2, width=4)
@@ -272,8 +259,6 @@ def third_window():
     e_luck = Entry(frame_3_3, textvariable=sv_luck, width=5)
     e_half_luck = Entry(frame_3_3, width=4)
     e_one_fifth_luck = Entry(frame_3_3, width=4)
-
-    e_luck.bind('<Return>', lambda event:callback(event, e_luck, e_half_luck, e_one_fifth_luck))
 
     e_luck.grid(row=1, column=1, stick=W)
     e_half_luck.grid(row=1, column=2, stick=W)
