@@ -22,17 +22,23 @@ def callback(event, name, e_half, e_one_fifth):
     e_half.insert(0, half_value(int(name.get())))
     e_one_fifth.insert(0, one_fifth(int(name.get())))
 
-def callback_random(sv, e_half, e_one_fifth):
+def callback_random(sv, e_half, e_one_fifth, name):
     e_half.delete(0, END)
     e_one_fifth.delete(0, END)
     e_half.insert(0, half_value(int(sv.get())))
     e_one_fifth.insert(0, one_fifth(int(sv.get())))
+    save_data(sv, name)
 
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
     if sExit > 0:
         root.destroy()
         return
+
+def clean_frame(frame_name, num):
+    frame_name.destroy()
+    to_window(num)
+
 
 def randoms(var):
     if var == 1:
@@ -75,71 +81,49 @@ def random_K6():
 
 def to_window(var):
     if var == 0:
-        frame_2.destroy()
+
         first_window()
     elif var == 1:
-        frame.destroy()
         second_window()
+
     elif var == 2:
         frame_2.destroy()
-        try:
-            frame_3.destroy()
-        except NameError:
-            pass
         third_window()
     elif var == 3:
-        data['strength'] = e_strength.get()
-        data['condition'] = e_condition.get()
-        data['size'] = e_size.get()
-        data['dexterity'] = e_dexterity.get()
-        data['appearance'] = e_appearance.get()
-        data['education'] = e_education.get()
-        data['intelligence'] = e_intelligence.get()
-        data['power'] = e_power.get()
-        data['luck'] = e_luck.get()
-
         frame_3.destroy()
-
         print(data)
         fourth_window()
 
     elif var == 4:
-
-        frame_4.destroy()
+        return
 
 def save_data(sv, name):
     data[name] = sv.get()
 
 
 def first_window():
-    global frame
+
 
     frame = Label(root)
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
-    btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: to_window(1)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
+    btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: clean_frame(frame, 1)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
     btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: randoms(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
     btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
 
 def second_window():
     global frame_2
-    global e_f_name
-    global e_l_name
-    global e_age
 
     frame_2 = Label(root)
     frame_2.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     sv_f_name = StringVar()
-    sv_f_name.trace("w",
-                    lambda name, index, mode, sv_f_name: save_data(sv_f_name, f_name))
+    sv_f_name.trace("w", lambda name, index, mode, sv=sv_f_name: save_data(sv, "first_name"))
     sv_l_name = StringVar()
-    sv_l_name.trace("w",
-                    lambda name, index, mode, sv_l_name: save_data(sv_l_name, l_name))
+    sv_l_name.trace("w", lambda name, index, mode, sv=sv_l_name: save_data(sv, "last_name"))
     sv_age = StringVar()
-    sv_age.trace("w",
-                 lambda name, index, mode, sv_age: save_data(sv_age, age))
+    sv_age.trace("w", lambda name, index, mode, sv=sv_age: save_data(sv, "age"))
 
     label_f_name = Label(frame_2, text="Imię:").grid(row=0, column=0, stick=E)
     label_l_name = Label(frame_2, text="Nazwisko:").grid(row=1, column=0, stick=E)
@@ -152,8 +136,8 @@ def second_window():
     e_l_name.grid(row=1, column=1, padx=10)
     e_age.grid(row=2, column=1, padx=10)
 
-    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: to_window(2)).grid(row=3, column=1, pady=20, stick=E)
-    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: to_window(0)).grid(row=3, column=0, pady=20, stick=W)
+    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 2)).grid(row=3, column=1, pady=20, stick=E)
+    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 0)).grid(row=3, column=0, pady=20, stick=W)
     btn_random_names = Button(frame_2, text="Random", command=lambda: randoms(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W+E+N+S)
 
 
@@ -185,23 +169,23 @@ def third_window():
     frame_3_4.grid(row=3, column=0, columnspan=2)
 
     sv_strenght = StringVar()
-    sv_strenght.trace("w", lambda name, index, mode, sv_strenght=sv_strenght: callback_random(sv_strenght, e_half_strength, e_one_fifth_strength))
+    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: callback_random(sv_strenght, e_half_strength, e_one_fifth_strength, "strength"))
     sv_condition = StringVar()
-    sv_condition.trace("w", lambda name, index, mode, sv_condition=sv_condition: callback_random(sv_condition, e_half_condition, e_one_fifth_condition))
+    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: callback_random(sv_condition, e_half_condition, e_one_fifth_condition, "condition"))
     sv_size = StringVar()
-    sv_size.trace("w", lambda name, index, mode, sv_size=sv_size: callback_random(sv_size, e_half_size, e_one_fifth_size))
+    sv_size.trace("w", lambda name, index, mode, sv=sv_size: callback_random(sv_size, e_half_size, e_one_fifth_size, "size"))
     sv_dexterity = StringVar()
-    sv_dexterity.trace("w", lambda name, index, mode, sv_dexterity=sv_dexterity: callback_random(sv_dexterity, e_half_dexterity, e_one_fifth_dexterity))
+    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: callback_random(sv_dexterity, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
     sv_appearance = StringVar()
-    sv_appearance.trace("w", lambda name, index, mode, sv_appearance=sv_appearance: callback_random(sv_appearance, e_half_appearance, e_one_fifth_appearance))
+    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: callback_random(sv_appearance, e_half_appearance, e_one_fifth_appearance, "appearance"))
     sv_education = StringVar()
-    sv_education.trace("w", lambda name, index, mode, sv_education=sv_education: callback_random(sv_education, e_half_education, e_one_fifth_education))
+    sv_education.trace("w", lambda name, index, mode, sv=sv_education: callback_random(sv_education, e_half_education, e_one_fifth_education, "education"))
     sv_intelligence = StringVar()
-    sv_intelligence.trace("w", lambda name, index, mode, sv_intelligence=sv_intelligence: callback_random(sv_intelligence, e_half_intelligence, e_one_fifth_intelligence))
+    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: callback_random(sv_intelligence, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
     sv_power = StringVar()
-    sv_power.trace("w", lambda name, index, mode, sv_power=sv_power: callback_random(sv_power, e_half_power, e_one_fifth_power))
+    sv_power.trace("w", lambda name, index, mode, sv=sv_power: callback_random(sv_power, e_half_power, e_one_fifth_power, "power"))
     sv_luck = StringVar()
-    sv_luck.trace("w", lambda name, index, mode, sv_luck=sv_luck: callback_random(sv_luck, e_half_luck, e_one_fifth_luck))
+    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: callback_random(sv_luck, e_half_luck, e_one_fifth_luck, "luck"))
 
     #frame_3_0
     l_instruction = Label(frame_3_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
@@ -303,8 +287,8 @@ def third_window():
     e_one_fifth_luck.grid(row=1, column=3, stick=W)
 
     #frame_3_4
-    btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: to_window(3)).grid(row=0, column=1, pady=20, padx=50, stick=E)
-    btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: to_window(2)).grid(row=0, column=0, pady=20, padx=50, stick=W)
+    btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 3)).grid(row=0, column=1, pady=20, padx=50, stick=E)
+    btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: clean_frame(frame_3, 1)).grid(row=0, column=0, pady=20, padx=50, stick=W)
     btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: randoms(3)).grid(row=1, column=0, columnspan=2, pady=5)
 
 
