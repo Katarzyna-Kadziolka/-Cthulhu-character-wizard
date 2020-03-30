@@ -58,22 +58,35 @@ def random_K6():
     e_luck.delete(0, END)
 
     #random numbers
-    control_number = 9
-    list_of_value = []
-    while control_number > 0:
-        value = (random.randint(3, 18)) * 5
-        list_of_value.append(value)
-        control_number -= 1
+    control_number_3D6 = 5
+    list_of_value_3D6 = []
+    while control_number_3D6 > 0:
+        value_1_3D6 = (random.randint(1, 6))
+        value_2_3D6= (random.randint(1, 6))
+        value_3_3D6 = (random.randint(1, 6))
+        list_of_value_3D6.append((value_1_3D6 + value_2_3D6 + value_3_3D6)*5)
+        control_number_3D6 -= 1
 
-    e_strength.insert(0, list_of_value[0])
-    e_condition.insert(0, list_of_value[1])
-    e_size.insert(0, list_of_value[2])
-    e_dexterity.insert(0, list_of_value[3])
-    e_appearance.insert(0, list_of_value[4])
-    e_education.insert(0, list_of_value[5])
-    e_intelligence.insert(0, list_of_value[6])
-    e_power.insert(0, list_of_value[7])
-    e_luck.insert(0, list_of_value[8])
+    control_number_2D6 = 4
+    list_of_value_2D6 = []
+    while control_number_2D6 > 0:
+        value_1_2D6 = (random.randint(1, 6))
+        value_2_2D6 = (random.randint(1, 6))
+        list_of_value_2D6.append((value_1_2D6 + value_2_2D6 + 6)*5)
+        control_number_2D6 -= 1
+
+
+    e_strength.insert(0, list_of_value_3D6[0])
+    e_condition.insert(0, list_of_value_3D6[1])
+    e_dexterity.insert(0, list_of_value_3D6[2])
+    e_appearance.insert(0, list_of_value_3D6[3])
+    e_power.insert(0, list_of_value_3D6[4])
+
+
+    e_size.insert(0, list_of_value_2D6[0])
+    e_education.insert(0, list_of_value_2D6[1])
+    e_intelligence.insert(0, list_of_value_2D6[2])
+    e_luck.insert(0, list_of_value_2D6[3])
 
 
 def to_window(window_number):
@@ -180,89 +193,94 @@ def third_window():
     #frame_3_0
     l_instruction = Label(frame_3_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
 
-
     #frame_3_1
     l_strength = Label(frame_3_1, text="Siła:").grid(row=0, column=0, stick=E, padx=4)
     l_condition = Label(frame_3_1, text="Kondycja:").grid(row=1, column=0, stick=E, padx=4)
-    l_size = Label(frame_3_1, text="Budowa ciała:").grid(row=2, column=0, stick=E, padx=4)
-    l_dexterity = Label(frame_3_1, text="Zręczność:").grid(row=3, column=0, stick=E, padx=4)
+    l_dexterity = Label(frame_3_1, text="Zręczność:").grid(row=2, column=0, stick=E, padx=4)
 
     e_strength = Entry(frame_3_1, textvariable=sv_strenght, width=5)
     e_condition = Entry(frame_3_1, textvariable=sv_condition, width=5)
-    e_size = Entry(frame_3_1, textvariable=sv_size, width=5)
     e_dexterity = Entry(frame_3_1, textvariable=sv_dexterity, width=5)
 
     e_strength.grid(row=0, column=1)
     e_condition.grid(row=1, column=1)
-    e_size.grid(row=2, column=1)
-    e_dexterity.grid(row=3, column=1)
+    e_dexterity.grid(row=2, column=1)
 
     e_half_strength = Entry(frame_3_1, width=4)
     e_half_condition = Entry(frame_3_1, width=4)
-    e_half_size = Entry(frame_3_1, width=4)
     e_half_dexterity = Entry(frame_3_1, width=4)
 
     e_half_strength.grid(row=0, column=2)
     e_half_condition.grid(row=1, column=2)
-    e_half_size.grid(row=2, column=2)
-    e_half_dexterity.grid(row=3, column=2)
+    e_half_dexterity.grid(row=2, column=2)
 
     e_one_fifth_strength = Entry(frame_3_1, width=4)
     e_one_fifth_condition = Entry(frame_3_1, width=4)
-    e_one_fifth_size = Entry(frame_3_1, width=4)
     e_one_fifth_dexterity = Entry(frame_3_1, width=4)
 
     e_one_fifth_strength.grid(row=0, column=3)
     e_one_fifth_condition.grid(row=1, column=3)
-    e_one_fifth_size.grid(row=2, column=3)
-    e_one_fifth_dexterity.grid(row=3, column=3)
+    e_one_fifth_dexterity.grid(row=2, column=3)
 
     #frame_3_2
     l_appearance = Label(frame_3_2, text="Wygląd:").grid(row=0, column=0, stick=E, padx=4)
-    l_education = Label(frame_3_2, text="Wykształcenie:").grid(row=1, column=0, stick=E, padx=4)
-    l_intelligence = Label(frame_3_2, text="Inteligencja:").grid(row=2, column=0, stick=E, padx=4)
-    l_power = Label(frame_3_2, text="Moc:").grid(row=3, column=0, stick=E, padx=4)
+    l_power = Label(frame_3_2, text="Moc:").grid(row=1, column=0, stick=E, padx=4)
 
     e_appearance = Entry(frame_3_2, textvariable=sv_appearance, width=5)
-    e_education = Entry(frame_3_2, textvariable=sv_education, width=5)
-    e_intelligence = Entry(frame_3_2, textvariable=sv_intelligence, width=5)
     e_power = Entry(frame_3_2, textvariable=sv_power, width=5)
 
     e_appearance.grid(row=0, column=1)
-    e_education.grid(row=1, column=1)
-    e_intelligence.grid(row=2, column=1)
-    e_power.grid(row=3, column=1)
+    e_power.grid(row=1, column=1)
 
     e_half_appearance = Entry(frame_3_2, width=4)
-    e_half_education = Entry(frame_3_2, width=4)
-    e_half_intelligence = Entry(frame_3_2, width=4)
     e_half_power = Entry(frame_3_2, width=4)
 
     e_half_appearance.grid(row=0, column=2)
-    e_half_education.grid(row=1, column=2)
-    e_half_intelligence.grid(row=2, column=2)
-    e_half_power .grid(row=3, column=2)
+    e_half_power .grid(row=1, column=2)
 
     e_one_fifth_appearance = Entry(frame_3_2, width=4)
-    e_one_fifth_education = Entry(frame_3_2, width=4)
-    e_one_fifth_intelligence = Entry(frame_3_2, width=4)
     e_one_fifth_power = Entry(frame_3_2, width=4)
 
     e_one_fifth_appearance.grid(row=0, column=3)
-    e_one_fifth_education.grid(row=1, column=3)
-    e_one_fifth_intelligence.grid(row=2, column=3)
-    e_one_fifth_power.grid(row=3, column=3)
+    e_one_fifth_power.grid(row=1, column=3)
 
 
     #frame_3_3
-    l_luck = Label(frame_3_3, text="Szczęście:").grid(row=1, column=0)
+    l_introduction = Label(frame_3_3, text="Rzut 2K6 + 6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, columnspan=8, pady=20)
+    l_size = Label(frame_3_3, text="Budowa ciała:").grid(row=1, column=0, stick=E, padx=4)
+    l_intelligence = Label(frame_3_3, text="Inteligencja:").grid(row=2, column=0, stick=E, padx=4)
+    l_education = Label(frame_3_3, text="Wykształcenie:").grid(row=1, column=4, stick=E, padx=4)
+    l_luck = Label(frame_3_3, text="Szczęście:").grid(row=2, column=4, stick=E, padx=4)
+
+    e_size = Entry(frame_3_3, textvariable=sv_size, width=5)
+    e_intelligence = Entry(frame_3_3, textvariable=sv_intelligence, width=5)
+    e_education = Entry(frame_3_3, textvariable=sv_education, width=5)
     e_luck = Entry(frame_3_3, textvariable=sv_luck, width=5)
+
+    e_size.grid(row=1, column=1)
+    e_intelligence.grid(row=2, column=1)
+    e_education.grid(row=1, column=5)
+    e_luck.grid(row=2, column=5)
+
+    e_half_size = Entry(frame_3_3, width=4)
+    e_half_education = Entry(frame_3_3, width=4)
+    e_half_intelligence = Entry(frame_3_3, width=4)
     e_half_luck = Entry(frame_3_3, width=4)
+
+    e_half_size.grid(row=1, column=2)
+    e_half_education.grid(row=2, column=2)
+    e_half_intelligence.grid(row=1, column=6)
+    e_half_luck.grid(row=2, column=6)
+
+    e_one_fifth_size = Entry(frame_3_3, width=4)
+    e_one_fifth_education = Entry(frame_3_3, width=4)
+    e_one_fifth_intelligence = Entry(frame_3_3, width=4)
     e_one_fifth_luck = Entry(frame_3_3, width=4)
 
-    e_luck.grid(row=1, column=1, stick=W)
-    e_half_luck.grid(row=1, column=2, stick=W)
-    e_one_fifth_luck.grid(row=1, column=3, stick=W)
+    e_one_fifth_size.grid(row=1, column=3)
+    e_one_fifth_education.grid(row=2, column=3)
+    e_one_fifth_intelligence.grid(row=1, column=7)
+    e_one_fifth_luck.grid(row=2, column=7)
 
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 4)).grid(row=0, column=1, pady=20, padx=50, stick=E)
