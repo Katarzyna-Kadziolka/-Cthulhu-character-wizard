@@ -81,10 +81,11 @@ def to_window(var):
         frame.destroy()
         second_window()
     elif var == 2:
-        data['f_name'] = e_f_name.get()
-        data['l_name'] = e_l_name.get()
-        data['age'] = e_age.get()
         frame_2.destroy()
+        try:
+            frame_3.destroy()
+        except NameError:
+            pass
         third_window()
     elif var == 3:
         data['strength'] = e_strength.get()
@@ -105,6 +106,9 @@ def to_window(var):
     elif var == 4:
 
         frame_4.destroy()
+
+def save_data(sv, name):
+    data[name] = sv.get()
 
 
 def first_window():
@@ -127,12 +131,22 @@ def second_window():
     frame_2 = Label(root)
     frame_2.place(relx=0.5, rely=0.4, anchor=CENTER)
 
+    sv_f_name = StringVar()
+    sv_f_name.trace("w",
+                    lambda name, index, mode, sv_f_name: save_data(sv_f_name, f_name))
+    sv_l_name = StringVar()
+    sv_l_name.trace("w",
+                    lambda name, index, mode, sv_l_name: save_data(sv_l_name, l_name))
+    sv_age = StringVar()
+    sv_age.trace("w",
+                 lambda name, index, mode, sv_age: save_data(sv_age, age))
+
     label_f_name = Label(frame_2, text="Imię:").grid(row=0, column=0, stick=E)
     label_l_name = Label(frame_2, text="Nazwisko:").grid(row=1, column=0, stick=E)
     label_age = Label(frame_2, text="Wiek:").grid(row=2, column=0, stick=E)
-    e_f_name = Entry(frame_2)
-    e_l_name = Entry(frame_2)
-    e_age = Entry(frame_2)
+    e_f_name = Entry(frame_2, textvariable=sv_f_name)
+    e_l_name = Entry(frame_2, textvariable=sv_l_name)
+    e_age = Entry(frame_2, textvariable=sv_age)
 
     e_f_name.grid(row=0, column=1, padx=10)
     e_l_name.grid(row=1, column=1, padx=10)
@@ -298,12 +312,9 @@ def fourth_window():
 
     global frame_4
 
-frame = Label(root)
-frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
-btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: to_window(1)).grid(row=0, column=0, pady=2, sticky=W+E+N+S)
-btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=to_window).grid(row=1, column=0, pady=2, stick=W+E+N+S)
-btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W+E+N+S)
+first_window()
+
 
 
 root.mainloop()
