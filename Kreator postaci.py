@@ -20,11 +20,14 @@ def one_fifth (num):
 
 def update_ability(sv, e_half, e_one_fifth, name):
     if sv.get() != "":
-        e_half.delete(0, END)
-        e_one_fifth.delete(0, END)
-        e_half.insert(0, half_value(int(sv.get())))
-        e_one_fifth.insert(0, one_fifth(int(sv.get())))
-        save_data(sv, name)
+        if int(sv.get()) < 15 or int(sv.get()) > 90:
+            wrong_value(e_half)
+        else:
+            e_half.delete(0, END)
+            e_one_fifth.delete(0, END)
+            e_half.insert(0, half_value(int(sv.get())))
+            e_one_fifth.insert(0, one_fifth(int(sv.get())))
+            save_data(sv, name)
 
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
@@ -32,10 +35,13 @@ def close_program():
         root.destroy()
         return
 
+def wrong_value(e_half):
+    messagebox.showerror("Błąd wartości", "Wpisana wartość jest za mała lub za duża")
+    e_half.delete(0, END)
+
 def clean_frame(frame_name, num):
     frame_name.destroy()
     to_window(num)
-
 
 def random_abilities(list_of_abilities):
 
@@ -49,6 +55,8 @@ def random_abilities(list_of_abilities):
         ability['e_ability'].delete(0, END)
         ability['e_ability'].insert(0, random_value)
 
+def next(event, frame_name, num):
+    clean_frame(frame_name, num)
 
 def to_window(window_number):
     if window_number == 1:
@@ -94,6 +102,7 @@ def second_window():
     e_f_name = Entry(frame_2, textvariable=sv_f_name)
     e_l_name = Entry(frame_2, textvariable=sv_l_name)
     e_age = Entry(frame_2, textvariable=sv_age)
+    e_age.bind('<Return>', lambda event: next(event, frame_2, 3))
 
     e_f_name.grid(row=0, column=1, padx=10)
     e_l_name.grid(row=1, column=1, padx=10)
@@ -101,7 +110,8 @@ def second_window():
 
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=3, column=1, pady=20, stick=E)
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=3, column=0, pady=20, stick=W)
-    btn_random_names = Button(frame_2, text="Random", command=lambda: random_abilities(2)).grid(row=4, column=0, columnspan=2, pady=5, stick=W + E + N + S)
+    btn_random_names = Button(frame_2, text="Random", command=lambda: random_personal_data()).grid(row=4, column=0, columnspan=2, pady=5, stick=W + E + N + S)
+
 
 
 def third_window():
@@ -206,29 +216,31 @@ def third_window():
     e_education = Entry(frame_3_3, textvariable=sv_education, width=5)
     e_luck = Entry(frame_3_3, textvariable=sv_luck, width=5)
 
+    e_luck.bind('<Return>', lambda event: next(event, frame_3, 4))
+
     e_size.grid(row=1, column=1)
     e_intelligence.grid(row=2, column=1)
     e_education.grid(row=1, column=5)
     e_luck.grid(row=2, column=5)
 
     e_half_size = Entry(frame_3_3, width=4)
-    e_half_education = Entry(frame_3_3, width=4)
     e_half_intelligence = Entry(frame_3_3, width=4)
+    e_half_education = Entry(frame_3_3, width=4)
     e_half_luck = Entry(frame_3_3, width=4)
 
     e_half_size.grid(row=1, column=2)
-    e_half_education.grid(row=2, column=2)
-    e_half_intelligence.grid(row=1, column=6)
+    e_half_intelligence.grid(row=2, column=2)
+    e_half_education.grid(row=1, column=6)
     e_half_luck.grid(row=2, column=6)
 
     e_one_fifth_size = Entry(frame_3_3, width=4)
-    e_one_fifth_education = Entry(frame_3_3, width=4)
     e_one_fifth_intelligence = Entry(frame_3_3, width=4)
+    e_one_fifth_education = Entry(frame_3_3, width=4)
     e_one_fifth_luck = Entry(frame_3_3, width=4)
 
     e_one_fifth_size.grid(row=1, column=3)
-    e_one_fifth_education.grid(row=2, column=3)
-    e_one_fifth_intelligence.grid(row=1, column=7)
+    e_one_fifth_intelligence.grid(row=2, column=3)
+    e_one_fifth_education.grid(row=1, column=7)
     e_one_fifth_luck.grid(row=2, column=7)
 
     list_of_abilities = [{
