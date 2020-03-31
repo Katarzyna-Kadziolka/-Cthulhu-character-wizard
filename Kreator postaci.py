@@ -20,14 +20,11 @@ def one_fifth (num):
 
 def update_ability(sv, e_half, e_one_fifth, name):
     if sv.get() != "":
-        if int(sv.get()) < 15 or int(sv.get()) > 90:
-            wrong_value(e_half)
-        else:
-            e_half.delete(0, END)
-            e_one_fifth.delete(0, END)
-            e_half.insert(0, half_value(int(sv.get())))
-            e_one_fifth.insert(0, one_fifth(int(sv.get())))
-            save_data(sv, name)
+        e_half.delete(0, END)
+        e_one_fifth.delete(0, END)
+        e_half.insert(0, half_value(int(sv.get())))
+        e_one_fifth.insert(0, one_fifth(int(sv.get())))
+        save_data(sv, name)
 
 def close_program():
     sExit = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")
@@ -35,9 +32,11 @@ def close_program():
         root.destroy()
         return
 
-def wrong_value(e_half):
-    messagebox.showerror("Błąd wartości", "Wpisana wartość jest za mała lub za duża")
-    e_half.delete(0, END)
+#def cheking_values(list_of abilities):
+ #   for ability in list_of abilities:
+ #       if ability['e_ability'] < 15 or ability['e_ability'] > 90:
+ #           messagebox.showerror("Błąd wartości", "Wpisana wartość jest za mała lub za duża")
+ #           ability['e_ability'].delete(0, END)
 
 def clean_frame(frame_name, num):
     frame_name.destroy()
