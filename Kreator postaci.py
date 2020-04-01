@@ -32,15 +32,40 @@ def close_program():
         root.destroy()
         return
 
-#def cheking_values(list_of abilities):
- #   for ability in list_of abilities:
- #       if ability['e_ability'] < 15 or ability['e_ability'] > 90:
- #           messagebox.showerror("Błąd wartości", "Wpisana wartość jest za mała lub za duża")
- #           ability['e_ability'].delete(0, END)
-
 def clean_frame(frame_name, num):
     frame_name.destroy()
     to_window(num)
+
+def set_text(entry, text):
+    entry.delete(0, END)
+    entry.insert(0, text)
+
+def improvement_education(list_of_abilities, number_of_repeats):
+    for _ in range(number_of_repeats):
+        education = [a for a in list_of_abilities if a['name'] == "education"][0]
+        random_value = random.randint(1, 100)
+        if random_value > data[education['name']]:
+            bonus = random.randint(1, 10)
+            if bonus + data[education['name']] <= 99:
+                set_text(education['e_ability'], bonus + data[education['name']])
+            else:
+                set_text(education['e_ability'], 99)
+
+def reduce_points(list_of_abilities, repeats, appearance_reduction):
+    list_of_reduced_abilities = [a for a in list_of_abilities if a['name'] == "strength" or a['name'] == "condition" or a['name'] == "dexterity"]
+    for _ in range(repeats):
+        a = random.choice(list_of_reduced_abilities)
+        value = data[a['name']] - 1
+        set_text(a['e_ability'], value)
+        if value == 1:
+            list_of_reduced_abilities.remove(a)
+
+    list_appearance = [a for a in list_of_abilities if a['name'] == "appearance"][0]
+    set_text(a['e_ability'], data[list_appearance['name']] - appearance_reduction + 1)
+
+
+
+
 
 def random_abilities(list_of_abilities):
 
@@ -51,8 +76,34 @@ def random_abilities(list_of_abilities):
         elif ability['dice'] == 2:
             random_value = (random.randint(1, 6) + random.randint(1, 6) + 6)*5
 
-        ability['e_ability'].delete(0, END)
-        ability['e_ability'].insert(0, random_value)
+        set_text(ability['e_ability'], random_value)
+
+    if data['age'] <= 19:
+        list_of_strength_and_size = [a for a in list_of_abilities if a['name'] == "strength" or a['name'] == "size"]
+        for _ in range(5):
+            a = random.choice(list_of_strength_and_size)
+            value = data[a['name']] - 1
+            set_text(a['e_ability'], value)
+
+        education = [a for a in list_of_abilities if a['name'] == "education"][0]
+        set_text(education['e_ability'], data[education['name']] - 5)
+
+        luck = [a for a in list_of_abilities if a['name'] == "luck"][0]
+        random_value = (random.randint(1, 6) + random.randint(1, 6) + 6) * 5
+        if random_value > data[luck['name']]:
+            set_text(luck['e_ability'], random_value)
+
+    if data['age'] <= 39:
+        improvement_education(list_of_abilities, 1)
+
+
+    if data['age'] <= 49:
+        improvement_education(list_of_abilities, 2)
+        reduce_points(list_of_abilities, 5, 5)
+
+
+
+
 
 def next(event, frame_name, num):
     clean_frame(frame_name, num)
@@ -69,7 +120,10 @@ def to_window(window_number):
         fourth_window()
 
 def save_data(sv, name):
-    data[name] = sv.get()
+    if sv.get().isdigit():
+        data[name] = int(sv.get())
+    else:
+        data[name] = sv.get()
 
 
 def first_window():
@@ -156,7 +210,7 @@ def third_window():
     l_condition = Label(frame_3_1, text="Kondycja:").grid(row=1, column=0, stick=E, padx=4)
     l_dexterity = Label(frame_3_1, text="Zręczność:").grid(row=2, column=0, stick=E, padx=4)
 
-    e_strength = Entry(frame_3_1, textvariable=sv_strenght, width=5)
+    e_strength = Entry(frame_3_1, textvariable=sv_strenght, width=5, validate="key")
     e_condition = Entry(frame_3_1, textvariable=sv_condition, width=5)
     e_dexterity = Entry(frame_3_1, textvariable=sv_dexterity, width=5)
 
