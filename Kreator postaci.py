@@ -54,17 +54,16 @@ def improvement_education(list_of_abilities, number_of_repeats):
 def reduce_points(list_of_abilities, repeats, appearance_reduction):
     list_of_reduced_abilities = [a for a in list_of_abilities if a['name'] == "strength" or a['name'] == "condition" or a['name'] == "dexterity"]
     for _ in range(repeats):
-        a = random.choice(list_of_reduced_abilities)
-        value = data[a['name']] - 1
-        set_text(a['e_ability'], value)
+        random_ability = random.choice(list_of_reduced_abilities)
+        value = data[random_ability['name']] - 1
+        set_text(random_ability['e_ability'], value)
         if value == 1:
-            list_of_reduced_abilities.remove(a)
+            list_of_reduced_abilities.remove(random_ability)
 
     list_appearance = [a for a in list_of_abilities if a['name'] == "appearance"][0]
-    set_text(a['e_ability'], data[list_appearance['name']] - appearance_reduction + 1)
-
-
-
+    set_text(list_appearance['e_ability'], data[list_appearance['name']] - appearance_reduction)
+    if data[list_appearance['name']] <= 0:
+        set_text(list_appearance['e_ability'], 1)
 
 
 def random_abilities(list_of_abilities):
@@ -96,13 +95,25 @@ def random_abilities(list_of_abilities):
     if data['age'] <= 39:
         improvement_education(list_of_abilities, 1)
 
-
     if data['age'] <= 49:
         improvement_education(list_of_abilities, 2)
         reduce_points(list_of_abilities, 5, 5)
 
+    if data['age'] <= 59:
+        improvement_education(list_of_abilities, 3)
+        reduce_points(list_of_abilities, 10, 10)
 
+    if data['age'] <= 69:
+        improvement_education(list_of_abilities, 4)
+        reduce_points(list_of_abilities, 20, 15)
 
+    if data['age'] <= 79:
+        improvement_education(list_of_abilities, 4)
+        reduce_points(list_of_abilities, 40, 20)
+
+    if data['age'] > 80:
+        improvement_education(list_of_abilities, 4)
+        reduce_points(list_of_abilities, 80, 25)
 
 
 def next(event, frame_name, num):
@@ -120,9 +131,9 @@ def to_window(window_number):
         fourth_window()
 
 def save_data(sv, name):
-    if sv.get().isdigit():
+    try:
         data[name] = int(sv.get())
-    else:
+    except ValueError:
         data[name] = sv.get()
 
 
