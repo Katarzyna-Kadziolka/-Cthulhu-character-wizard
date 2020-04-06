@@ -3,27 +3,22 @@ from tkinter import messagebox
 import sqlite3
 import math
 import random
+from abilities_calculator import AbilitiesCalculator
+from ability import Ability
 
 root = Tk()
 root.title("Kreator Badaczy Tajemnic")
 root.geometry("400x400")
 
 data = {}
-
-def half_value (num):
-    result = math.floor(num/2)
-    return result
-
-def one_fifth (num):
-    result = math.floor(num/5)
-    return result
+calculator = AbilitiesCalculator()
 
 def update_ability(sv, e_half, e_one_fifth, name):
     if sv.get() != "":
         e_half.delete(0, END)
         e_one_fifth.delete(0, END)
-        e_half.insert(0, half_value(int(sv.get())))
-        e_one_fifth.insert(0, one_fifth(int(sv.get())))
+        e_half.insert(0, calculator.half_value(int(sv.get())))
+        e_one_fifth.insert(0, calculator.one_fifth(int(sv.get())))
         save_data(sv, name)
 
 def close_program():
@@ -39,82 +34,6 @@ def clean_frame(frame_name, num):
 def set_text(entry, text):
     entry.delete(0, END)
     entry.insert(0, text)
-
-def improvement_education(list_of_abilities, number_of_repeats):
-    for _ in range(number_of_repeats):
-        education = [a for a in list_of_abilities if a['name'] == "education"][0]
-        random_value = random.randint(1, 100)
-        if random_value > data[education['name']]:
-            bonus = random.randint(1, 10)
-            if bonus + data[education['name']] <= 99:
-                set_text(education['e_ability'], bonus + data[education['name']])
-            else:
-                set_text(education['e_ability'], 99)
-
-def reduce_points(list_of_abilities, repeats, appearance_reduction):
-    list_of_reduced_abilities = [a for a in list_of_abilities if a['name'] == "strength" or a['name'] == "condition" or a['name'] == "dexterity"]
-    for _ in range(repeats):
-        random_ability = random.choice(list_of_reduced_abilities)
-        value = data[random_ability['name']] - 1
-        set_text(random_ability['e_ability'], value)
-        if value == 1:
-            list_of_reduced_abilities.remove(random_ability)
-
-    list_appearance = [a for a in list_of_abilities if a['name'] == "appearance"][0]
-    set_text(list_appearance['e_ability'], data[list_appearance['name']] - appearance_reduction)
-    if data[list_appearance['name']] <= 0:
-        set_text(list_appearance['e_ability'], 1)
-
-
-def random_abilities(list_of_abilities):
-
-    for ability in list_of_abilities:
-        random_value = 0
-        if ability['dice'] == 3:
-            random_value = (random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6))*5
-        elif ability['dice'] == 2:
-            random_value = (random.randint(1, 6) + random.randint(1, 6) + 6)*5
-
-        set_text(ability['e_ability'], random_value)
-
-    if data['age'] <= 19:
-        list_of_strength_and_size = [a for a in list_of_abilities if a['name'] == "strength" or a['name'] == "size"]
-        for _ in range(5):
-            a = random.choice(list_of_strength_and_size)
-            value = data[a['name']] - 1
-            set_text(a['e_ability'], value)
-
-        education = [a for a in list_of_abilities if a['name'] == "education"][0]
-        set_text(education['e_ability'], data[education['name']] - 5)
-
-        luck = [a for a in list_of_abilities if a['name'] == "luck"][0]
-        random_value = (random.randint(1, 6) + random.randint(1, 6) + 6) * 5
-        if random_value > data[luck['name']]:
-            set_text(luck['e_ability'], random_value)
-
-    if data['age'] <= 39:
-        improvement_education(list_of_abilities, 1)
-
-    if data['age'] <= 49:
-        improvement_education(list_of_abilities, 2)
-        reduce_points(list_of_abilities, 5, 5)
-
-    if data['age'] <= 59:
-        improvement_education(list_of_abilities, 3)
-        reduce_points(list_of_abilities, 10, 10)
-
-    if data['age'] <= 69:
-        improvement_education(list_of_abilities, 4)
-        reduce_points(list_of_abilities, 20, 15)
-
-    if data['age'] <= 79:
-        improvement_education(list_of_abilities, 4)
-        reduce_points(list_of_abilities, 40, 20)
-
-    if data['age'] > 80:
-        improvement_education(list_of_abilities, 4)
-        reduce_points(list_of_abilities, 80, 25)
-
 
 def next(event, frame_name, num):
     clean_frame(frame_name, num)
@@ -136,17 +55,26 @@ def save_data(sv, name):
     except ValueError:
         data[name] = sv.get()
 
+def random_button_click(entry_abilities):
+    x = {a.name.lower(): a.value for a in calculator.get_all_random_abilities(data['age'])}
+    data.update(x)
+    for key, value in entry_abilities.items():
+        set_text(value, data[key.name.lower()])
+
+
 
 def first_window():
-
 
     frame = Label(root)
     frame.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     btn_second_window = Button(frame, text="Stwórz postać krok po kroku", command=lambda: clean_frame(frame, 2)).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
-    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=lambda: random_abilities(1)).grid(row=1, column=0, pady=2, stick=W + E + N + S)
+    btn_random_charackter = Button(frame, text="Wygeneruj losową postać", command=None).grid(row=1, column=0, pady=2, stick=W + E + N + S)
     btn_close = Button(frame, text="Zamknij", command=close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
+
+def random_personal_data():
+    pass
 
 def second_window():
 
@@ -175,6 +103,7 @@ def second_window():
     btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=3, column=1, pady=20, stick=E)
     btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=3, column=0, pady=20, stick=W)
     btn_random_names = Button(frame_2, text="Random", command=lambda: random_personal_data()).grid(row=4, column=0, columnspan=2, pady=5, stick=W + E + N + S)
+
 
 
 
@@ -307,48 +236,30 @@ def third_window():
     e_one_fifth_education.grid(row=1, column=7)
     e_one_fifth_luck.grid(row=2, column=7)
 
-    list_of_abilities = [{
-        'name': "strength",
-        'dice': 3,
-        'e_ability': e_strength},
-        {'name': "condition",
-         'dice': 3,
-         'e_ability': e_condition},
-        {'name': "size",
-         'dice': 2,
-         'e_ability': e_size},
-        {'name': "dexterity",
-         'dice': 3,
-         'e_ability': e_dexterity},
-        {'name': "appearance",
-         'dice': 3,
-         'e_ability': e_appearance},
-        {'name': "education",
-         'dice': 2,
-         'e_ability': e_education},
-        {'name': "intelligence",
-         'dice': 2,
-         'e_ability': e_intelligence},
-        {'name': "power",
-         'dice': 3,
-         'e_ability': e_power},
-        {'name': "luck",
-         'dice': 2,
-         'e_ability': e_luck}]
+    entry_abilities = {
+        Ability.STRENGTH: e_strength,
+        Ability.CONDITION: e_condition,
+        Ability.SIZE: e_size,
+        Ability.DEXTERITY: e_dexterity,
+        Ability.APPEARANCE: e_appearance,
+        Ability.EDUCATION: e_education,
+        Ability.INTELLIGENCE: e_intelligence,
+        Ability.POWER: e_power,
+        Ability.LUCK: e_luck
+    }
 
     #frame_3_4
     btn_fourth_window = Button(frame_3_4, text="Dalej", width=10, command=lambda: clean_frame(frame_3, 4)).grid(row=0, column=1, pady=20, padx=50, stick=E)
     btn_back_window_2 = Button(frame_3_4, text="Cofnij", width=10, command=lambda: clean_frame(frame_3, 2)).grid(row=0, column=0, pady=20, padx=50, stick=W)
-    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random_abilities(list_of_abilities)).grid(row=1, column=0, columnspan=2, pady=5)
+    btn_random_values_window_3 = Button(frame_3_4, text="Random", width=20, command=lambda: random_button_click(entry_abilities)).grid(row=1, column=0, columnspan=2, pady=5)
 
 
 def fourth_window():
 
-    global frame_4
+    return
 
 
 first_window()
-
 
 
 root.mainloop()
