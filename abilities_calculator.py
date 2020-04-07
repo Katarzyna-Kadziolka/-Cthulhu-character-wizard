@@ -8,10 +8,14 @@ class AbilitiesCalculator:
 
     def half_value (self, num):
         result = math.floor(num/2)
+        if result == 0:
+            result = 1
         return result
 
     def one_fifth (self, num):
         result = math.floor(num/5)
+        if result == 0:
+            result = 1
         return result
 
     def calculate_ability(self, dice: int) -> int:
@@ -150,10 +154,10 @@ class AbilitiesCalculator:
             abilities[Ability.EDUCATION] = self.calculate_age_impact(age, Ability.EDUCATION, abilities[Ability.EDUCATION])
 
         elif 20 <= age <= 39:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 1)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 1)
 
         elif 40 <= age <= 49:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 2)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 2)
             abilities[Ability.APPEARANCE] = self.calculate_age_impact(age, Ability.APPEARANCE,
                                                                      abilities[Ability.APPEARANCE])
             short_list_of_abilities = {
@@ -164,7 +168,7 @@ class AbilitiesCalculator:
             abilities.update(self.deduct_points_among_abilities(5, short_list_of_abilities))
 
         elif 50 <= age <= 59:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 3)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 3)
             abilities[Ability.APPEARANCE] = self.calculate_age_impact(age, Ability.APPEARANCE,
                                                                       abilities[Ability.APPEARANCE])
             short_list_of_abilities = {
@@ -175,7 +179,7 @@ class AbilitiesCalculator:
             abilities.update(self.deduct_points_among_abilities(10, short_list_of_abilities))
 
         elif 60 <= age <= 69:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
             abilities[Ability.APPEARANCE] = self.calculate_age_impact(age, Ability.APPEARANCE,
                                                                       abilities[Ability.APPEARANCE])
             short_list_of_abilities = {
@@ -186,7 +190,7 @@ class AbilitiesCalculator:
             abilities.update(self.deduct_points_among_abilities(15, short_list_of_abilities))
 
         elif 70 <= age <= 79:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
             abilities[Ability.APPEARANCE] = self.calculate_age_impact(age, Ability.APPEARANCE,
                                                                       abilities[Ability.APPEARANCE])
             short_list_of_abilities = {
@@ -197,7 +201,7 @@ class AbilitiesCalculator:
             abilities.update(self.deduct_points_among_abilities(40, short_list_of_abilities))
 
         elif age >= 80:
-            self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
+            abilities[Ability.EDUCATION] = self.make_multiple_improvement_checks(abilities[Ability.EDUCATION], 4)
             abilities[Ability.APPEARANCE] = self.calculate_age_impact(age, Ability.APPEARANCE,
                                                                       abilities[Ability.APPEARANCE])
             short_list_of_abilities = {
@@ -224,4 +228,3 @@ class AbilitiesCalculator:
         return self.calculate_all_age_impact(age, abilities)
 
 
-    # TODO przypisać make_multiple do zmiennej

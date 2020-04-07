@@ -5,6 +5,7 @@ import math
 import random
 from abilities_calculator import AbilitiesCalculator
 from ability import Ability
+from database import Database
 
 root = Tk()
 root.title("Kreator Badaczy Tajemnic")
@@ -12,6 +13,7 @@ root.geometry("400x400")
 
 data = {}
 calculator = AbilitiesCalculator()
+database = Database()
 
 def update_ability(sv, e_half, e_one_fifth, name):
     if sv.get() != "":
@@ -56,10 +58,11 @@ def save_data(sv, name):
         data[name] = sv.get()
 
 def random_button_click(entry_abilities):
-    x = {a.name.lower(): a.value for a in calculator.get_all_random_abilities(data['age'])}
+    x = calculator.get_all_random_abilities(data['age'])
+
     data.update(x)
     for key, value in entry_abilities.items():
-        set_text(value, data[key.name.lower()])
+        set_text(value, data[key])
 
 
 
@@ -91,20 +94,25 @@ def second_window():
     label_f_name = Label(frame_2, text="Imię:").grid(row=0, column=0, stick=E)
     label_l_name = Label(frame_2, text="Nazwisko:").grid(row=1, column=0, stick=E)
     label_age = Label(frame_2, text="Wiek:").grid(row=2, column=0, stick=E)
+    label_sex = Label(frame_2, text="Płeć:").grid(row=3, column=0, stick=E)
+
     e_f_name = Entry(frame_2, textvariable=sv_f_name)
     e_l_name = Entry(frame_2, textvariable=sv_l_name)
     e_age = Entry(frame_2, textvariable=sv_age)
-    e_age.bind('<Return>', lambda event: next(event, frame_2, 3))
 
-    e_f_name.grid(row=0, column=1, padx=10)
+    e_f_name.grid(row=0, column=1,  padx=10)
     e_l_name.grid(row=1, column=1, padx=10)
     e_age.grid(row=2, column=1, padx=10)
 
-    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=3, column=1, pady=20, stick=E)
-    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=3, column=0, pady=20, stick=W)
-    btn_random_names = Button(frame_2, text="Random", command=lambda: random_personal_data()).grid(row=4, column=0, columnspan=2, pady=5, stick=W + E + N + S)
+    r = StringVar()
+    radio = Radiobutton(frame_2, text="♂", variable=r, value="male").grid(row=3, column=1, sticky=W)
+    radio = Radiobutton(frame_2, text="♀", variable=r, value="female").grid(row=3, column=2, sticky=W)
 
+    btn_third_window = Button(frame_2, text="Dalej", width=10, command=lambda: clean_frame(frame_2, 3)).grid(row=4, column=1, pady=20, stick=E)
+    btn_back = Button(frame_2, text="Cofnij", width=10, command=lambda: clean_frame(frame_2, 1)).grid(row=4, column=0, pady=20, stick=W)
+    btn_random_names = Button(frame_2, text="Random", command=lambda: random_personal_data()).grid(row=5, column=0, columnspan=3, pady=5, stick=W + E + N + S)
 
+# TODO ogarnij to radio przestrzennie
 
 
 def third_window():
@@ -124,23 +132,23 @@ def third_window():
     frame_3_4.grid(row=3, column=0, columnspan=2)
 
     sv_strenght = StringVar()
-    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: update_ability(sv, e_half_strength, e_one_fifth_strength, "strength"))
+    sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: update_ability(sv, e_half_strength, e_one_fifth_strength, Ability.STRENGTH))
     sv_condition = StringVar()
-    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: update_ability(sv, e_half_condition, e_one_fifth_condition, "condition"))
+    sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: update_ability(sv, e_half_condition, e_one_fifth_condition, Ability.STRENGTH))
     sv_size = StringVar()
-    sv_size.trace("w", lambda name, index, mode, sv=sv_size: update_ability(sv, e_half_size, e_one_fifth_size, "size"))
+    sv_size.trace("w", lambda name, index, mode, sv=sv_size: update_ability(sv, e_half_size, e_one_fifth_size, Ability.SIZE))
     sv_dexterity = StringVar()
-    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: update_ability(sv, e_half_dexterity, e_one_fifth_dexterity, "dexterity"))
+    sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: update_ability(sv, e_half_dexterity, e_one_fifth_dexterity, Ability.DEXTERITY))
     sv_appearance = StringVar()
-    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: update_ability(sv, e_half_appearance, e_one_fifth_appearance, "appearance"))
+    sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: update_ability(sv, e_half_appearance, e_one_fifth_appearance, Ability.APPEARANCE))
     sv_education = StringVar()
-    sv_education.trace("w", lambda name, index, mode, sv=sv_education: update_ability(sv, e_half_education, e_one_fifth_education, "education"))
+    sv_education.trace("w", lambda name, index, mode, sv=sv_education: update_ability(sv, e_half_education, e_one_fifth_education, Ability.EDUCATION))
     sv_intelligence = StringVar()
-    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: update_ability(sv, e_half_intelligence, e_one_fifth_intelligence, "intelligence"))
+    sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: update_ability(sv, e_half_intelligence, e_one_fifth_intelligence, Ability.INTELLIGENCE))
     sv_power = StringVar()
-    sv_power.trace("w", lambda name, index, mode, sv=sv_power: update_ability(sv, e_half_power, e_one_fifth_power, "power"))
+    sv_power.trace("w", lambda name, index, mode, sv=sv_power: update_ability(sv, e_half_power, e_one_fifth_power, Ability.POWER))
     sv_luck = StringVar()
-    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: update_ability(sv, e_half_luck, e_one_fifth_luck, "luck"))
+    sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: update_ability(sv, e_half_luck, e_one_fifth_luck, Ability.LUCK))
 
     #frame_3_0
     l_instruction = Label(frame_3_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
