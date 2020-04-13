@@ -2,9 +2,29 @@ import math
 import random
 
 from ability import Ability
+from database import Database
 
 
-class AbilitiesCalculator:
+class RandomCalculator:
+
+    def __init__(self):
+        self.database = Database()
+
+    def get_random_gender(self):
+        gender = ["male", "female"]
+        return random.choice(gender)
+
+    def get_random_name(self, gender):
+        if gender == "male":
+            return random.choice(self.database.get_male_name_list())
+        if gender == "female":
+            return random.choice(self.database.get_female_name_list())
+
+    def get_surname(self):
+        return random.choice(self.database.get_surname_list())
+
+    def get_age(self):
+        return random.randint(15, 100)
 
     def half_value (self, num):
         result = math.floor(num/2)
