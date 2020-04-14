@@ -10,6 +10,7 @@ class RandomCalculator:
     def __init__(self):
         self.database = Database()
 
+#personal_data_window
     def get_random_gender(self):
         gender = ["male", "female"]
         return random.choice(gender)
@@ -26,6 +27,7 @@ class RandomCalculator:
     def get_age(self):
         return random.randint(15, 100)
 
+#abilities_window
     def half_value (self, num):
         result = math.floor(num/2)
         if result == 0:
@@ -246,5 +248,35 @@ class RandomCalculator:
             Ability.LUCK: self.calculate_ability(2)
         }
         return self.calculate_all_age_impact(age, abilities)
+
+#other_abilities_window
+
+    def get_move_rate(self, strength: int, dexterity: int, size: int, age: int) ->int:
+
+        move_rate = 0
+
+        if strength < size and dexterity < size:
+            move_rate = 7
+        elif (strength == size == dexterity) or (strength >= size > dexterity) or (dexterity >= size > strength):
+            move_rate = 8
+        elif strength > size and dexterity > size:
+            move_rate = 9
+
+        if age <= 39:
+            return move_rate
+        elif 40 <= age <= 49:
+            return move_rate - 1
+        elif 50 <= age <= 59:
+            return move_rate - 2
+        elif 60 <= age <= 69:
+            return move_rate - 3
+        elif 70 <= age <= 79:
+            return move_rate - 4
+        elif age >= 80:
+            return move_rate - 5
+
+    def get_hp(self, size, condition):
+        pass
+
 
 

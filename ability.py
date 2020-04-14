@@ -11,3 +11,9 @@ class Ability(Enum):
     EDUCATION = 7
     POWER = 8
     LUCK = 9
+    MOVE_RATE = 10
+    HP = 11
+    SANITY = 12
+    MAGIC_POINTS = 13
+    DAMAGE_BONUS = 14
+    BUILD = 15
