@@ -71,8 +71,15 @@ class OtherAbilitiesWindow(BaseWindow):
         btn_previous_window = Button(frame_3, text="Cofnij", width=10, command=self.previous_window).grid(
             row=0, column=0, pady=20, padx=50, stick=W)
 
+        self.insert_abilities()
+
+    def insert_abilities(self):
         self.insert_move_rate()
         self.insert_hp()
+        self.insert_sanity()
+        self.insert_magic_points()
+        self.insert_built()
+        self.insert_damage_bonus()
 
     def insert_move_rate(self):
         strength = int(Data.data[Ability.STRENGTH])
@@ -82,10 +89,33 @@ class OtherAbilitiesWindow(BaseWindow):
         self.set_text(self.entry_move_rate, self.calculator.get_move_rate(strength, dexterity, size, age))
         self.entry_move_rate.config(state=DISABLED)
 
-    def insert_hp(self, entry_hp):
-        #TODO kontynuuj
-        pass
+    def insert_hp(self):
+        size = int(Data.data[Ability.SIZE])
+        condition = int(Data.data[Ability.CONDITION])
+        self.set_text(self.entry_hp, self.calculator.get_hp(size, condition))
+        self.entry_hp.config(state=DISABLED)
 
+    def insert_sanity(self):
+        power = int(Data.data[Ability.POWER])
+        self.set_text(self.entry_sanity, self.calculator.get_sanity(power))
+        self.entry_sanity.config(state=DISABLED)
+
+    def insert_magic_points(self):
+        power = int(Data.data[Ability.POWER])
+        self.set_text(self.entry_magic_points, self.calculator.get_magic_points(power))
+        self.entry_magic_points.config(state=DISABLED)
+
+    def insert_built(self):
+        strength = int(Data.data[Ability.STRENGTH])
+        size = int(Data.data[Ability.SIZE])
+        self.set_text(self.entry_build, self.calculator.get_build(strength, size))
+        self.entry_build.config(state=DISABLED)
+
+    def insert_damage_bonus(self):
+        strength = int(Data.data[Ability.STRENGTH])
+        size = int(Data.data[Ability.SIZE])
+        self.set_text(self.entry_damage_bonus, self.calculator.get_damage_bonus(strength, size))
+        self.entry_damage_bonus.config(state=DISABLED)
 
     def previous_window(self):
         self.frame.destroy()

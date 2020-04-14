@@ -276,7 +276,39 @@ class RandomCalculator:
             return move_rate - 5
 
     def get_hp(self, size, condition):
-        pass
+        hp = math.floor((size + condition)/10)
+        return hp
 
+    def get_sanity(self, power):
+        return power
 
+    def get_magic_points(self, power):
+        return self.one_fifth(power)
 
+    def get_build(self, strength, size):
+        build = 0
+        if 2 <= strength + size <= 64:
+            build = -2
+        elif 65 <= strength + size <= 84:
+            build = -1
+        elif 85 <= strength + size <= 124:
+            build = 0
+        elif 125 <= strength + size <= 164:
+            build = 1
+        elif 165 <= strength + size <= 204:
+            build = 2
+        return build
+
+    def get_damage_bonus(self, strength, size):
+        damage_bonus = None
+        if 2 <= strength + size <= 64:
+            damage_bonus = -2
+        elif 65 <= strength + size <= 84:
+            damage_bonus = -1
+        elif 85 <= strength + size <= 124:
+            damage_bonus = 0
+        elif 125 <= strength + size <= 164:
+            damage_bonus = "+1D4"
+        elif 165 <= strength + size <= 204:
+            damage_bonus = "+1D6"
+        return damage_bonus
