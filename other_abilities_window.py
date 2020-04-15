@@ -1,7 +1,8 @@
 from tkinter import *
 
 import abilities_window
-from ability import Ability
+import occupations_window
+from Enums.ability import Ability
 from base_window import BaseWindow
 from data import Data
 from random_calculator import RandomCalculator
@@ -123,3 +124,4 @@ class OtherAbilitiesWindow(BaseWindow):
 
     def next_window(self):
         self.frame.destroy()
+        occupations_window.OccupationsWindow(self.root)

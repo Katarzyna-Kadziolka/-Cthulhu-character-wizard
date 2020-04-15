@@ -2,7 +2,7 @@ from tkinter import *
 
 import personal_data_window
 from random_calculator import RandomCalculator
-from ability import Ability
+from Enums.ability import Ability
 from base_window import BaseWindow
 from data import Data
 from other_abilities_window import OtherAbilitiesWindow

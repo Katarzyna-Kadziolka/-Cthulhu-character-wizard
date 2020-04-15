@@ -1,7 +1,7 @@
 import math
 import random
 
-from ability import Ability
+from Enums.ability import Ability
 from database import Database
 
 
@@ -30,14 +30,10 @@ class RandomCalculator:
 #abilities_window
     def half_value (self, num):
         result = math.floor(num/2)
-        if result == 0:
-            result = 1
         return result
 
     def one_fifth (self, num):
         result = math.floor(num/5)
-        if result == 0:
-            result = 1
         return result
 
     def calculate_ability(self, dice: int) -> int:
