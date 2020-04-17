@@ -74,18 +74,26 @@ class Translator:
     arts_crafts = {
         ArtCraft.ACTING: "Aktorstwo",
         ArtCraft.BARBER: "Fryzjerstwo",
-        ArtCraft.CARPENTER: "Stolarstwo",
+        ArtCraft.CARPENTRY: "Stolarstwo",
         ArtCraft.COBBLER: "Szewctwo",
         ArtCraft.COOK: "Gotowanie",
         ArtCraft.DANCER: "Taniec",
         ArtCraft.FINE_ART: "Plastyka",
         ArtCraft.FORGERY: "Fałszerstwo",
-        ArtCraft.PHOTOGRAPHER: "Fotografia",
+        ArtCraft.PHOTOGRAPHY: "Fotografia",
         ArtCraft.OPERA_SINGER: "Śpiew operowy",
         ArtCraft.PAINTER: "Malarstwo",
         ArtCraft.POTTER: "Garncarstwo",
         ArtCraft.SCULPTOR: "Rzeźbiarstwo",
-        ArtCraft.WOODWORK: "Stolarstwo"
+        ArtCraft.WOODWORK: "Stolarstwo",
+        ArtCraft.TECHNICAL_DRAWING: "Rysunek techniczny",
+        ArtCraft.FARMING: "Rolnictwo",
+        ArtCraft.ART: "Sztuka",
+        ArtCraft.WELDING: "Spawanie",
+        ArtCraft.PLUMBING: "Hydraulika",
+        ArtCraft.INSTRUMENT: "Gra na instrumencie",
+        ArtCraft.TYPING: "Maszynopisanie",
+        ArtCraft.SHORT_HAND: "Stenografia"
     }
 
     fighting = {
