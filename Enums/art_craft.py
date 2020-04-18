@@ -25,3 +25,4 @@ class ArtCraft(Enum):
     INSTRUMENT = 21
     TYPING = 22
     SHORT_HAND = 23
+    LITERATURE = 24

@@ -3,8 +3,10 @@ from Enums.fighting import Fighting
 from Enums.firearms import Firearm
 from Enums.language import Language
 from Enums.occupation import Occupation
+from Enums.pilot import Pilot
 from Enums.science import Science
 from Enums.skill import Skill
+from Enums.survival import Survival
 from Enums.uncommon_skill import UncommonSkill
 
 
@@ -13,7 +15,7 @@ class Translator:
         Skill.ACCOUNTING: "Księgowość",
         Skill.ANTHROPOLOGY: "Antropologia",
         Skill.APPRAISE: "Wycena",
-        Skill.ARCHEOLOGY: "Archeologia",
+        Skill.ARCHAEOLOGY: "Archeologia",
         Skill.ART_CRAFT: "Sztuka/Rzemiosło",
         Skill.CHARM: "Urok Osobisty",
         Skill.CLIMB: "Wspinaczka",
@@ -22,27 +24,27 @@ class Translator:
         Skill.DISGUISE: "Charakteryacja",
         Skill.DODGE: "Unik",
         Skill.DRIVE_AUTO: "Prowadzenie Samochodu",
-        Skill.ELEC_REPAIR: "Elektryka",
+        Skill.ELECTRICAL_REPAIR: "Elektryka",
         Skill.FAST_TALK: "Gadanina",
         Skill.FIGHTING: "Walka Wręcz(Bijatyka)",
-        Skill.FIREARMS_HANDGUN: "Broń Palna (Pistolety)",
-        Skill.FIREARMS_RIFLE: "Broń Palna (Karabin/Strzelba)",
+        Skill.FIREARMS: "Broń Palna (Pistolety)",
+        Skill.FIREARMS: "Broń Palna (Karabin/Strzelba)",
         Skill.FIRST_AID: "Pierwsza Pomoc",
         Skill.HISTORY: "Historia",
         Skill.INTIMIDATE: "Zastraszanie",
         Skill.JUMP: "Skakanie",
-        Skill.LANGUAGE: "Język Obcy",
-        Skill.LANGUAGE_OWN: "Język Ojczysty",
+        Skill.OTHER_LANGUAGE: "Język Obcy",
+        Skill.OWN_LANGUAGE_: "Język Ojczysty",
         Skill.LAW: "Prawo",
         Skill.LIBRARY_USE: "Korzystanie z Bibliotek",
         Skill.LISTEN: "Nasłuchiwanie",
         Skill.LOCKSMITH: "Ślusarstwo",
-        Skill.MECH_REPAIR: "Mechanika",
+        Skill.MECHANICAL_REPAIR: "Mechanika",
         Skill.MEDICINE: "Medycyna",
-        Skill.NATURAL_WORD: "Wiedza o Naturze",
+        Skill.NATURAL_WORLD: "Wiedza o Naturze",
         Skill.NAVIGATE: "Nawigacja",
         Skill.OCCULT: "Okultyzm",
-        Skill.OP_HV_MACHINE: "Obsługa Ciężkiego Sprzętu",
+        Skill.OPERATE_HEAVY_MACHINERY: "Obsługa Ciężkiego Sprzętu",
         Skill.PERSUADE: "Perswazja",
         Skill.PILOT: "Pilotowanie",
         Skill.PSYCHOLOGY: "Psychologia",
@@ -55,7 +57,8 @@ class Translator:
         Skill.SURVIVAL: "Sztuka Przetrwania",
         Skill.SWIM: "Pływanie",
         Skill.THROW: "Rzucanie",
-        Skill.TRACK: "Tropienie"
+        Skill.TRACK: "Tropienie",
+        Skill.DIVING: "Nurkowanie"
     }
 
     languages = {
@@ -93,7 +96,8 @@ class Translator:
         ArtCraft.PLUMBING: "Hydraulika",
         ArtCraft.INSTRUMENT: "Gra na instrumencie",
         ArtCraft.TYPING: "Maszynopisanie",
-        ArtCraft.SHORT_HAND: "Stenografia"
+        ArtCraft.SHORT_HAND: "Stenografia",
+        ArtCraft.LITERATURE: "Literatura"
     }
 
     fighting = {
@@ -250,4 +254,17 @@ class Translator:
         Occupation.MANAGER: "Manager",
         Occupation.ZEALOT: "Fanatyk",
         Occupation.ZOOKEEPER: "Pracownik zoo"
+    }
+
+    pilot = {
+        Pilot.AIRCRAFT: "Samolot",
+        Pilot.BOAT: "Łódź"
+    }
+
+    survival = {
+        Survival.ALPINE: "Wysokogórska",
+        Survival.DESERT: "Pustynna",
+        Survival.FOREST: "Leśna",
+        Survival.JUNGLE: "Tropikalna",
+        Survival.SEA: "Morska"
     }
