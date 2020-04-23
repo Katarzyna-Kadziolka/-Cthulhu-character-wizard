@@ -47,3 +47,4 @@ class Skill(Enum):
     SWIM = 44
     THROW = 45
     TRACK = 46
+    UNCOMMON_SKILL = 47

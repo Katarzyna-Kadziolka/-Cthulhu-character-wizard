@@ -58,7 +58,8 @@ class Translator:
         Skill.SWIM: "Pływanie",
         Skill.THROW: "Rzucanie",
         Skill.TRACK: "Tropienie",
-        Skill.DIVING: "Nurkowanie"
+        Skill.DIVING: "Nurkowanie",
+        Skill.UNCOMMON_SKILL: "Specjalna umiejętność"
     }
 
     languages = {
