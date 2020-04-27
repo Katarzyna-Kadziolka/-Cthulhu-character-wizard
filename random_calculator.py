@@ -1,7 +1,9 @@
 import math
 import random
+import re
 
 from Enums.ability import Ability
+
 from database import Database
 
 
@@ -308,3 +310,23 @@ class RandomCalculator:
         elif 165 <= strength + size <= 204:
             damage_bonus = "+1D6"
         return damage_bonus
+
+#occupation_select_window
+
+    def get_occupation_skills_points(self, occupation_points_formula: str, abilities: dict):
+        short_ability_dict = {
+            "EDU": Ability.EDUCATION,
+            "DEX": Ability.DEXTERITY,
+            "APP": Ability.APPEARANCE,
+            "STR": Ability.STRENGTH,
+            "POW": Ability.POWER
+        }
+
+        occupation_skills_points = 0
+        matches = re.findall("([A-z][A-z][A-z]) *[×x] (\d)", occupation_points_formula)
+        tuple_EDU = matches[0]
+        occupation_skills_points += abilities[short_ability_dict[tuple_EDU[0]]] * int(tuple_EDU[1])
+        occupation_skills_points += max([abilities[short_ability_dict[i[0]]] * int(i[1]) for i in matches[1:]] if matches[1:] else [0])
+
+        return occupation_skills_points
+
