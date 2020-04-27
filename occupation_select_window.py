@@ -1,8 +1,12 @@
 from tkinter import *
+from itertools import groupby
 import occupation_info_extractor
 import occupations_window
 import random_calculator
+import skills_window
+import translator
 from Enums.ability import Ability
+from Enums.skill import Skill
 from base_window import BaseWindow
 from data import Data
 from occupation_info import OccupationInfo
@@ -12,9 +16,13 @@ class OccupationSelectWindow(BaseWindow):
 
     def __init__(self, root):
         super().__init__(root)
+        infos = occupation_info_extractor.get_infos()
+        self.info = [i for i in infos if i.occupation_pl == Data.data["occupation"]][0]
+        self.translator = translator.Translator()
         self.calculator = random_calculator.RandomCalculator()
-        self.get_full_occupation_info()
+        self.set_full_occupation_info()
         self.create_content()
+
 
 
     def create_content(self):
@@ -31,21 +39,20 @@ class OccupationSelectWindow(BaseWindow):
         frame_3.grid(row=2, column=0)
         frame_4.grid(row=3, column=0)
 
-        occupation_info = self.get_full_occupation_info()
         #frame_1
-        label_title = Label(frame_1, text=occupation_info.occupation_pl, font=("Helvetica", 16)).grid(row=0, column=0, pady=20)
+        label_title = Label(frame_1, text=self.info.occupation_pl, font=("Helvetica", 16)).grid(row=0, column=0, pady=20)
 
         #frame_2
-        label_intelligence_points = Label(frame_2, text=f"Punkty personalne: ")
+        label_intelligence_points = Label(frame_2, text=f"Punkty personalne: {Data.data['intelligence_skill_points']}")
         label_occupation_points = Label(frame_2, text=f"Punkty zawodowe: {Data.data['occupation_skill_points']}")
-        label_credit_rating = Label(frame_2, text=f"Majętność: ")
+        label_credit_rating = Label(frame_2, text=f"Majętność: {self.info.min_credit_rating} - {self.info.max_credit_rating}")
         label_intelligence_points.grid(row=0, column=0)
         label_occupation_points.grid(row=1, column=0)
         label_credit_rating.grid(row=2, column=0)
 
         #frame_3
         label_skills_title = Label(frame_3, text="Umiejętności zawodowe", font=("Helvetica", 12))
-        label_skills = Label(frame_3, text="")
+        label_skills = Label(frame_3, text=self.format_skills_list(self.get_occupation_skills()))
         label_skills_title.grid(row=0, column=0, pady=20)
         label_skills.grid(row=1, column=0)
 
@@ -54,11 +61,8 @@ class OccupationSelectWindow(BaseWindow):
         btn_previous_window = Button(frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=0, column=0, pady=20, padx=50, stick=W)
 
 
-    def get_full_occupation_info(self) -> OccupationInfo:
-        infos = occupation_info_extractor.get_infos()
-        #infos = lista klas
-        self.info = [i for i in infos if i.occupation_pl == Data.data["occupation"]][0]
-        #info = pojedyncza klasa
+    def set_full_occupation_info(self) -> None:
+
         abilities = {
             Ability.POWER: Data.data[Ability.POWER],
             Ability.CONDITION: Data.data[Ability.CONDITION],
@@ -71,11 +75,43 @@ class OccupationSelectWindow(BaseWindow):
         }
 
         Data.data["occupation_skill_points"] = self.calculator.get_occupation_skills_points(self.info.occupation_skills_points, abilities)
+        Data.data["intelligence_skill_points"] = self.calculator.get_intelligence_skill_points(abilities[Ability.INTELLIGENCE])
 
-        return self.info
+    def get_occupation_skills(self):
+        enum_skills_list = self.info.skills
+        skills_list = []
+        for lists in enum_skills_list:
+            if len(lists) == 1:
+                for i in lists:
+                    skills_list.append(self.translator.get_translation_for_skill(i))
+            elif len(lists) == len(Skill.__members__.items()):
+                skills_list.append("Dowolna umiejętność")
+            elif len(Skill.__members__.items()) > len(lists) > 1:
+                skill_string = ""
+                for i in lists[:-1]:
+                    skill_string += self.translator.get_translation_for_skill(i)
+                    skill_string += " lub "
+                skill_string += self.translator.get_translation_for_skill(lists[-1])
+                skills_list.append(skill_string)
+
+        return skills_list
+
+    def format_skills_list(self, skills_list):
+        skill_string = ""
+        grouping_skills_list = [list(j) for i, j in groupby(skills_list)]
+        for i in grouping_skills_list:
+            if len(i) == 1:
+                skill_string += i[0] + "\n"
+            else:
+                num = str(len(i))
+                skill_string += f"{num}x {i[0]}\n"
+
+        return skill_string
 
     def next_window(self):
         self.frame.destroy()
+        skills_window.SkillsWindow(self.root)
+
 
     def previous_window(self):
         self.frame.destroy()

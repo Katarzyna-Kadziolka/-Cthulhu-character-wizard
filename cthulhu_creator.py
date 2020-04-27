@@ -7,7 +7,7 @@ from home_window import HomeWindow
 
 root = Tk()
 root.title("Kreator Badaczy Tajemnic")
-root.geometry("400x400")
+root.geometry("400x500")
 
 
 calculator = RandomCalculator()

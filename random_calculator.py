@@ -330,3 +330,7 @@ class RandomCalculator:
 
         return occupation_skills_points
 
+    def get_intelligence_skill_points(self, intelligence_points: int) -> int:
+        return intelligence_points*2
+
+

@@ -26,15 +26,14 @@ class Translator:
         Skill.DRIVE_AUTO: "Prowadzenie Samochodu",
         Skill.ELECTRICAL_REPAIR: "Elektryka",
         Skill.FAST_TALK: "Gadanina",
-        Skill.FIGHTING: "Walka Wręcz(Bijatyka)",
-        Skill.FIREARMS: "Broń Palna (Pistolety)",
-        Skill.FIREARMS: "Broń Palna (Karabin/Strzelba)",
+        Skill.FIGHTING: "Walka Wręcz",
+        Skill.FIREARMS: "Broń Palna",
         Skill.FIRST_AID: "Pierwsza Pomoc",
         Skill.HISTORY: "Historia",
         Skill.INTIMIDATE: "Zastraszanie",
         Skill.JUMP: "Skakanie",
         Skill.OTHER_LANGUAGE: "Język Obcy",
-        Skill.OWN_LANGUAGE_: "Język Ojczysty",
+        Skill.OWN_LANGUAGE: "Język Ojczysty",
         Skill.LAW: "Prawo",
         Skill.LIBRARY_USE: "Korzystanie z Bibliotek",
         Skill.LISTEN: "Nasłuchiwanie",
@@ -269,3 +268,26 @@ class Translator:
         Survival.JUNGLE: "Tropikalna",
         Survival.SEA: "Morska"
     }
+
+    def get_translation_for_skill(self, enum):
+        skill = "error"
+        if type(enum) == Skill:
+            skill = Translator.skills[enum]
+        elif type(enum) == Language:
+            skill = Translator.languages[enum]
+        elif type(enum) == ArtCraft:
+            skill = Translator.arts_crafts[enum]
+        elif type(enum) == Fighting:
+            skill = Translator.fighting[enum]
+        elif type(enum) == Firearm:
+            skill = Translator.firearms[enum]
+        elif type(enum) == Science:
+            skill = Translator.science[enum]
+        elif type(enum) == UncommonSkill:
+            skill = Translator.uncommon_skills[enum]
+        elif type(enum) == Pilot:
+            skill = Translator.pilot[enum]
+        elif type(enum) == Survival:
+            skill = Translator.survival[enum]
+
+        return skill
