@@ -62,81 +62,81 @@ class Translator:
     }
 
     languages = {
-        Language.LATIN: "Łacina",
-        Language.SPANISH: "Hiszpański",
-        Language.GERMAN: "Niemiecki",
-        Language.FRENCH: "Francuski",
-        Language.ITALIAN: "Włoski",
-        Language.POLISH: "Polski",
-        Language.RUSSIAN: "Rosyjski",
-        Language.CHINESE: "Chiński",
-        Language.JAPANESE: "Japoński",
-        Language.TURKISH: "Turecki"
+        Language.LATIN: "Język: Łacina",
+        Language.SPANISH: "Język: Hiszpański",
+        Language.GERMAN: "Język: Niemiecki",
+        Language.FRENCH: "Język: Francuski",
+        Language.ITALIAN: "Język: Włoski",
+        Language.POLISH: "Język: Polski",
+        Language.RUSSIAN: "Język: Rosyjski",
+        Language.CHINESE: "Język: Chiński",
+        Language.JAPANESE: "Język: Japoński",
+        Language.TURKISH: "Język: Turecki"
     }
 
     arts_crafts = {
-        ArtCraft.ACTING: "Aktorstwo",
-        ArtCraft.BARBER: "Fryzjerstwo",
-        ArtCraft.CARPENTRY: "Stolarstwo",
-        ArtCraft.COBBLER: "Szewctwo",
-        ArtCraft.COOK: "Gotowanie",
-        ArtCraft.DANCER: "Taniec",
-        ArtCraft.FINE_ART: "Plastyka",
-        ArtCraft.FORGERY: "Fałszerstwo",
-        ArtCraft.PHOTOGRAPHY: "Fotografia",
-        ArtCraft.OPERA_SINGER: "Śpiew operowy",
-        ArtCraft.PAINTER: "Malarstwo",
-        ArtCraft.POTTER: "Garncarstwo",
-        ArtCraft.SCULPTOR: "Rzeźbiarstwo",
-        ArtCraft.WOODWORK: "Stolarstwo",
-        ArtCraft.TECHNICAL_DRAWING: "Rysunek techniczny",
-        ArtCraft.FARMING: "Rolnictwo",
-        ArtCraft.ART: "Sztuka",
-        ArtCraft.WELDING: "Spawanie",
-        ArtCraft.PLUMBING: "Hydraulika",
-        ArtCraft.INSTRUMENT: "Gra na instrumencie",
-        ArtCraft.TYPING: "Maszynopisanie",
-        ArtCraft.SHORT_HAND: "Stenografia",
-        ArtCraft.LITERATURE: "Literatura"
+        ArtCraft.ACTING: "Sztuka/Rzemiosło: Aktorstwo",
+        ArtCraft.BARBER: "Sztuka/Rzemiosło: Fryzjerstwo",
+        ArtCraft.CARPENTRY: "Sztuka/Rzemiosło: Stolarstwo",
+        ArtCraft.COBBLER: "Sztuka/Rzemiosło: Szewctwo",
+        ArtCraft.COOK: "Sztuka/Rzemiosło: Gotowanie",
+        ArtCraft.DANCER: "Sztuka/Rzemiosło: Taniec",
+        ArtCraft.FINE_ART: "Sztuka/Rzemiosło: Plastyka",
+        ArtCraft.FORGERY: "Sztuka/Rzemiosło: Fałszerstwo",
+        ArtCraft.PHOTOGRAPHY: "Sztuka/Rzemiosło: Fotografia",
+        ArtCraft.OPERA_SINGER: "Sztuka/Rzemiosło: Śpiew operowy",
+        ArtCraft.PAINTER: "Sztuka/Rzemiosło: Malarstwo",
+        ArtCraft.POTTER: "Sztuka/Rzemiosło: Garncarstwo",
+        ArtCraft.SCULPTOR: "Sztuka/Rzemiosło: Rzeźbiarstwo",
+        ArtCraft.WOODWORK: "Sztuka/Rzemiosło: Stolarstwo",
+        ArtCraft.TECHNICAL_DRAWING: "Sztuka/Rzemiosło: Rysunek techniczny",
+        ArtCraft.FARMING: "Sztuka/Rzemiosło: Rolnictwo",
+        ArtCraft.ART: "Sztuka/Rzemiosło: Sztuka",
+        ArtCraft.WELDING: "Sztuka/Rzemiosło: Spawanie",
+        ArtCraft.PLUMBING: "Sztuka/Rzemiosło: Hydraulika",
+        ArtCraft.INSTRUMENT: "Sztuka/Rzemiosło: Gra na instrumencie",
+        ArtCraft.TYPING: "Sztuka/Rzemiosło: Maszynopisanie",
+        ArtCraft.SHORT_HAND: "Sztuka/Rzemiosło: Stenografia",
+        ArtCraft.LITERATURE: "Sztuka/Rzemiosło: Literatura"
     }
 
     fighting = {
-        Fighting.AXE: "Siekiera",
-        Fighting.BRAWL: "Walka na Pięści",
-        Fighting.CHAINSAW: "Piła Łańcuchowa",
-        Fighting.FLAIL: "Nunchako",
-        Fighting.GARROTE: "Garota",
-        Fighting.SPEAR: "Włócznia",
-        Fighting.SWORD: "Miecz",
-        Fighting.WHIP: "Bicz"
+        Fighting.AXE: "Walka: Siekiera",
+        Fighting.BRAWL: "Walka: Walka na Pięści",
+        Fighting.CHAINSAW: "Walka: Piła Łańcuchowa",
+        Fighting.FLAIL: "Walka: Nunchako",
+        Fighting.GARROTE: "Walka: Garota",
+        Fighting.SPEAR: "Walka: Włócznia",
+        Fighting.SWORD: "Walka: Miecz",
+        Fighting.WHIP: "Walka: Bicz"
     }
 
     firearms = {
-        Firearm.BOW: "Łuk",
-        Firearm.FLAMETHROWER: "Miotacz ognia",
-        Firearm.HANDGUN: "Pistolet Ręczny",
-        Firearm.RIFLE_SHOTGUN: "Karabin",
+        Firearm.BOW: "Broń: Łuk",
+        Firearm.FLAMETHROWER: "Broń: Miotacz ognia",
+        Firearm.HANDGUN: "Broń: Pistolet",
+        Firearm.RIFLE_SHOTGUN: "Broń: Karabin",
     }
 
     science = {
-        Science.ASTRONOMY: "Astronomia",
-        Science.BIOLOGY: "Biologia",
-        Science.BOTANY: "Botanika",
-        Science.CHEMISTRY: "Chemia",
-        Science.CRYPTOGRAPHY: "Kryptografia",
-        Science.ENGINEERING: "Inżynieria",
-        Science.FORENSICS: "Kryminalistyka",
-        Science.GEOLOGY: "Geologia",
-        Science.MATHEMATICS: "Matematyka",
-        Science.METEOROLOGY: "Meteorologia",
-        Science.PHARMACY: "Farmacja",
-        Science.PHYSICS: "Fizyka",
-        Science.ZOOLOGY: "Zoologia"
+        Science.ASTRONOMY: "Nauka: Astronomia",
+        Science.BIOLOGY: "Nauka: Biologia",
+        Science.BOTANY: "Nauka: Botanika",
+        Science.CHEMISTRY: "Nauka: Chemia",
+        Science.CRYPTOGRAPHY: "Nauka: Kryptografia",
+        Science.ENGINEERING: "Nauka: Inżynieria",
+        Science.FORENSICS: "Nauka: Kryminalistyka",
+        Science.GEOLOGY: "Nauka: Geologia",
+        Science.MATHEMATICS: "Nauka: Matematyka",
+        Science.METEOROLOGY: "Nauka: Meteorologia",
+        Science.PHARMACY: "Nauka: Farmacja",
+        Science.PHYSICS: "Nauka: Fizyka",
+        Science.ZOOLOGY: "Nauka: Zoologia"
     }
 
     uncommon_skills = {
         UncommonSkill.ANIMAL_HANDLING: "Tresura Zwierząt",
-        UncommonSkill.ARTILLERY: "Altyleria",
+        UncommonSkill.ARTILLERY: "Artyleria",
         UncommonSkill.DEMOLITIONS: "Wyburzenia",
         UncommonSkill.HYPNOSIS: "Hipnoza",
         UncommonSkill.READ_LIPS: "Czytanie z Ruchu Warg"
@@ -257,16 +257,17 @@ class Translator:
     }
 
     pilot = {
-        Pilot.AIRCRAFT: "Samolot",
-        Pilot.BOAT: "Łódź"
+        Pilot.AIRCRAFT: "Pilotowanie: Samolot",
+        Pilot.BOAT: "Pilotowanie: Łódź"
     }
 
     survival = {
-        Survival.ALPINE: "Wysokogórska",
-        Survival.DESERT: "Pustynna",
-        Survival.FOREST: "Leśna",
-        Survival.JUNGLE: "Tropikalna",
-        Survival.SEA: "Morska"
+        Survival.ALPINE: "Sztuka Przetrwania: Wysokie Góry",
+        Survival.DESERT: "Sztuka Przetrwania: Pustynie",
+        Survival.FOREST: "Sztuka Przetrwania: Lasy",
+        Survival.JUNGLE: "Sztuka Przetrwania: Dżungla",
+        Survival.SEA: "Sztuka Przetrwania: Morze",
+        Survival.ARCTIC: "Sztuka Przetrwania: Arktyka"
     }
 
     def get_translation_for_skill(self, enum):
@@ -291,3 +292,46 @@ class Translator:
             skill = Translator.survival[enum]
 
         return skill
+
+    def get_skill_for_translation(self, translation):
+
+        for key, value in Translator.skills.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.languages.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.arts_crafts.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.fighting.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.firearms.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.science.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.uncommon_skills.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.pilot.items():
+            if value == translation:
+                return key
+
+        for key, value in Translator.survival.items():
+            if value == translation:
+                return key
+
+        raise ValueError(f"{translation} not supported")
+
+
+

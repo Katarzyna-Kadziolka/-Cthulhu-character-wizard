@@ -7,3 +7,4 @@ class Survival(Enum):
     FOREST = 3
     DESERT = 4
     JUNGLE = 5
+    ARCTIC = 6
