@@ -97,7 +97,8 @@ class Translator:
         ArtCraft.INSTRUMENT: "Sztuka/Rzemiosło: Gra na instrumencie",
         ArtCraft.TYPING: "Sztuka/Rzemiosło: Maszynopisanie",
         ArtCraft.SHORT_HAND: "Sztuka/Rzemiosło: Stenografia",
-        ArtCraft.LITERATURE: "Sztuka/Rzemiosło: Literatura"
+        ArtCraft.LITERATURE: "Sztuka/Rzemiosło: Literatura",
+        ArtCraft.WRITER: "Sztuka/Rzemiosło: Pisarstwo"
     }
 
     fighting = {
@@ -262,7 +263,7 @@ class Translator:
     }
 
     survival = {
-        Survival.ALPINE: "Sztuka Przetrwania: Wysokie Góry",
+        Survival.ALPINE: "Sztuka Przetrwania: Góry",
         Survival.DESERT: "Sztuka Przetrwania: Pustynie",
         Survival.FOREST: "Sztuka Przetrwania: Lasy",
         Survival.JUNGLE: "Sztuka Przetrwania: Dżungla",

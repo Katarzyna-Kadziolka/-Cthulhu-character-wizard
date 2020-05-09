@@ -1,3 +1,5 @@
+import random_calculator
+from Enums.ability import Ability
 from Enums.art_craft import ArtCraft
 from Enums.fighting import Fighting
 from Enums.firearms import Firearm
@@ -7,6 +9,7 @@ from Enums.science import Science
 from Enums.skill import Skill
 from Enums.survival import Survival
 from Enums.uncommon_skill import UncommonSkill
+from data import Data
 
 
 class SkillsInfo():
@@ -142,3 +145,14 @@ class SkillsInfo():
         all_skills_list.remove(Skill.SURVIVAL)
 
         return all_skills_list
+
+    @staticmethod
+    def get_minimal_skill_points(skill) ->int:
+        calculator = random_calculator.RandomCalculator()
+        minimal_value = SkillsInfo.skills_base_points[skill]
+        if minimal_value == "EDU":
+            minimal_value = int(Data.data[Ability.EDUCATION])
+        elif minimal_value == "0.5 DEX":
+            minimal_value = calculator.half_value(Data.data[Ability.DEXTERITY])
+        return minimal_value
+
