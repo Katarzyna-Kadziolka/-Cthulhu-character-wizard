@@ -333,4 +333,47 @@ class RandomCalculator:
     def get_intelligence_skill_points(self, intelligence_points: int) -> int:
         return intelligence_points*2
 
+# occupation_skills_window
+    def get_random_occupation_skills_points(self, occupation_skill_points: int, skill_dict: dict):
+        # up to five skill points
+        for key in skill_dict:
+            current_points = skill_dict[key]
+            up_to_five = 5 - current_points % 5
+            if occupation_skill_points - up_to_five < 0:
+                current_points = current_points + occupation_skill_points
+                skill_dict[key] = current_points
+                return skill_dict
+            occupation_skill_points = occupation_skill_points - up_to_five
+            skill_dict[key] = current_points + up_to_five
+
+        # choose specialization
+        specialization = random.choice(list(skill_dict.keys()))
+        specialization_points = random.choice([70, 75, 80])
+        if skill_dict[specialization] > specialization_points:
+            specialization = random.choice(list(skill_dict.keys()))
+        if occupation_skill_points < specialization_points:
+            skill_dict[specialization] = skill_dict[specialization] + occupation_skill_points
+            return skill_dict
+        skill_dict[specialization] = skill_dict[specialization] + (specialization_points - skill_dict[specialization] % specialization_points)
+        occupation_skill_points = occupation_skill_points - skill_dict[specialization]
+
+        while occupation_skill_points > 0:
+            skill = random.choice(list(skill_dict.keys()))
+            if skill_dict[skill] + 5 > 99:
+                up_to_99 = 99 - skill_dict[skill] % 99
+                if occupation_skill_points - up_to_99 < 0:
+                    skill_dict[skill] = skill_dict[skill] + occupation_skill_points
+                    return skill_dict
+                occupation_skill_points = occupation_skill_points - up_to_99
+
+            if occupation_skill_points < 5:
+                skill_dict[skill] = skill_dict[skill] + occupation_skill_points
+                return skill_dict
+
+            skill_dict[skill] = skill_dict[skill] + 5
+            occupation_skill_points = occupation_skill_points - 5
+
+        return skill_dict
+
+
 

@@ -18,7 +18,7 @@ class OccupationSelectWindow(BaseWindow):
         super().__init__(root)
         self.calculator = random_calculator.RandomCalculator()
         infos = occupation_info_extractor.get_infos()
-        self.info = [i for i in infos if i.occupation_pl == Data.data["occupation"]][0]
+        self.info = [i for i in infos if i.occupation_enum == Data.data["occupation"]][0]
         self.skill_formater = skill_formater.SkillFormater()
         self.set_full_occupation_info()
         self.create_content()

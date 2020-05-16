@@ -1,6 +1,7 @@
 class OccupationInfo:
 
     def __init__(self):
+        self.occupation_enum = None
         self.occupation_eng = ""
         self.occupation_pl = ""
         self.occupation_skills_points = ""

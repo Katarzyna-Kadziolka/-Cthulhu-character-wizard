@@ -3,6 +3,7 @@ from tkinter import *
 import occupation_info_extractor
 import occupation_select_window
 import other_abilities_window
+import translator
 from base_window import BaseWindow
 from data import Data
 
@@ -51,7 +52,7 @@ class OccupationsWindow(BaseWindow):
         other_abilities_window.OtherAbilitiesWindow(self.root)
 
     def next_window(self):
-        Data.data["occupation"] = self.listbox.get(ACTIVE)
+        Data.data["occupation"] = [key for key, value in translator.Translator.occupations.items() if value == self.listbox.get(ACTIVE)][0]
         self.frame.destroy()
         occupation_select_window.OccupationSelectWindow(self.root)
 

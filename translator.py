@@ -198,7 +198,7 @@ class Translator:
         Occupation.GAMBLER: "Hazardzista",
         Occupation.GANGSTER_BOSS: "Mafiozo",
         Occupation.GANGSTER_UNDERLING: "Członek mafii",
-        Occupation.GENTLEMAN_LADY: "Dżentelmen/ Dama",
+        Occupation.GENTLEMAN_LADY: "Dżentelmen/Dama",
         Occupation.GUN_MOLL: "Dziewczyna gangstera",
         Occupation.HOBO: "Bezdomny",
         Occupation.HOSPITAL_ORDERLY: "Pracownik szpitala",

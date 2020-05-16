@@ -11,7 +11,7 @@ class SkillFormater():
     def __init__(self):
         self.translator = translator.Translator()
         infos = occupation_info_extractor.get_infos()
-        self.info = [i for i in infos if i.occupation_pl == Data.data["occupation"]][0]
+        self.info = [i for i in infos if i.occupation_enum == Data.data["occupation"]][0]
 
     def get_occupation_skills(self):
         enum_skills_list = self.info.skills

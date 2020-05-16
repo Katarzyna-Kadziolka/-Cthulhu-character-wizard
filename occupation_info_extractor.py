@@ -1,6 +1,7 @@
 import re
 from typing import List
 
+import translator
 from Enums.art_craft import ArtCraft
 from Enums.fighting import Fighting
 from Enums.firearms import Firearm
@@ -95,6 +96,7 @@ def get_infos() -> List[OccupationInfo]:
         info_list = line.split('\t')
 
         occupation_info = OccupationInfo()
+        occupation_info.occupation_enum = [key for key, value in translator.Translator.occupations.items() if value == info_list[2]][0]
         occupation_info.occupation_eng = info_list[1]
         occupation_info.occupation_pl = info_list[2]
         occupation_info.occupation_skills_points = info_list[3]
