@@ -357,21 +357,41 @@ class RandomCalculator:
         skill_dict[specialization] = skill_dict[specialization] + (specialization_points - skill_dict[specialization] % specialization_points)
         occupation_skill_points = occupation_skill_points - skill_dict[specialization]
 
-        while occupation_skill_points > 0:
+        spent_occupation_points = 0
+        for _ in range(0, int(occupation_skill_points/5)):
             skill = random.choice(list(skill_dict.keys()))
-            if skill_dict[skill] + 5 > 99:
-                up_to_99 = 99 - skill_dict[skill] % 99
-                if occupation_skill_points - up_to_99 < 0:
-                    skill_dict[skill] = skill_dict[skill] + occupation_skill_points
-                    return skill_dict
-                occupation_skill_points = occupation_skill_points - up_to_99
+            if skill_dict[skill] >= 95:
+                spent_occupation_points = spent_occupation_points + (99 - skill_dict[skill])
+                skill_dict[skill] = 99
+            elif skill_dict[skill] < 95:
+                skill_dict[skill] = skill_dict[skill] + 5
+                spent_occupation_points = spent_occupation_points + 5
+            else:
+                raise ValueError(f"The value of{skill} is too high and = {skill_dict[skill]}")
+        occupation_skill_points = occupation_skill_points - spent_occupation_points
+        if occupation_skill_points > 0:
+            the_lowest_point_value = min(list(skill_dict.values()))
+            skill_with_the_lowest_point_value = [key for key in skill_dict if skill_dict[key] == the_lowest_point_value][0]
+            skill_dict[skill_with_the_lowest_point_value] = skill_dict[skill] + occupation_skill_points
 
-            if occupation_skill_points < 5:
-                skill_dict[skill] = skill_dict[skill] + occupation_skill_points
-                return skill_dict
 
-            skill_dict[skill] = skill_dict[skill] + 5
-            occupation_skill_points = occupation_skill_points - 5
+
+        # while occupation_skill_points > 0:
+        #     skill = random.choice(list(skill_dict.keys()))
+        #     if skill_dict[skill] + 5 > 99:
+        #         up_to_99 = 99 - skill_dict[skill] % 99
+        #         if occupation_skill_points - up_to_99 < 0:
+        #             skill_dict[skill] = skill_dict[skill] + occupation_skill_points
+        #             return skill_dict
+        #         occupation_skill_points = occupation_skill_points - up_to_99
+        #         skill_dict[skill] = skill_dict[skill] + up_to_99
+        #
+        #     if occupation_skill_points < 5:
+        #         skill_dict[skill] = skill_dict[skill] + occupation_skill_points
+        #         return skill_dict
+        #
+        #     skill_dict[skill] = skill_dict[skill] + 5
+        #     occupation_skill_points = occupation_skill_points - 5
 
         return skill_dict
 

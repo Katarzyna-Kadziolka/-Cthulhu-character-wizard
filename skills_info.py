@@ -98,6 +98,7 @@ class SkillsInfo():
         ArtCraft.TYPING: 5,
         ArtCraft.SHORT_HAND: 5,
         ArtCraft.LITERATURE: 5,
+        ArtCraft.WRITER: 5,
         Fighting.AXE: 15,
         Fighting.BRAWL: 25,
         Fighting.CHAINSAW: 10,
