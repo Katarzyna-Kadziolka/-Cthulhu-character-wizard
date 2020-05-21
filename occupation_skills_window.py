@@ -244,7 +244,7 @@ class OccupationSkillsWindow(BaseWindow):
         enum_skill = self.translator.get_skill_for_translation(clicked.get())
         skill_min_points = skills_info.SkillsInfo.skills_base_points[enum_skill]
         self.entry_list[index].delete(0, END)
-        self.entry_list[index].insert(0, skill_min_points)
+        self.entry_list[index].insert(0, f"{skill_min_points:02d}")
 
     def update_occupation_skill_points_for_skill(self, skill_name_pl, entry):
 
