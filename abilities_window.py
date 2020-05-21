@@ -32,42 +32,34 @@ class AbilitiesWindow(BaseWindow):
         frame_4.grid(row=3, column=0, columnspan=2)
 
         sv_strenght = StringVar()
-        sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: self.update_ability(sv, e_half_strength,
-                                                                                        e_one_fifth_strength,
-                                                                                        Ability.STRENGTH))
+        sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: self.update_ability(sv, e_strength, e_half_strength, e_one_fifth_strength, Ability.STRENGTH))
+
         sv_condition = StringVar()
-        sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: self.update_ability(sv, e_half_condition,
-                                                                                          e_one_fifth_condition,
-                                                                                          Ability.STRENGTH))
+        sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: self.update_ability(sv, e_condition, e_half_condition,e_one_fifth_condition, Ability.STRENGTH))
+
         sv_size = StringVar()
-        sv_size.trace("w", lambda name, index, mode, sv=sv_size: self.update_ability(sv, e_half_size, e_one_fifth_size,
-                                                                                Ability.SIZE))
+        sv_size.trace("w", lambda name, index, mode, sv=sv_size: self.update_ability(sv, e_size, e_half_size, e_one_fifth_size, Ability.SIZE))
+
         sv_dexterity = StringVar()
-        sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: self.update_ability(sv, e_half_dexterity,
-                                                                                          e_one_fifth_dexterity,
-                                                                                          Ability.DEXTERITY))
+        sv_dexterity.trace("w", lambda name, index, mode, sv=sv_dexterity: self.update_ability(sv, e_dexterity, e_half_dexterity, e_one_fifth_dexterity, Ability.DEXTERITY))
+
         sv_appearance = StringVar()
-        sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: self.update_ability(sv, e_half_appearance,
-                                                                                            e_one_fifth_appearance,
-                                                                                            Ability.APPEARANCE))
+        sv_appearance.trace("w", lambda name, index, mode, sv=sv_appearance: self.update_ability(sv, e_appearance, e_half_appearance, e_one_fifth_appearance, Ability.APPEARANCE))
+
         sv_education = StringVar()
-        sv_education.trace("w", lambda name, index, mode, sv=sv_education: self.update_ability(sv, e_half_education,
-                                                                                          e_one_fifth_education,
-                                                                                          Ability.EDUCATION))
+        sv_education.trace("w", lambda name, index, mode, sv=sv_education: self.update_ability(sv, e_education, e_half_education, e_one_fifth_education, Ability.EDUCATION))
+
         sv_intelligence = StringVar()
-        sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: self.update_ability(sv, e_half_intelligence,
-                                                                                                e_one_fifth_intelligence,
-                                                                                                Ability.INTELLIGENCE))
+        sv_intelligence.trace("w", lambda name, index, mode, sv=sv_intelligence: self.update_ability(sv, e_intelligence, e_half_intelligence, e_one_fifth_intelligence, Ability.INTELLIGENCE))
+
         sv_power = StringVar()
-        sv_power.trace("w", lambda name, index, mode, sv=sv_power: self.update_ability(sv, e_half_power, e_one_fifth_power,
-                                                                                  Ability.POWER))
+        sv_power.trace("w", lambda name, index, mode, sv=sv_power: self.update_ability(sv, e_power, e_half_power, e_one_fifth_power, Ability.POWER))
+
         sv_luck = StringVar()
-        sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: self.update_ability(sv, e_half_luck, e_one_fifth_luck,
-                                                                                Ability.LUCK))
+        sv_luck.trace("w", lambda name, index, mode, sv=sv_luck: self.update_ability(sv, e_luck, e_half_luck, e_one_fifth_luck, Ability.LUCK))
 
         # frame_0
-        l_instruction = Label(frame_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0,
-                                                                                                      pady=10)
+        l_instruction = Label(frame_0, text="Rzut 3K6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, pady=10)
 
         # frame_1
         l_strength = Label(frame_1, text="Siła:").grid(row=0, column=0, stick=E, padx=4)
@@ -121,10 +113,7 @@ class AbilitiesWindow(BaseWindow):
         e_one_fifth_power.grid(row=1, column=3)
 
         # frame_3
-        l_introduction = Label(frame_3, text="Rzut 2K6 + 6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0,
-                                                                                                           column=0,
-                                                                                                           columnspan=8,
-                                                                                                           pady=20)
+        l_introduction = Label(frame_3, text="Rzut 2K6 + 6 pomnożony razy 5", font=("Helvetica", 11)).grid(row=0, column=0, columnspan=8, pady=20)
         l_size = Label(frame_3, text="Budowa ciała:").grid(row=1, column=0, stick=E, padx=4)
         l_intelligence = Label(frame_3, text="Inteligencja:").grid(row=2, column=0, stick=E, padx=4)
         l_education = Label(frame_3, text="Wykształcenie:").grid(row=1, column=4, stick=E, padx=4)
@@ -135,12 +124,11 @@ class AbilitiesWindow(BaseWindow):
         e_education = Entry(frame_3, textvariable=sv_education, width=5)
         e_luck = Entry(frame_3, textvariable=sv_luck, width=5)
 
-        e_luck.bind('<Return>', lambda event: self.next(event))
-
         e_size.grid(row=1, column=1)
         e_intelligence.grid(row=2, column=1)
         e_education.grid(row=1, column=5)
         e_luck.grid(row=2, column=5)
+
 
         e_half_size = Entry(frame_3, width=4, state=DISABLED)
         e_half_intelligence = Entry(frame_3, width=4, state=DISABLED)
@@ -179,10 +167,7 @@ class AbilitiesWindow(BaseWindow):
             row=0, column=1, pady=20, padx=50, stick=E)
         btn_back_window_2 = Button(frame_4, text="Cofnij", width=10, command=self.previous_window).grid(
             row=0, column=0, pady=20, padx=50, stick=W)
-        btn_random_values_window_3 = Button(frame_4, text="Random", width=20,
-                                            command=lambda: self.random_button_click(entry_abilities)).grid(row=1, column=0,
-                                                                                                       columnspan=2,
-                                                                                                       pady=5)
+        btn_random_values_window_3 = Button(frame_4, text="Random", width=20, command=lambda: self.random_button_click(entry_abilities)).grid(row=1, column=0, columnspan=2, pady=5)
 
     def random_button_click(self, entry_abilities):
         x = self.calculator.get_all_random_abilities(Data.data['age'])
@@ -197,16 +182,20 @@ class AbilitiesWindow(BaseWindow):
     def next_window(self):
         self.frame.destroy()
         OtherAbilitiesWindow(self.root)
-    
-    def update_ability(self, sv, e_half, e_one_fifth, name):
+
+    def update_ability(self, sv, entry, e_half, e_one_fifth, name):
         e_half.config(state=NORMAL)
         e_one_fifth.config(state=NORMAL)
-        if sv.get() != "":
-            self.set_text(e_half, self.calculator.half_value(int(sv.get())))
-            self.set_text(e_one_fifth, self.calculator.one_fifth(int(sv.get())))
+
+        try:
+            int_value = int(sv.get())
+            self.set_text(e_half, self.calculator.half_value(int_value))
+            self.set_text(e_one_fifth, self.calculator.one_fifth(int_value))
             Data.save_data(sv, name)
+        except:
+            entry.delete(0, END)
+
         e_half.config(state=DISABLED)
         e_one_fifth.config(state=DISABLED)
 
-    def next(self, event):
-        self.next_window()
+

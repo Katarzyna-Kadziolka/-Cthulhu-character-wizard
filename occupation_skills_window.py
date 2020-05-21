@@ -56,6 +56,7 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_available_occupation_skill_points.grid(row=0, column=1)
         self.entry_available_occupation_skill_points.insert(0, Data.data["occupation_skill_points"])
         occupation_skill_points.trace("w", lambda _, __, ___, sv=occupation_skill_points: self.check_occupation_skill_points(occupation_skill_points.get()))
+        self.entry_available_occupation_skill_points.config(state="disabled")
 
         #frame_3
         self.create_skills_labels_and_entries(frame_3)
@@ -89,6 +90,7 @@ class OccupationSkillsWindow(BaseWindow):
 
 
     def check_occupation_skill_points(self, occupation_skill_points):
+        self.entry_available_occupation_skill_points.config(state="normal")
         if occupation_skill_points == '':
             return
 
@@ -122,6 +124,7 @@ class OccupationSkillsWindow(BaseWindow):
             for entry in self.entry_list:
                 entry.configure(state="normal")
 
+        self.entry_available_occupation_skill_points.config(state="disabled")
 
     def create_combobox_pair_for_enum(self, enum,  index, frame):
         skills = enum.__members__.items()
@@ -184,6 +187,19 @@ class OccupationSkillsWindow(BaseWindow):
                 label_skill.grid(row=index, column=0)
                 self.label_dict[index] = label_skill
 
+        self.remove_labels_skills_from_comboboxes()
+
+
+    def remove_labels_skills_from_comboboxes(self):
+        for combobox in self.combobox_dict.values():
+            combobox_skills_list = list(combobox["values"])
+            for label_skill in self.label_dict.values():
+                skill = label_skill.cget("text")
+                if skill in combobox_skills_list:
+                    combobox_skills_list.remove(skill)
+            combobox["values"] = combobox_skills_list
+
+
     def update_any_skill_list(self, skill, index):
         for dictionary in self.combobox_and_removed_skills:
             if dictionary["combobox_index"] == index:
@@ -222,22 +238,55 @@ class OccupationSkillsWindow(BaseWindow):
         clicked.trace("w", lambda _, __, ___, sv=clicked: self.clicked_methods(clicked, index))
         return combobox
 
-    def on_entry_changed(self, sv, skill):
+    def on_entry_changed(self, sv, index):
+        skill = ""
+        if index in self.combobox_dict:
+            skill = self.combobox_dict[index].get()
+        elif index in self.label_dict:
+            skill = self.label_dict[index].cget("text")
+        else:
+            return
         self.check_skill_points(sv, skill)
         if len(sv.get()) < 2:
             return
+
         self.update_occupation_skill_points()
         Data.save_data(sv, self.translator.get_skill_for_translation(skill))
 
+    def get_minimal_skill_points(self, index):
+        if index in self.label_dict:
+            enum_skill = self.translator.get_skill_for_translation(self.label_dict[index].cget("text"))
+            skill_min_points = skills_info.SkillsInfo.skills_base_points[enum_skill]
+        elif index in self.combobox_dict:
+            enum_skill = self.translator.get_skill_for_translation(self.combobox_dict[index].get())
+            skill_min_points = skills_info.SkillsInfo.skills_base_points[enum_skill]
+        else:
+            raise ValueError(f"Index {index} don't exist.")
 
-    def create_entry(self, frame, index, skill):
+        return skill_min_points
 
-        min_skill_points = self.skills_into.get_minimal_skill_points(self.translator.get_skill_for_translation(skill))
+    def check_if_value_is_single_number(self, event):
+        index = self.entry_list.index(event.widget)
+        if len(event.widget.get()) == 0:
+            skill_min_points = self.get_minimal_skill_points(index)
+            event.widget.delete(0, END)
+            event.widget.insert(0, f"{skill_min_points:02d}")
+
+        elif len(event.widget.get()) == 1:
+            value = int(event.widget.get())
+            event.widget.delete(0, END)
+            event.widget.insert(0, f"{value:02d}")
+
+
+    def create_entry(self, frame, index, skill_pl):
+
+        min_skill_points = self.skills_into.get_minimal_skill_points(self.translator.get_skill_for_translation(skill_pl))
         sv_skill = StringVar()
-        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.on_entry_changed(sv, skill))
+        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.on_entry_changed(sv, index))
         entry_skill_points = Entry(frame, textvariable=sv_skill, width=5)
         entry_skill_points.grid(row=index, column=1, padx=5)
         entry_skill_points.insert(0, f"{min_skill_points:02d}")
+        entry_skill_points.bind('<FocusOut>', self.check_if_value_is_single_number)
         return entry_skill_points
 
     def update_entry_with_current_value_of_combobox(self, clicked, index):
@@ -252,18 +301,22 @@ class OccupationSkillsWindow(BaseWindow):
         min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
         current_skill_points = entry.get()
         if current_skill_points == "":
-            return None
+            current_skill_points = 0
 
         current_skill_points = int(current_skill_points)
         if current_skill_points > int(min_skill_points):
             used_occupation_points = current_skill_points - min_skill_points
             old_occupation_skill_points = int(self.entry_available_occupation_skill_points.get())
+            self.entry_available_occupation_skill_points.config(state="normal")
             self.entry_available_occupation_skill_points.delete(0, END)
             self.entry_available_occupation_skill_points.insert(0, old_occupation_skill_points - used_occupation_points)
+            self.entry_available_occupation_skill_points.config(state="disabled")
 
     def update_occupation_skill_points(self):
+        self.entry_available_occupation_skill_points.config(state="normal")
         self.entry_available_occupation_skill_points.delete(0, END)
         self.entry_available_occupation_skill_points.insert(0, Data.data["occupation_skill_points"])
+        self.entry_available_occupation_skill_points.config(state="disabled")
         for index, entry in enumerate(self.entry_list):
             if index in self.label_dict:
                 skill_name_pl = self.label_dict[index].cget("text")
@@ -273,16 +326,21 @@ class OccupationSkillsWindow(BaseWindow):
                 skill_name_pl = self.combobox_dict[index].get()
                 self.update_occupation_skill_points_for_skill(skill_name_pl, entry)
 
+            else:
+                raise ValueError(f"Index nr {index} not found")
+
     def reset_skills_points(self):
+
+        for index, entry in enumerate(self.entry_list):
+            skill_min_points = self.get_minimal_skill_points(index)
+
+            entry.config(state="normal")
+            entry.delete(0, END)
+            entry.insert(0, skill_min_points)
 
         self.entry_available_occupation_skill_points.config(state="normal")
         self.entry_available_occupation_skill_points.delete(0, END)
         self.entry_available_occupation_skill_points.insert(0, Data.data["occupation_skill_points"])
-
-        for entry in self.entry_list:
-            entry.config(state="normal")
-            entry.delete(0, END)
-            entry.insert(0, "00")
 
     def set_random_skills_from_comboboxes(self):
         for key in self.combobox_dict:
@@ -293,22 +351,25 @@ class OccupationSkillsWindow(BaseWindow):
 
     def random_button_click(self):
         self.set_random_skills_from_comboboxes()
-        skill_dict = {}
+        old_skill_dict = {}
         for key in self.label_dict:
             skill_label = self.label_dict[key]
             skill_enum = self.translator.get_skill_for_translation(skill_label.cget("text"))
             current_points = int(self.entry_list[key].get())
-            skill_dict[skill_enum] = current_points
+            old_skill_dict[skill_enum] = current_points
         for key in self.combobox_dict:
             skill_combobox = self.combobox_dict[key]
             skill_enum = self.translator.get_skill_for_translation(skill_combobox.get())
             current_points = int(self.entry_list[key].get())
-            skill_dict[skill_enum] = current_points
+            old_skill_dict[skill_enum] = current_points
 
-        skill_dict = self.calculator.get_random_occupation_skills_points(int(self.entry_available_occupation_skill_points.get()), skill_dict)
+        self.entry_available_occupation_skill_points.config(state="normal")
+        all_occupation_skills_points = int(self.entry_available_occupation_skill_points.get())
+        self.entry_available_occupation_skill_points.config(state="disabled")
+        new_skill_dict = self.calculator.get_random_occupation_skills_points(all_occupation_skills_points, old_skill_dict.copy())
         labels_text = [self.label_dict[key].cget("text") for key in self.label_dict]
         comboboxes_text = [self.combobox_dict[key].get() for key in self.combobox_dict]
-        for key in skill_dict:
+        for key in new_skill_dict:
             skill_pl = self.translator.get_translation_for_skill(key)
             if skill_pl in labels_text:
                 skill_label = [skill_label for key, skill_label in self.label_dict.items() if skill_pl == skill_label.cget("text")][0]
@@ -322,8 +383,7 @@ class OccupationSkillsWindow(BaseWindow):
                 raise ValueError(f"skill {skill_pl} is not used")
 
             skill_entry = self.entry_list[index]
-            self.set_text(skill_entry, skill_dict[key])
-
+            self.set_text(skill_entry, new_skill_dict[key])
 
     def next_window(self):
         self.frame.destroy()
