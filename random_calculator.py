@@ -49,87 +49,90 @@ class RandomCalculator:
         return random_value
 
     def calculate_age_impact(self, age: int, ability: Ability, value: int):
+        calculated_value = value
         if ability == Ability.STRENGTH:
             if age <= 19:
-                return value - 5
+                calculated_value = value - 5
             elif 40 <= age <= 49:
-                return value - 5
+                calculated_value = value - 5
             elif 50 <= age <= 59:
-                return value - 10
+                calculated_value = value - 10
             elif 60 <= age <= 69:
-                return value - 20
+                calculated_value = value - 20
             elif 70 <= age <= 79:
-                return value - 40
+                calculated_value = value - 40
             elif age >= 80:
-                return value - 80
+                calculated_value = value - 80
             else:
-                return value
+                calculated_value = value
         elif ability == Ability.CONDITION:
             if 40 <= age <= 49:
-                return value - 5
+                calculated_value = value - 5
             elif 50 <= age <= 59:
-                return value - 10
+                calculated_value = value - 10
             elif 60 <= age <= 69:
-                return value - 20
+                calculated_value = value - 20
             elif 70 <= age <= 79:
-                return value - 40
+                calculated_value = value - 40
             elif age >= 80:
-                return value - 80
+                calculated_value = value - 80
             else:
-                return value
+                calculated_value = value
         elif ability == Ability.SIZE:
             if age <= 19:
-                return value - 5
+                calculated_value = value - 5
             else:
-                return value
+                calculated_value = value
         elif ability == Ability.DEXTERITY:
             if 40 <= age <= 49:
-                return value - 5
+                calculated_value = value - 5
             elif 50 <= age <= 59:
-                return value - 10
+                calculated_value = value - 10
             elif 60 <= age <= 69:
-                return value - 20
+                calculated_value = value - 20
             elif 70 <= age <= 79:
-                return value - 40
+                calculated_value = value - 40
             elif age >= 80:
-                return value - 80
+                calculated_value = value - 80
             else:
-                return value
+                calculated_value = value
         elif ability == Ability.APPEARANCE:
             if 40 <= age <= 49:
-                return value - 5
+                calculated_value = value - 5
             elif 50 <= age <= 59:
-                return value - 10
+                calculated_value = value - 10
             elif 60 <= age <= 69:
-                return value - 15
+                calculated_value = value - 15
             elif 70 <= age <= 79:
-                return value - 20
+                calculated_value = value - 20
             elif age >= 80:
-                return value - 25
+                calculated_value = value - 25
             else:
-                return value
+                calculated_value = value
         elif ability == Ability.INTELLIGENCE or ability == Ability.POWER:
-            return value
+            calculated_value = value
         elif ability == Ability.EDUCATION:
             if age <= 19:
-                return value - 5
+                calculated_value = value - 5
             elif 20 <= age <= 39:
-                return self.make_improvement_check(value)
+                calculated_value = self.make_improvement_check(value)
             elif 40 <= age <= 49:
-                return self.make_multiple_improvement_checks(value, 2)
+                calculated_value = self.make_multiple_improvement_checks(value, 2)
             elif 50 <= age <= 59:
-                return self.make_multiple_improvement_checks(value, 3)
+                calculated_value = self.make_multiple_improvement_checks(value, 3)
             elif age >= 60:
-                return self.make_multiple_improvement_checks(value, 4)
+                calculated_value = self.make_multiple_improvement_checks(value, 4)
         elif ability == Ability.LUCK:
             if age <= 19:
                 second_roll = self.calculate_ability(2)
                 if second_roll > value:
-                    return second_roll
+                    calculated_value = second_roll
                 else:
-                    return value
+                    calculated_value = value
         else:
             raise ValueError("Ability not supported")
+
+        return max(calculated_value, 1)
 
     def make_improvement_check(self, value: int) -> int:
         roll_d100 = random.randint(1, 100)

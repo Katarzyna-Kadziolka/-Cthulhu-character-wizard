@@ -28,6 +28,8 @@ class SkillFormater():
                     skill_string += self.translator.get_translation_for_skill(i)
                     skill_string += " lub "
                 skill_string += self.translator.get_translation_for_skill(lists[-1])
+                if skill_string == "Język: Łacina lub Język: Hiszpański lub Język: Niemiecki lub Język: Francuski lub Język: Włoski lub Język: Polski lub Język: Rosyjski lub Język: Chiński lub Język: Japoński lub Język: Turecki lub Pierwsza Pomoc lub Mechanika":
+                    skill_string = "Język Obcy lub Pierwsza Pomoc lub Mechanika"
                 skills_list.append(skill_string)
 
         return skills_list

@@ -145,6 +145,18 @@ class OccupationSkillsWindow(BaseWindow):
         for index, skill in enumerate(skills_list):
             if "lub" in skill:
                 or_skills = skill.split(" lub ")
+                for or_skill in or_skills.copy():
+                    or_skill_enum = self.translator.get_skill_for_translation(or_skill)
+                    or_skill_enum_string = or_skill_enum.name.title()
+                    if or_skill_enum_string == "Other_Language":
+                        or_skill_enum_string = "Other Language"
+                    if or_skill_enum_string.strip() in skills_info.SkillsInfo.enums_dict.keys():
+                        or_skills.remove(or_skill)
+                        enum = skills_info.SkillsInfo.enums_dict[or_skill_enum_string.strip()]
+                        enum_list = [member[1] for member in enum.__members__.items()]
+                        for e in enum_list:
+                            or_skills.append(self.translator.get_translation_for_skill(e))
+                or_skills.sort()
                 entry = self.create_entry(frame, index, or_skills[0])
                 self.entry_list.append(entry)
                 self.create_combobox(frame, index, or_skills)
@@ -291,7 +303,7 @@ class OccupationSkillsWindow(BaseWindow):
 
     def update_entry_with_current_value_of_combobox(self, clicked, index):
         enum_skill = self.translator.get_skill_for_translation(clicked.get())
-        skill_min_points = skills_info.SkillsInfo.skills_base_points[enum_skill]
+        skill_min_points = skills_info.SkillsInfo.get_minimal_skill_points(enum_skill)
         self.entry_list[index].delete(0, END)
         self.entry_list[index].insert(0, f"{skill_min_points:02d}")
 

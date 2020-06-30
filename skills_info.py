@@ -134,6 +134,17 @@ class SkillsInfo():
         Survival.ARCTIC: 10
     }
 
+    enums_dict = {
+        "Uncommon Skill": UncommonSkill,
+        "Other Language": Language,
+        "Art/Craft": ArtCraft,
+        "Fighting": Fighting,
+        "Firearms": Firearm,
+        "Science": Science,
+        "Pilot": Pilot,
+        "Survival": Survival
+    }
+
     @staticmethod
     def get_all_skills_list():
         all_skills_list = [key for key, value in SkillsInfo.skills_base_points.items()]
