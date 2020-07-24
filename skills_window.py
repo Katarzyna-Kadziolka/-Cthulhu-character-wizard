@@ -1,7 +1,7 @@
 from enum import Enum
 from tkinter.ttk import Combobox
 
-import labels_comboboxes_entries_creator
+import comboboxes_entries_helper
 import occupation_skills_window
 import skills_info
 import translator
@@ -22,7 +22,7 @@ class SkillsWindow(BaseWindow):
         self.row_number = 0
         self.translator = translator.Translator()
         self.skills_info = skills_info.SkillsInfo()
-        self.creator = labels_comboboxes_entries_creator.LabelsComboboxesEntriesCreator()
+        self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
         self.create_content()
 
     def create_content(self):
@@ -49,7 +49,7 @@ class SkillsWindow(BaseWindow):
         self.entry_available_personal_skill_points = Entry(self.frame_2, textvariable=personal_skill_points, width=5)
         self.entry_available_personal_skill_points.grid(row=0, column=1)
         self.entry_available_personal_skill_points.insert(0, Data.data["intelligence_skill_points"])
-        personal_skill_points.trace("w", lambda _, __, ___, sv=personal_skill_points: self.creator.check_personal_skill_points(self.entry_available_personal_skill_points, personal_skill_points.get(), self.entry_list))
+        personal_skill_points.trace("w", lambda _, __, ___, sv=personal_skill_points: self.helper.check_personal_skill_points(self.entry_available_personal_skill_points, personal_skill_points.get(), self.entry_list))
         self.entry_available_personal_skill_points.config(state="disabled")
 
         # frame_3
@@ -62,8 +62,8 @@ class SkillsWindow(BaseWindow):
         entry_for_skill.grid(row=0, column=1, padx=10, sticky=E)
         self.entry_list.append(entry_for_skill)
         combobox_index = self.entry_list.index(entry_for_skill)
-        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.creator.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
-        entry_for_skill.bind('<FocusOut>', self.creator.check_if_value_is_single_number)
+        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.helper.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
+        entry_for_skill.bind('<FocusOut>', self.helper.check_if_value_is_single_number)
 
         combobox_clicked = StringVar()
         combobox_clicked.set(self.all_skill_list[0])
@@ -91,8 +91,8 @@ class SkillsWindow(BaseWindow):
         entry_for_skill.grid(row=self.row_number, column=1, padx=10, sticky=E)
         self.entry_list.append(entry_for_skill)
         combobox_index = self.entry_list.index(entry_for_skill)
-        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.creator.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
-        entry_for_skill.bind('<FocusOut>', self.creator.check_if_value_is_single_number)
+        sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.helper.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
+        entry_for_skill.bind('<FocusOut>', self.helper.check_if_value_is_single_number)
 
         combobox_clicked = StringVar()
         combobox_clicked.set(self.all_skill_list[0])
@@ -123,7 +123,7 @@ class SkillsWindow(BaseWindow):
 
     def update_combobox(self, sv, index):
         self.update_entry_with_current_value_of_combobox(index)
-        self.creator.update_any_skill_list(sv.get(), index, self.combobox_dict)
+        self.helper.update_any_skill_list(sv.get(), index, self.combobox_dict)
 
     def update_entry_with_current_value_of_combobox(self, index):
         skill_min_points = self.get_minimal_skill_points(index)

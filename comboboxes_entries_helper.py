@@ -7,7 +7,7 @@ import translator
 from data import Data
 
 
-class LabelsComboboxesEntriesCreator:
+class ComboboxesEntriesHelper:
 
     def __init__(self):
         self.combobox_and_removed_skills = []
@@ -81,7 +81,7 @@ class LabelsComboboxesEntriesCreator:
 
         return combobox_dict
 
-    def on_entry_changed(self, sv, index, base_points_entry, entry_list, combobox_dict, label_dict, type_points):
+    def on_entry_changed(self, sv, index, base_points_entry, entry_list, combobox_dict, label_dict, type_base_points):
         skill = ""
         if index in combobox_dict:
             skill = combobox_dict[index].get()
@@ -89,22 +89,19 @@ class LabelsComboboxesEntriesCreator:
             skill = label_dict[index].cget("text")
         else:
             return
-        self.check_skill_points(sv, skill)
+        self.check_skill_points(sv, skill, type_base_points)
         if len(sv.get()) < 2:
             return
 
-        self.update_base_skill_points(base_points_entry, entry_list, combobox_dict, label_dict, type_points)
+        self.update_base_skill_points(base_points_entry, entry_list, combobox_dict, label_dict, type_base_points)
         Data.save_data(sv, self.translator.get_skill_for_translation(skill))
 
 
-    def check_skill_points(self, sv, skill):
+    def check_skill_points(self, sv, skill, type_base_points):
         if sv.get() == "":
             return
         skill_enum = self.translator.get_skill_for_translation(skill)
-        try:
-            min_skill_points = Data.data[enum]
-        except:
-            min_skill_points = self.skills_info.get_minimal_skill_points(skill_enum)
+        min_skill_points = self.get_min_skill_points(skill_enum, type_base_points)
         try:
             int(sv.get())
         except ValueError:
@@ -130,29 +127,19 @@ class LabelsComboboxesEntriesCreator:
         for index, entry in enumerate(entry_list):
             if index in label_dict:
                 skill_name_pl = label_dict[index].cget("text")
-                self.update_base_skill_points_for_skill(skill_name_pl, entry,
-                                                                base_points_entry, type_points)
+                self.update_base_skill_points_for_skill(skill_name_pl, entry, base_points_entry, type_points)
 
             elif index in combobox_dict:
                 skill_name_pl = combobox_dict[index].get()
-                self.update_base_skill_points_for_skill(skill_name_pl, entry,
-                                                                base_points_entry, type_points)
+                self.update_base_skill_points_for_skill(skill_name_pl, entry, base_points_entry, type_points)
 
             else:
                 raise ValueError(f"Index nr {index} not found")
 
-    def update_base_skill_points_for_skill(self, skill_name_pl, entry, entry_base_points, type_points):
+    def update_base_skill_points_for_skill(self, skill_name_pl, entry, entry_base_points, type_base_points):
 
         skill_enum = self.translator.get_skill_for_translation(skill_name_pl)
-        if type_points == "intelligence_skill_points":
-            try:
-                min_skill_points = Data.data[skill_enum]
-            except:
-                min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
-        elif type_points == "occupation_skill_points":
-            min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
-        else:
-            raise ValueError(f"Type of points {type_points} is incorrect")
+        min_skill_points = self.get_min_skill_points(skill_enum, type_base_points)
 
         current_skill_points = entry.get()
         if current_skill_points == "":
@@ -168,6 +155,21 @@ class LabelsComboboxesEntriesCreator:
             entry_base_points.config(state="disabled")
 
         return entry_base_points
+
+    def get_min_skill_points(self,  skill_enum, type_base_points,):
+
+        if type_base_points == "intelligence_skill_points":
+            try:
+                min_skill_points = Data.data[skill_enum]
+            except:
+                min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
+        elif type_base_points == "occupation_skill_points":
+            min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
+        else:
+            raise ValueError(f"Type {type_base_points} of points  is incorrect")
+
+        return min_skill_points
+
 
 
     def check_if_value_is_single_number(self, event):
