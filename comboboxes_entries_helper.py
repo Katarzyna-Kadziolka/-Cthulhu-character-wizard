@@ -94,7 +94,19 @@ class ComboboxesEntriesHelper:
             return
 
         self.update_base_skill_points(base_points_entry, entry_list, combobox_dict, label_dict, type_base_points)
-        Data.save_data(sv, self.translator.get_skill_for_translation(skill))
+
+
+    def save_data(self, entry_list, combobox_dict, label_dict):
+        for index, entry in enumerate(entry_list):
+            skill = ""
+            if index in combobox_dict:
+                skill = combobox_dict[index].get()
+            elif index in label_dict:
+                skill = label_dict[index].cget("text")
+            else:
+                return
+            skill_enum = self.translator.get_skill_for_translation(skill)
+            Data.save_data(entry_list[index], skill_enum)
 
 
     def check_skill_points(self, sv, skill, type_base_points):
@@ -156,7 +168,7 @@ class ComboboxesEntriesHelper:
 
         return entry_base_points
 
-    def get_min_skill_points(self,  skill_enum, type_base_points,):
+    def get_min_skill_points(self, skill_enum, type_base_points):
 
         if type_base_points == "intelligence_skill_points":
             try:
@@ -171,16 +183,25 @@ class ComboboxesEntriesHelper:
         return min_skill_points
 
 
+    def get_skill_enum_from_label_or_combobox(self, index, combobox_dict, label_dict):
+        skill = ""
+        if index in combobox_dict:
+            skill = combobox_dict[index].get()
+        elif index in label_dict:
+            skill = label_dict[index].cget("text")
+        else:
+            return
+        skill_enum = self.translator.get_skill_for_translation(skill)
 
-    def check_if_value_is_single_number(self, event):
-        pass
-        # index = self.entry_list.index(event.widget)
-        # if len(event.widget.get()) == 0:
-        #     skill_min_points = self.get_minimal_skill_points(index)
-        #     event.widget.delete(0, END)
-        #     event.widget.insert(0, f"{skill_min_points:02d}")
-        #
-        # elif len(event.widget.get()) == 1:
-        #     value = int(event.widget.get())
-        #     event.widget.delete(0, END)
-        #     event.widget.insert(0, f"{value:02d}")
+        return skill_enum
+
+    def update_combobox(self, sv, index, combobox_dict, type_base_points, entry_list):
+        self.update_entry_with_current_value_of_combobox(index, combobox_dict, type_base_points, entry_list)
+        self.update_any_skill_list(sv.get(), index, combobox_dict)
+
+    def update_entry_with_current_value_of_combobox(self, index, combobox_dict, type_base_points, entry_list):
+        skill_pl = combobox_dict[index].get()
+        enum_skill = self.translator.get_skill_for_translation(skill_pl)
+        skill_min_points = self.get_min_skill_points(enum_skill, type_base_points)
+        entry_list[index].delete(0, END)
+        entry_list[index].insert(0, f"{skill_min_points:02d}")

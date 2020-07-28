@@ -3,6 +3,7 @@ from tkinter.ttk import Combobox
 
 import comboboxes_entries_helper
 import occupation_skills_window
+import random_skills_points
 import skills_info
 import translator
 from base_window import BaseWindow
@@ -23,6 +24,7 @@ class SkillsWindow(BaseWindow):
         self.translator = translator.Translator()
         self.skills_info = skills_info.SkillsInfo()
         self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
+        self.random_skills_points = random_skills_points.RandomSkillsPoints()
         self.create_content()
 
     def create_content(self):
@@ -63,18 +65,19 @@ class SkillsWindow(BaseWindow):
         self.entry_list.append(entry_for_skill)
         combobox_index = self.entry_list.index(entry_for_skill)
         sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.helper.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
-        entry_for_skill.bind('<FocusOut>', self.helper.check_if_value_is_single_number)
+
 
         combobox_clicked = StringVar()
         combobox_clicked.set(self.all_skill_list[0])
         skills_combobox = Combobox(self.frame_3, textvariable=combobox_clicked, width=30)
         skills_combobox['values'] = self.all_skill_list
         skills_combobox.grid(row=0, column=0)
-        combobox_clicked.trace("w", lambda _, __, ___, sv=combobox_clicked: self.update_combobox(combobox_clicked,
-                                                                                                 combobox_index))
+        combobox_clicked.trace("w", lambda _, __, ___, sv=combobox_clicked: self.helper.update_combobox(combobox_clicked, combobox_index, self.combobox_dict, "intelligence_skill_points", self.entry_list))
         self.combobox_dict[combobox_index] = skills_combobox
 
-        entry_for_skill.insert(0, self.get_minimal_skill_points(self.entry_list.index(entry_for_skill)))
+        min_skill_points = self.get_minimal_skill_points(self.entry_list.index(entry_for_skill))
+        entry_for_skill.insert(0, f"{min_skill_points:02d}")
+        entry_for_skill.bind('<FocusOut>', self.check_if_value_is_single_number)
 
         # frame_4
         self.add_new_skill_button = Button(self.frame_4, text="+", width=50, command=self.add_new_skill).grid(row=0, column=0, columnspan=2, pady=10, padx=10)
@@ -92,10 +95,10 @@ class SkillsWindow(BaseWindow):
         self.entry_list.append(entry_for_skill)
         combobox_index = self.entry_list.index(entry_for_skill)
         sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.helper.on_entry_changed(sv, combobox_index, self.entry_available_personal_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "intelligence_skill_points"))
-        entry_for_skill.bind('<FocusOut>', self.helper.check_if_value_is_single_number)
+
 
         combobox_clicked = StringVar()
-        combobox_clicked.set(self.all_skill_list[0])
+
         skills_combobox = Combobox(self.frame_3, textvariable=combobox_clicked, width=30)
 
         comboboxes_values = [combobox_value.get() for index, combobox_value in self.combobox_dict.items()]
@@ -103,35 +106,41 @@ class SkillsWindow(BaseWindow):
 
         skills_combobox['values'] = self.all_skill_list
         skills_combobox.grid(row=self.row_number, column=0)
-        combobox_clicked.trace("w", lambda _, __, ___, sv=combobox_clicked: self.update_combobox(combobox_clicked, combobox_index))
+        combobox_clicked.set(self.all_skill_list[0])
+        combobox_clicked.trace("w", lambda _, __, ___, sv=combobox_clicked: self.helper.update_combobox(combobox_clicked, combobox_index, self.combobox_dict, "intelligence_skill_points", self.entry_list))
         self.combobox_dict[combobox_index] = skills_combobox
 
-        entry_for_skill.insert(0, self.get_minimal_skill_points(self.entry_list.index(entry_for_skill)))
-
+        min_skill_points = self.get_minimal_skill_points(self.entry_list.index(entry_for_skill))
+        entry_for_skill.insert(0, f"{min_skill_points:02d}")
+        entry_for_skill.bind('<FocusOut>', self.check_if_value_is_single_number)
         self.root.geometry(f"400x{500+self.row_number}")
 
 
     def get_minimal_skill_points(self, index):
         enum_skill = self.translator.get_skill_for_translation(self.combobox_dict[index].get())
-        try:
-            skill_min_points = Data.data[enum_skill]
-        except:
-            skill_min_points = skills_info.SkillsInfo.skills_base_points[enum_skill]
+        skill_min_points = self.helper.get_min_skill_points(enum_skill, "intelligence_skill_points")
 
         return skill_min_points
 
+    def check_if_value_is_single_number(self, event):
 
-    def update_combobox(self, sv, index):
-        self.update_entry_with_current_value_of_combobox(index)
-        self.helper.update_any_skill_list(sv.get(), index, self.combobox_dict)
+        index = self.entry_list.index(event.widget)
+        skill_enum = self.helper.get_skill_enum_from_label_or_combobox(index, self.combobox_dict, self.label_dict)
 
-    def update_entry_with_current_value_of_combobox(self, index):
-        skill_min_points = self.get_minimal_skill_points(index)
-        self.entry_list[index].delete(0, END)
-        self.entry_list[index].insert(0, f"{skill_min_points:02d}")
+
+        if len(event.widget.get()) == 0:
+            skill_min_points = self.helper.get_min_skill_points(skill_enum, "intelligence_skill_points")
+            event.widget.delete(0, END)
+            event.widget.insert(0, f"{skill_min_points:02d}")
+
+        elif len(event.widget.get()) == 1:
+            value = int(event.widget.get())
+            event.widget.delete(0, END)
+            event.widget.insert(0, f"{value:02d}")
 
     def next_window(self):
-        pass
+        self.helper.save_data(self.entry_list, self.combobox_dict, self.label_dict)
+
 
     def previous_window(self):
         self.frame.destroy()
@@ -141,8 +150,8 @@ class SkillsWindow(BaseWindow):
         pass
 
     def reset_skills_points(self):
-        pass
-
+        self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points")
+        self.root.geometry("400x500")
 
 
 

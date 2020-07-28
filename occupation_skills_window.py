@@ -6,6 +6,7 @@ import operator
 import comboboxes_entries_helper
 import occupation_select_window
 import random_calculator
+import random_skills_points
 import skill_formater
 import skills_info
 import skills_window
@@ -31,6 +32,7 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_list = []
         self.combobox_and_removed_skills = []
         self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
+        self.random_skills_points = random_skills_points.RandomSkillsPoints()
         self.calculator = random_calculator.RandomCalculator()
         self.skills_info = skills_info.SkillsInfo()
         self.skill_formater = skill_formater.SkillFormater()
@@ -158,10 +160,6 @@ class OccupationSkillsWindow(BaseWindow):
                     combobox_skills_list.remove(skill)
             combobox["values"] = combobox_skills_list
 
-    def clicked_methods(self, clicked, index):
-        self.update_entry_with_current_value_of_combobox(clicked, index)
-        self.helper.update_any_skill_list(clicked.get(), index, self.combobox_dict)
-
     def create_combobox(self, frame, index, skills_names_pl):
         clicked = StringVar()
         clicked.set(skills_names_pl[0])
@@ -169,7 +167,7 @@ class OccupationSkillsWindow(BaseWindow):
         combobox['values'] = skills_names_pl
         combobox.grid(row=index, column=0)
         self.combobox_dict[index] = combobox
-        clicked.trace("w", lambda _, __, ___, sv=clicked: self.clicked_methods(clicked, index))
+        clicked.trace("w", lambda _, __, ___, sv=clicked: self.helper.update_combobox(clicked, index, self.combobox_dict, "occupation_skill_points", self.entry_list))
         return combobox
 
     def get_minimal_skill_points(self, index):
@@ -208,24 +206,8 @@ class OccupationSkillsWindow(BaseWindow):
         entry_skill_points.bind('<FocusOut>', self.check_if_value_is_single_number)
         return entry_skill_points
 
-    def update_entry_with_current_value_of_combobox(self, clicked, index):
-        enum_skill = self.translator.get_skill_for_translation(clicked.get())
-        skill_min_points = skills_info.SkillsInfo.get_minimal_skill_points(enum_skill)
-        self.entry_list[index].delete(0, END)
-        self.entry_list[index].insert(0, f"{skill_min_points:02d}")
-
     def reset_skills_points(self):
-
-        for index, entry in enumerate(self.entry_list):
-            skill_min_points = self.get_minimal_skill_points(index)
-
-            entry.config(state="normal")
-            entry.delete(0, END)
-            entry.insert(0, skill_min_points)
-
-        self.entry_available_occupation_skill_points.config(state="normal")
-        self.entry_available_occupation_skill_points.delete(0, END)
-        self.entry_available_occupation_skill_points.insert(0, Data.data["occupation_skill_points"])
+        self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points")
 
     def set_random_skills_from_comboboxes(self):
         for key in self.combobox_dict:
@@ -271,6 +253,7 @@ class OccupationSkillsWindow(BaseWindow):
             self.set_text(skill_entry, new_skill_dict[key])
 
     def next_window(self):
+        self.helper.save_data(self.entry_list, self.combobox_dict, self.label_dict)
         self.frame.destroy()
         skills_window.SkillsWindow(self.root)
 
