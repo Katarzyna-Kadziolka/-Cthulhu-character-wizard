@@ -337,7 +337,7 @@ class RandomCalculator:
         return intelligence_points*2
 
 # occupation_skills_window
-    def get_random_occupation_skills_points(self, occupation_skill_points: int, skill_dict: dict):
+    def get_random_skills_points(self, occupation_skill_points: int, skill_dict: dict):
 
         # choose specialization
         specialization = random.choice(list(skill_dict.keys()))

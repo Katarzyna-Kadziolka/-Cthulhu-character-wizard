@@ -37,7 +37,7 @@ class SkillsWindow(BaseWindow):
         self.frame_2 = Label(self.frame)
         self.frame_3 = Label(self.frame)
         self.frame_4 = Label(self.frame)
-        self.frame_1.grid(row=0, column=0)
+        self.frame_1.grid(row=0, column=0, pady=20)
         self.frame_2.grid(row=1, column=0)
         self.frame_3.grid(row=2, column=0, pady=20)
         self.frame_4.grid(row=3, column=0)
@@ -150,7 +150,7 @@ class SkillsWindow(BaseWindow):
         pass
 
     def reset_skills_points(self):
-        self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points")
+        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points")
         self.root.geometry("400x500")
 
 

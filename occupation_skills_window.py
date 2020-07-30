@@ -183,7 +183,10 @@ class OccupationSkillsWindow(BaseWindow):
         return skill_min_points
 
     def check_if_value_is_single_number(self, event):
-        index = self.entry_list.index(event.widget)
+        try:
+            index = self.entry_list.index(event.widget)
+        except:
+            return
         if len(event.widget.get()) == 0:
             skill_min_points = self.get_minimal_skill_points(index)
             event.widget.delete(0, END)
@@ -196,7 +199,6 @@ class OccupationSkillsWindow(BaseWindow):
 
 
     def create_entry(self, frame, index, skill_pl):
-
         min_skill_points = self.skills_info.get_minimal_skill_points(self.translator.get_skill_for_translation(skill_pl))
         sv_skill = StringVar()
         sv_skill.trace("w", lambda _, __, ___, sv=sv_skill: self.helper.on_entry_changed(sv, index, self.entry_available_occupation_skill_points, self.entry_list, self.combobox_dict, self.label_dict, "occupation_skill_points"))
@@ -207,7 +209,7 @@ class OccupationSkillsWindow(BaseWindow):
         return entry_skill_points
 
     def reset_skills_points(self):
-        self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points")
+        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points")
 
     def set_random_skills_from_comboboxes(self):
         for key in self.combobox_dict:
@@ -233,7 +235,7 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_available_occupation_skill_points.config(state="normal")
         all_occupation_skills_points = int(self.entry_available_occupation_skill_points.get())
         self.entry_available_occupation_skill_points.config(state="disabled")
-        new_skill_dict = self.calculator.get_random_occupation_skills_points(all_occupation_skills_points, old_skill_dict.copy())
+        new_skill_dict = self.calculator.get_random_skills_points(all_occupation_skills_points, old_skill_dict.copy())
         labels_text = [self.label_dict[key].cget("text") for key in self.label_dict]
         comboboxes_text = [self.combobox_dict[key].get() for key in self.combobox_dict]
         for key in new_skill_dict:
