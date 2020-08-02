@@ -235,7 +235,7 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_available_occupation_skill_points.config(state="normal")
         all_occupation_skills_points = int(self.entry_available_occupation_skill_points.get())
         self.entry_available_occupation_skill_points.config(state="disabled")
-        new_skill_dict = self.calculator.get_random_skills_points(all_occupation_skills_points, old_skill_dict.copy())
+        new_skill_dict = self.calculator.get_random_skills_points(all_occupation_skills_points, old_skill_dict.copy(), "occupation_skill_points")
         labels_text = [self.label_dict[key].cget("text") for key in self.label_dict]
         comboboxes_text = [self.combobox_dict[key].get() for key in self.combobox_dict]
         for key in new_skill_dict:

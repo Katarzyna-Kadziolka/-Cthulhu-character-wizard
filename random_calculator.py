@@ -337,20 +337,21 @@ class RandomCalculator:
         return intelligence_points*2
 
 # occupation_skills_window
-    def get_random_skills_points(self, occupation_skill_points: int, skill_dict: dict):
+    def get_random_skills_points(self, base_skill_points: int, skill_dict: dict, type_base_points):
 
         # choose specialization
-        specialization = random.choice(list(skill_dict.keys()))
-        specialization_points = random.choice([70, 75, 80])
-        if max(skill_dict.values()) < specialization_points:
-            if skill_dict[specialization] > specialization_points:
-                specialization = random.choice(list(skill_dict.keys()))
-            if occupation_skill_points < specialization_points:
-                skill_dict[specialization] = skill_dict[specialization] + occupation_skill_points
-                return skill_dict
-            up_to_specialization = (specialization_points - skill_dict[specialization] % specialization_points)
-            skill_dict[specialization] = skill_dict[specialization] + up_to_specialization
-            occupation_skill_points = occupation_skill_points - up_to_specialization
+        if type_base_points == "occupation_skill_points":
+            specialization = random.choice(list(skill_dict.keys()))
+            specialization_points = random.choice([70, 75, 80])
+            if max(skill_dict.values()) < specialization_points:
+                if skill_dict[specialization] > specialization_points:
+                    specialization = random.choice(list(skill_dict.keys()))
+                if base_skill_points < specialization_points:
+                    skill_dict[specialization] = skill_dict[specialization] + base_skill_points
+                    return skill_dict
+                up_to_specialization = (specialization_points - skill_dict[specialization] % specialization_points)
+                skill_dict[specialization] = skill_dict[specialization] + up_to_specialization
+                base_skill_points = base_skill_points - up_to_specialization
 
         # up to five skill points
         for key in skill_dict:
@@ -358,28 +359,28 @@ class RandomCalculator:
             up_to_five = 5 - current_points % 5
             if up_to_five == 5:
                 continue
-            if occupation_skill_points - up_to_five < 0:
-                current_points = current_points + occupation_skill_points
+            if base_skill_points - up_to_five < 0:
+                current_points = current_points + base_skill_points
                 skill_dict[key] = current_points
                 return skill_dict
-            occupation_skill_points = occupation_skill_points - up_to_five
+            base_skill_points = base_skill_points - up_to_five
             skill_dict[key] = current_points + up_to_five
 
-        while occupation_skill_points >= 5:
+        while base_skill_points >= 5:
             skill = random.choice(list(skill_dict.keys()))
             if skill_dict[skill] == 99:
                 continue
             elif 99 > skill_dict[skill] >= 95:
-                occupation_skill_points -= (99 - skill_dict[skill])
+                base_skill_points -= (99 - skill_dict[skill])
                 skill_dict[skill] = 99
             elif skill_dict[skill] < 95:
                 skill_dict[skill] = skill_dict[skill] + 5
-                occupation_skill_points -= 5
+                base_skill_points -= 5
 
-        if occupation_skill_points > 0:
+        if base_skill_points > 0:
             the_lowest_point_value = min(list(skill_dict.values()))
             skill_with_the_lowest_point_value = [key for key in skill_dict if skill_dict[key] == the_lowest_point_value][0]
-            skill_dict[skill_with_the_lowest_point_value] = skill_dict[skill_with_the_lowest_point_value] + occupation_skill_points
+            skill_dict[skill_with_the_lowest_point_value] = skill_dict[skill_with_the_lowest_point_value] + base_skill_points
 
         return skill_dict
 

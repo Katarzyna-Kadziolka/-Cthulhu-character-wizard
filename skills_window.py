@@ -80,13 +80,13 @@ class SkillsWindow(BaseWindow):
         entry_for_skill.bind('<FocusOut>', self.check_if_value_is_single_number)
 
         # frame_4
-        self.add_new_skill_button = Button(self.frame_4, text="+", width=50, command=self.add_new_skill).grid(row=0, column=0, columnspan=2, pady=10, padx=10)
+        self.add_new_skill_button = Button(self.frame_4, text="+", width=50, command=lambda: self.add_new_skill(self.all_skill_list[0], None)).grid(row=0, column=0, columnspan=2, pady=10, padx=10)
         btn_next_window = Button(self.frame_4, text="Dalej", width=10, command=self.next_window).grid(row=1, column=1, pady=20, padx=50, stick=E)
         btn_previous_window = Button(self.frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=1, column=0, pady=20, padx=50, stick=W)
         btn_random = Button(self.frame_4, text="Random", width=20, command=self.random_button_click).grid(row=2, column=0, columnspan=2, pady=5)
         btn_reset = Button(self.frame_4, text="Reset", width=20, command=self.reset_skills_points).grid(row=3, column=0, columnspan=2, pady=5)
 
-    def add_new_skill(self):
+    def add_new_skill(self, skill_set_in_combobox, points_insert_entry):
         self.row_number = self.row_number + 1
 
         sv_skill = StringVar()
@@ -98,20 +98,21 @@ class SkillsWindow(BaseWindow):
 
 
         combobox_clicked = StringVar()
-
         skills_combobox = Combobox(self.frame_3, textvariable=combobox_clicked, width=30)
-
         comboboxes_values = [combobox_value.get() for index, combobox_value in self.combobox_dict.items()]
-        self.all_skill_list = [skill for skill in self.all_skill_list if skill not in comboboxes_values]
-
-        skills_combobox['values'] = self.all_skill_list
+        if skill_set_in_combobox == self.all_skill_list[0]:
+            self.all_skill_list = [skill for skill in self.all_skill_list if skill not in comboboxes_values]
+            skills_combobox['values'] = self.all_skill_list
+            skill_set_in_combobox = self.all_skill_list[0]
         skills_combobox.grid(row=self.row_number, column=0)
-        combobox_clicked.set(self.all_skill_list[0])
+        combobox_clicked.set(skill_set_in_combobox)
         combobox_clicked.trace("w", lambda _, __, ___, sv=combobox_clicked: self.helper.update_combobox(combobox_clicked, combobox_index, self.combobox_dict, "intelligence_skill_points", self.entry_list))
         self.combobox_dict[combobox_index] = skills_combobox
 
-        min_skill_points = self.get_minimal_skill_points(self.entry_list.index(entry_for_skill))
-        entry_for_skill.insert(0, f"{min_skill_points:02d}")
+        if skill_set_in_combobox == self.all_skill_list[0]:
+            points_insert_entry = self.get_minimal_skill_points(combobox_index)
+
+        entry_for_skill.insert(0, f"{points_insert_entry:02d}")
         entry_for_skill.bind('<FocusOut>', self.check_if_value_is_single_number)
         self.root.geometry(f"400x{500+self.row_number}")
 
@@ -147,7 +148,15 @@ class SkillsWindow(BaseWindow):
         occupation_skills_window.OccupationSkillsWindow(self.root)
 
     def random_button_click(self):
-        pass
+        skills_dict = self.random_skills_points.random_personal_skills_points(int(self.entry_available_personal_skill_points.get()))
+        for skill_enum, skill_points in skills_dict.items():
+            skill_pl = self.translator.get_translation_for_skill(skill_enum)
+            if int(self.entry_list[0].get()) == self.get_minimal_skill_points(0):
+                self.combobox_dict[0].set(skill_pl)
+                self.entry_list[0].insert(0, skill_points)
+            else:
+                self.add_new_skill(skill_pl, skill_points)
+
 
     def reset_skills_points(self):
         self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points")
