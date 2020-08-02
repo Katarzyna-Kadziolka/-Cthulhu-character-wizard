@@ -291,6 +291,8 @@ class Translator:
             skill = Translator.pilot[enum]
         elif type(enum) == Survival:
             skill = Translator.survival[enum]
+        elif type(enum) == Occupation:
+            skill = Translator.occupations[enum]
 
         return skill
 

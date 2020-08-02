@@ -5,6 +5,7 @@ import comboboxes_entries_helper
 import occupation_skills_window
 import random_skills_points
 import skills_info
+import summary_window
 import translator
 from base_window import BaseWindow
 from tkinter import *
@@ -141,6 +142,8 @@ class SkillsWindow(BaseWindow):
 
     def next_window(self):
         self.helper.save_data(self.entry_list, self.combobox_dict, self.label_dict)
+        self.frame.destroy()
+        summary_window.SummaryWindow(self.root)
 
 
     def previous_window(self):
