@@ -47,7 +47,7 @@ class PersonalDataWindow(BaseWindow):
                                                                               sticky=W + E + N + S)
         self.radio = Radiobutton(self.frame, text="K", variable=self.radio_var, value="female").grid(row=3, column=2, pady=5, sticky=W)
 
-        btn_third_window = Button(self.frame, text="Dalej", width=10, command=self.next_window)\
+        btn_third_window = Button(self.frame, text="Dalej", width=10, state=DISABLED, command=self.next_window)\
             .grid(row=4, column=2,pady=20, stick=E)
         btn_back = Button(self.frame, text="Cofnij", width=10, command=self.previous_window)\
             .grid(row=4, column=0, pady=20, stick=W)

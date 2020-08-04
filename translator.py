@@ -77,7 +77,7 @@ class Translator:
     arts_crafts = {
         ArtCraft.ACTING: "Sztuka/Rzemiosło: Aktorstwo",
         ArtCraft.BARBER: "Sztuka/Rzemiosło: Fryzjerstwo",
-        ArtCraft.CARPENTRY: "Sztuka/Rzemiosło: Stolarstwo",
+        ArtCraft.CARPENTRY: "Sztuka/Rzemiosło: Cieślarstwo",
         ArtCraft.COBBLER: "Sztuka/Rzemiosło: Szewctwo",
         ArtCraft.COOK: "Sztuka/Rzemiosło: Gotowanie",
         ArtCraft.DANCER: "Sztuka/Rzemiosło: Taniec",

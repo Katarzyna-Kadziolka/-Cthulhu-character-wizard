@@ -13,14 +13,9 @@ class HomeWindow(BaseWindow):
         self.create_content()
 
     def create_content(self):
-        btn_second_window = Button(self.frame, text="Stwórz postać krok po kroku",
-                                   command=self.next_window) \
-            .grid(row=0, column=0, pady=2, sticky=W + E + N + S)
-        btn_random_charackter = Button(self.frame, text="Wygeneruj losową postać", command=None).grid(row=1, column=0,
-                                                                                                      pady=2,
-                                                                                                      stick=W + E + N + S)
-        btn_close = Button(self.frame, text="Zamknij", command=self.close_program) \
-            .grid(row=2, column=0, pady=2, stick=W + E + N + S)
+        btn_second_window = Button(self.frame, text="Stwórz postać krok po kroku",command=self.next_window).grid(row=0, column=0, pady=2, sticky=W + E + N + S)
+        btn_random_charackter = Button(self.frame, text="Wygeneruj losową postać", command=None).grid(row=1, column=0, pady=2, stick=W + E + N + S)
+        btn_close = Button(self.frame, text="Zamknij", command=self.close_program).grid(row=2, column=0, pady=2, stick=W + E + N + S)
 
     def close_program(self):
         answer = messagebox.askyesno(title="Zamknij", message="Czy na pewno zamknac?")

@@ -27,7 +27,20 @@ class RandomCalculator:
         return random.choice(self.database.get_surname_list())
 
     def get_age(self):
-        return random.randint(15, 100)
+        age_range = []
+        for num in range(15, 90):
+            if num <= 20:
+                age_range.append(num)
+            elif 21 <= num <=35:
+                for i in range(1, 13):
+                    age_range.append(num)
+            elif 36 <= num <= 60:
+                for i in range(1, 7):
+                    age_range.append(num)
+            elif num >= 61:
+                age_range.append(num)
+
+        return int(random.choice(age_range))
 
 #abilities_window
     def half_value (self, num):
@@ -368,12 +381,9 @@ class RandomCalculator:
 
         while base_skill_points >= 5:
             skill = random.choice(list(skill_dict.keys()))
-            if skill_dict[skill] == 99:
+            if skill_dict[skill] == 90:
                 continue
-            elif 99 > skill_dict[skill] >= 95:
-                base_skill_points -= (99 - skill_dict[skill])
-                skill_dict[skill] = 99
-            elif skill_dict[skill] < 95:
+            elif skill_dict[skill] < 90:
                 skill_dict[skill] = skill_dict[skill] + 5
                 base_skill_points -= 5
 
@@ -383,6 +393,12 @@ class RandomCalculator:
             skill_dict[skill_with_the_lowest_point_value] = skill_dict[skill_with_the_lowest_point_value] + base_skill_points
 
         return skill_dict
+
+    #summary_window
+    def get_sanity_corrected_by_mythos(self, sanity_points, cthulhu_mythos_value):
+        sanity_points = sanity_points - cthulhu_mythos_value
+        return sanity_points
+
 
 
 

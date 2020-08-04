@@ -11,10 +11,10 @@ class BaseWindow:
         self.frame.destroy()
         window.create_content()
 
-    def create_content(self):
-        pass
-
     def set_text(self, entry, text):
         entry.delete(0, END)
         entry.insert(0, text)
 
+    def check_fill_entry(self, button, entry):
+        pass
+    #TODO zablokować możliwość dawania DALEJ bez wartości

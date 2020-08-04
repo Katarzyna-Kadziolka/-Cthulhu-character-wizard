@@ -1,10 +1,14 @@
+import math
 from tkinter import *
 
 import random_calculator
 import skills_info
+import skills_window
 import translator
 from Enums.ability import Ability
+from Enums.skill import Skill
 from base_window import BaseWindow
+import home_window
 from data import Data
 
 class SummaryWindow(BaseWindow):
@@ -16,22 +20,21 @@ class SummaryWindow(BaseWindow):
         self.creat_content()
 
     def creat_content(self):
+        self.root.geometry("")
         self.frame = Label(self.root)
-        self.frame.place(relx=0.5, rely=0.4, anchor=CENTER)
+        self.frame.pack(fill="both", expand=True)
 
         frame_1 = Label(self.frame)
-        frame_2 = Label(self.frame)
+        frame_2 = Label(self.frame, width=40)
         frame_3 = Label(self.frame)
-        frame_4 = Label(self.frame)
+        self.frame_4 = Label(self.frame)
         frame_5 = Label(self.frame)
-        frame_6 = Label(self.frame)
 
         frame_1.grid(row=0, column=0)
         frame_2.grid(row=1, column=0)
         frame_3.grid(row=2, column=0)
-        frame_4.grid(row=3, column=0)
+        self.frame_4.grid(row=3, column=0)
         frame_5.grid(row=4, column=0)
-        frame_6.grid(row=5, column=0)
 
         # frame_1
         label_title = Label(frame_1, text="Dane Badacza", font=("Helvetica", 16)).grid(row=0, column=0)
@@ -47,7 +50,7 @@ class SummaryWindow(BaseWindow):
         age = Data.data["age"]
         occupation = self.translator.get_translation_for_skill(Data.data["occupation"])
 
-        label_name = Label(frame_2, text=f"Imię i Nazwisko: {first_name} {last_name}").grid(row=0, column=0)
+        label_name = Label(frame_2, text=f"{first_name} {last_name}", font=("Helvetica", 12)).grid(row=0, column=0)
         label_gender = Label(frame_2, text=f"Płeć: {gender}").grid(row=1, column=0)
         label_age = Label(frame_2, text=f"Wiek: {age}").grid(row=2, column=0)
         label_occupation = Label(frame_2, text=f"Zawód: {occupation}").grid(row=3, column=0)
@@ -74,15 +77,19 @@ class SummaryWindow(BaseWindow):
 
         move_rate_points = Data.data[Ability.MOVE_RATE]
         hp_points = Data.data[Ability.HP]
-        sanity_points = Data.data[Ability.SANITY]
         luck_points = Data.data[Ability.LUCK]
         magic_points = Data.data[Ability.MAGIC_POINTS]
         damage_bonus_points = Data.data[Ability.DAMAGE_BONUS]
         build_points = Data.data[Ability.BUILD]
+        sanity_points = Data.data[Ability.SANITY]
+        try:
+            cthulhu_mythos = Data.data[Skill.CTHULHU_MYTHOS]
+            sanity_points = self.random_calculator.get_sanity_corrected_by_mythos(sanity_points, cthulhu_mythos)
+        except:
+            pass
 
         label_move_rate = Label(frame_3, text=f"Szybkość: {move_rate_points}").grid(row=1, column=1, stick=W)
         label_hp = Label(frame_3, text=f"Wytrzymałość: {hp_points}").grid(row=2, column=1, stick=W)
-        #TODO sanity zależy od mitów cthulhu
         label_sanity = Label(frame_3, text=f"Poczytalność: {sanity_points}").grid(row=3, column=1, stick=W)
         label_luck = Label(frame_3, text=f"Szczęście: {luck_points}").grid(row=4, column=1, stick=W)
         label_magic_points = Label(frame_3, text=f"Punkty Magii: {magic_points}").grid(row=5, column=1, stick=W)
@@ -90,6 +97,34 @@ class SummaryWindow(BaseWindow):
         label_build = Label(frame_3, text=f"Postura: {build_points}").grid(row=7, column=1, stick=W)
 
         #frame_4
-        label_character_traits_title = Label(frame_4, text="Umiejętności Badacza", font=("Helvetica", 12)).grid(row=0, column=0, columnspan=2, pady=10)
-        all_skills_list = skills_info.SkillsInfo.get_all_skills_list()
-        skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum)]
+        label_character_traits_title = Label(self.frame_4, text="Umiejętności Badacza", font=("Helvetica", 12)).grid(row=0, column=0, columnspan=2, pady=10)
+        self.create_labels()
+
+        #frame_5
+        btn_next_window = Button(frame_5, text="Zakończ", width=40, command=self.next_window).grid(row=1, column=1, pady=20, padx=50)
+
+
+    def create_labels(self):
+        skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum) and type(key) != Ability]
+        half_skill_number = math.ceil(len(skills_from_data)/2)
+        skills_dict = {}
+        row_number = 1
+        for skill in skills_from_data:
+            skills_dict[skill] = Data.data[skill]
+        for skill_enum, skill_points in skills_dict.items():
+            skill_pl = self.translator.get_translation_for_skill(skill_enum)
+            skill_label = Label(self.frame_4, text=f"{skill_pl}: {skill_points} ({self.random_calculator.half_value(int(skill_points))}/{self.random_calculator.one_fifth(int(skill_points))})")
+            if row_number <= half_skill_number:
+                skill_label.grid(row=row_number, column=0, stick=W, padx=15)
+            else:
+                skill_label.grid(row=row_number-half_skill_number, column=1, stick=W)
+            row_number += 1
+
+    def next_window(self):
+        Data.data.clear()
+        self.frame.destroy()
+        self.root.geometry("400x500")
+        home_window.HomeWindow(self.root)
+
+
+
