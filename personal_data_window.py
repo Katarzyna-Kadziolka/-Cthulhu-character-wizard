@@ -12,6 +12,7 @@ class PersonalDataWindow(BaseWindow):
 
     def __init__(self, root):
         super().__init__(root)
+        self.entry_list = []
         self.create_content()
         self.database = Database()
         self.calculator = RandomCalculator()
@@ -21,11 +22,11 @@ class PersonalDataWindow(BaseWindow):
         self.frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         sv_f_name = StringVar()
-        sv_f_name.trace("w", lambda name, index, mode, sv=sv_f_name: Data.save_data(sv, "first_name"))
+        sv_f_name.trace("w", lambda name, index, mode, sv=sv_f_name: self.entry_changed(sv, "first_name"))
         sv_l_name = StringVar()
-        sv_l_name.trace("w", lambda name, index, mode, sv=sv_l_name: Data.save_data(sv, "last_name"))
+        sv_l_name.trace("w", lambda name, index, mode, sv=sv_l_name: self.entry_changed(sv, "last_name"))
         sv_age = StringVar()
-        sv_age.trace("w", lambda name, index, mode, sv=sv_age: Data.save_data(sv, "age"))
+        sv_age.trace("w", lambda name, index, mode, sv=sv_age: self.entry_changed(sv, "age"))
 
         label_f_name = Label(self.frame, text="Imię:").grid(row=0, column=0, stick=E)
         label_l_name = Label(self.frame, text="Nazwisko:").grid(row=1, column=0, stick=E)
@@ -40,6 +41,10 @@ class PersonalDataWindow(BaseWindow):
         self.e_l_name.grid(row=1, column=1, columnspan=2, padx=10)
         self.e_age.grid(row=2, column=1, columnspan=2, padx=10)
 
+        self.entry_list.append(self.e_f_name)
+        self.entry_list.append(self.e_l_name)
+        self.entry_list.append(self.e_age)
+
         self.radio_var = StringVar()
         self.radio_var.trace("w", lambda name, index, mode, sv=self.radio_var: Data.save_data(sv, "gender"))
         self.radio_var.set("female")
@@ -47,13 +52,25 @@ class PersonalDataWindow(BaseWindow):
                                                                               sticky=W + E + N + S)
         self.radio = Radiobutton(self.frame, text="K", variable=self.radio_var, value="female").grid(row=3, column=2, pady=5, sticky=W)
 
-        btn_third_window = Button(self.frame, text="Dalej", width=10, state=DISABLED, command=self.next_window)\
-            .grid(row=4, column=2,pady=20, stick=E)
+        self.btn_third_window = Button(self.frame, text="Dalej", width=10, state=DISABLED, command=self.next_window)
+        self.btn_third_window.grid(row=4, column=2,pady=20, stick=E)
         btn_back = Button(self.frame, text="Cofnij", width=10, command=self.previous_window)\
             .grid(row=4, column=0, pady=20, stick=W)
         btn_random_names = Button(self.frame, text="Random", command=lambda: self.set_random_personal_data())\
             .grid(row=5, column=0, columnspan=3, pady=5, stick=W + E + N + S)
-     
+
+    def entry_changed(self, sv, name):
+        Data.save_data(sv, name)
+        self.check_fill_entry(self.btn_third_window, self.entry_list)
+        if sv.get() == self.e_age.get():
+            self.is_number(sv)
+
+    def is_number(self, sv):
+        try:
+            int(sv.get())
+        except ValueError:
+            self.btn_third_window.config(state=DISABLED)
+
     def next_window(self):
         self.frame.destroy()
         AbilitiesWindow(self.root)

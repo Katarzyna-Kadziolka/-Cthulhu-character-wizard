@@ -61,18 +61,20 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_available_occupation_skill_points = Entry(frame_2, textvariable=occupation_skill_points, width=5)
         self.entry_available_occupation_skill_points.grid(row=0, column=1)
         self.entry_available_occupation_skill_points.insert(0, Data.data["occupation_skill_points"])
-        occupation_skill_points.trace("w", lambda _, __, ___, sv=occupation_skill_points: self.helper.check_personal_skill_points(self.entry_available_occupation_skill_points, occupation_skill_points.get(), self.entry_list))
-        self.entry_available_occupation_skill_points.config(state="disabled")
 
         #frame_3
         self.translator = translator.Translator()
         self.create_skills_labels_and_entries(frame_3)
 
         #frame_4
-        btn_next_window = Button(frame_4, text="Dalej", width=10, command=self.next_window).grid(row=0, column=1, pady=20, padx=50, stick=E)
+        self.btn_next_window = Button(frame_4, text="Dalej", width=10, command=self.next_window, state=DISABLED)
+        self.btn_next_window.grid(row=0, column=1, pady=20, padx=50, stick=E)
         btn_previous_window = Button(frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=0, column=0, pady=20, padx=50, stick=W)
         btn_random = Button(frame_4, text="Random", width=20, command=self.random_button_click).grid(row=1, column=0, columnspan=2, pady=5)
         btn_reset = Button(frame_4, text="Reset", width=20, command=self.reset_skills_points).grid(row=2, column=0, columnspan=2, pady=5)
+
+        occupation_skill_points.trace("w", lambda _, __, ___, sv=occupation_skill_points: self.helper.check_base_skill_points(self.entry_available_occupation_skill_points, occupation_skill_points.get(), self.entry_list, self.btn_next_window))
+        self.entry_available_occupation_skill_points.config(state="disabled")
 
 
     def create_combobox_pair_for_enum(self, enum,  index, frame):
@@ -112,8 +114,6 @@ class OccupationSkillsWindow(BaseWindow):
 
             elif "Dowolna umiejętność" in skill:
                 all_skills_enums_list = skills_info.SkillsInfo.get_all_skills_list()
-                if Data.data["occupation"] == Occupation.OCCULTIST:
-                    all_skills_enums_list.append(Skill.CTHULHU_MYTHOS)
                 all_skills_names_pl = [self.translator.get_translation_for_skill(skill) for skill in all_skills_enums_list]
                 all_skills_names_pl.sort()
                 entry = self.create_entry(frame, index, all_skills_names_pl[0])
@@ -209,13 +209,16 @@ class OccupationSkillsWindow(BaseWindow):
         return entry_skill_points
 
     def reset_skills_points(self):
-        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points")
+        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points", self.btn_next_window)
 
     def set_random_skills_from_comboboxes(self):
         for key in self.combobox_dict:
             combobox = self.combobox_dict[key]
-            skill_list = combobox['values']
+            combobox.set(combobox['values'][0])
+            skill_list = list(combobox['values'])
             skill = random.choice(skill_list)
+            while skill == "Mity Cthulhu":
+                skill = random.choice(skill_list)
             combobox.set(skill)
 
     def random_button_click(self):

@@ -3,6 +3,7 @@ from tkinter import *
 import comboboxes_entries_helper
 import random_calculator
 import skills_info
+from Enums.skill import Skill
 from data import Data
 
 
@@ -11,8 +12,8 @@ class RandomSkillsPoints:
         self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
         self.calculator = random_calculator.RandomCalculator()
 
-    def reset_skills_points(self, entry_list, entry_base_skill_points, combobox_dict, label_dict, type_base_points):
-
+    def reset_skills_points(self, entry_list, entry_base_skill_points, combobox_dict, label_dict, type_base_points, button):
+        button.config(state=DISABLED)
         for index, entry in enumerate(entry_list):
             skill_enum = self.helper.get_skill_enum_from_label_or_combobox(index, combobox_dict, label_dict)
             skill_min_points = self.helper.get_min_skill_points(skill_enum, type_base_points)
@@ -47,6 +48,7 @@ class RandomSkillsPoints:
         all_skills_list = skills_info.SkillsInfo.get_all_skills_list()
         skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum)]
         all_skills_list = [skill for skill in all_skills_list if skill not in skills_from_data]
+        all_skills_list.remove(Skill.CTHULHU_MYTHOS)
         random_number_of_skills = random.randint(3, 5)
         skills_list = []
         skills_dict = {}

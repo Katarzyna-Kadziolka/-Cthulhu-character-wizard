@@ -155,7 +155,6 @@ class SkillsInfo():
         all_skills_list.remove(Skill.SCIENCE)
         all_skills_list.remove(Skill.PILOT)
         all_skills_list.remove(Skill.SURVIVAL)
-        all_skills_list.remove(Skill.CTHULHU_MYTHOS)
 
         return all_skills_list
 

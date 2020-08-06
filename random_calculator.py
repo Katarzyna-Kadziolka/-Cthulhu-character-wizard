@@ -3,6 +3,8 @@ import random
 import re
 
 from Enums.ability import Ability
+from Enums.skill import Skill
+from data import Data
 
 from database import Database
 
@@ -381,6 +383,14 @@ class RandomCalculator:
 
         while base_skill_points >= 5:
             skill = random.choice(list(skill_dict.keys()))
+            if skill == Skill.CTHULHU_MYTHOS:
+                sanity_points = Data.data[Ability.SANITY]
+                if sanity_points > skill_dict[skill] + 5:
+                    skill_dict[skill] = skill_dict[skill] + 5
+                    base_skill_points -= 5
+                else:
+                    continue
+
             if skill_dict[skill] == 90:
                 continue
             elif skill_dict[skill] < 90:

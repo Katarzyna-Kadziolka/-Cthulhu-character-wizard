@@ -13,6 +13,7 @@ class AbilitiesWindow(BaseWindow):
 
     def __init__(self, root):
         super().__init__(root)
+        self.entry_list = []
         self.create_content()
         self.calculator = RandomCalculator()
 
@@ -74,6 +75,10 @@ class AbilitiesWindow(BaseWindow):
         e_condition.grid(row=1, column=1)
         e_dexterity.grid(row=2, column=1)
 
+        self.entry_list.append(e_strength)
+        self.entry_list.append(e_condition)
+        self.entry_list.append(e_dexterity)
+
         e_half_strength = Entry(frame_1, width=4, state=DISABLED)
         e_half_condition = Entry(frame_1, width=4, state=DISABLED)
         e_half_dexterity = Entry(frame_1, width=4, state=DISABLED)
@@ -99,6 +104,9 @@ class AbilitiesWindow(BaseWindow):
 
         e_appearance.grid(row=0, column=1)
         e_power.grid(row=1, column=1)
+
+        self.entry_list.append(e_appearance)
+        self.entry_list.append(e_power)
 
         e_half_appearance = Entry(frame_2, width=4, state=DISABLED)
         e_half_power = Entry(frame_2, width=4, state=DISABLED)
@@ -128,6 +136,11 @@ class AbilitiesWindow(BaseWindow):
         e_intelligence.grid(row=2, column=1)
         e_education.grid(row=1, column=5)
         e_luck.grid(row=2, column=5)
+
+        self.entry_list.append(e_size)
+        self.entry_list.append(e_intelligence)
+        self.entry_list.append(e_education)
+        self.entry_list.append(e_luck)
 
 
         e_half_size = Entry(frame_3, width=4, state=DISABLED)
@@ -163,8 +176,8 @@ class AbilitiesWindow(BaseWindow):
         }
 
         # frame_4
-        btn_fourth_window = Button(frame_4, text="Dalej", width=10, command=self.next_window).grid(
-            row=0, column=1, pady=20, padx=50, stick=E)
+        self.btn_fourth_window = Button(frame_4, text="Dalej", width=10, command=self.next_window, state=DISABLED)
+        self.btn_fourth_window.grid(row=0, column=1, pady=20, padx=50, stick=E)
         btn_back_window_2 = Button(frame_4, text="Cofnij", width=10, command=self.previous_window).grid(
             row=0, column=0, pady=20, padx=50, stick=W)
         btn_random_values_window_3 = Button(frame_4, text="Random", width=20, command=lambda: self.random_button_click(entry_abilities)).grid(row=1, column=0, columnspan=2, pady=5)
@@ -197,5 +210,8 @@ class AbilitiesWindow(BaseWindow):
 
         e_half.config(state=DISABLED)
         e_one_fifth.config(state=DISABLED)
+
+        self.check_fill_entry(self.btn_fourth_window, self.entry_list)
+
 
 

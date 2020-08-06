@@ -52,8 +52,6 @@ class SkillsWindow(BaseWindow):
         self.entry_available_personal_skill_points = Entry(self.frame_2, textvariable=personal_skill_points, width=5)
         self.entry_available_personal_skill_points.grid(row=0, column=1)
         self.entry_available_personal_skill_points.insert(0, Data.data["intelligence_skill_points"])
-        personal_skill_points.trace("w", lambda _, __, ___, sv=personal_skill_points: self.helper.check_personal_skill_points(self.entry_available_personal_skill_points, personal_skill_points.get(), self.entry_list))
-        self.entry_available_personal_skill_points.config(state="disabled")
 
         # frame_3
         self.all_skill_list = skills_info.SkillsInfo.get_all_skills_list()
@@ -82,10 +80,14 @@ class SkillsWindow(BaseWindow):
 
         # frame_4
         self.add_new_skill_button = Button(self.frame_4, text="+", width=50, command=lambda: self.add_new_skill(self.all_skill_list[0], None)).grid(row=0, column=0, columnspan=2, pady=10, padx=10)
-        btn_next_window = Button(self.frame_4, text="Dalej", width=10, command=self.next_window).grid(row=1, column=1, pady=20, padx=50, stick=E)
+        self.btn_next_window = Button(self.frame_4, text="Dalej", width=10, command=self.next_window, state=DISABLED)
+        self.btn_next_window.grid(row=1, column=1, pady=20, padx=50, stick=E)
         btn_previous_window = Button(self.frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=1, column=0, pady=20, padx=50, stick=W)
         btn_random = Button(self.frame_4, text="Random", width=20, command=self.random_button_click).grid(row=2, column=0, columnspan=2, pady=5)
         btn_reset = Button(self.frame_4, text="Reset", width=20, command=self.reset_skills_points).grid(row=3, column=0, columnspan=2, pady=5)
+
+        personal_skill_points.trace("w", lambda _, __, ___, sv=personal_skill_points: self.helper.check_base_skill_points(self.entry_available_personal_skill_points, personal_skill_points.get(),self.entry_list, self.btn_next_window))
+        self.entry_available_personal_skill_points.config(state="disabled")
 
     def add_new_skill(self, skill_set_in_combobox, points_insert_entry):
         self.row_number = self.row_number + 1
@@ -162,7 +164,7 @@ class SkillsWindow(BaseWindow):
 
 
     def reset_skills_points(self):
-        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points")
+        self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points", self.btn_next_window)
         self.root.geometry("400x500")
 
 

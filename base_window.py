@@ -1,4 +1,5 @@
 from tkinter import Frame, END
+from tkinter import *
 
 
 class BaseWindow:
@@ -15,6 +16,10 @@ class BaseWindow:
         entry.delete(0, END)
         entry.insert(0, text)
 
-    def check_fill_entry(self, button, entry):
-        pass
-    #TODO zablokować możliwość dawania DALEJ bez wartości
+    def check_fill_entry(self, button, entry_list):
+        for entry in entry_list:
+            if not entry.get():
+                button.config(state=DISABLED)
+                break
+            else:
+                button.config(state=NORMAL)

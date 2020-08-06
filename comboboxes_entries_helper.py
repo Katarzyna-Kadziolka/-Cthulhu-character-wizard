@@ -4,6 +4,8 @@ from tkinter.ttk import Combobox
 
 import skills_info
 import translator
+from Enums.ability import Ability
+from Enums.skill import Skill
 from data import Data
 
 
@@ -15,12 +17,12 @@ class ComboboxesEntriesHelper:
         self.translator = translator.Translator()
 
 
-    def check_personal_skill_points(self, points_entry, skill_points, entry_list):
-        points_entry.config(state="normal")
-        if skill_points == '':
+    def check_base_skill_points(self, base_points_entry, base_skill_points, entry_list, button):
+        base_points_entry.config(state="normal")
+        if base_skill_points == '':
             return
 
-        elif int(skill_points) < 0:
+        elif int(base_skill_points) < 0:
             entries_values_list = []
             for entry in entry_list:
                 entries_values_list.append(int(entry.get()))
@@ -31,27 +33,29 @@ class ComboboxesEntriesHelper:
             entries_with_the_biggest_value = [entry for entry in entry_list if int(entry.get()) == max_value]
             entry_value = int(entries_with_the_biggest_value[0].get())
             entries_with_the_biggest_value[0].delete(0, END)
-            entries_with_the_biggest_value[0].insert(0, entry_value + int(skill_points))
-            points_entry.delete(0, END)
-            points_entry.insert(0, "0")
+            entries_with_the_biggest_value[0].insert(0, entry_value + int(base_skill_points))
+            base_points_entry.delete(0, END)
+            base_points_entry.insert(0, "0")
 
             for entry in entry_list:
                 entry.configure(state="disabled")
-            points_entry.config(state="disabled")
+            base_points_entry.config(state="disabled")
+            button.config(state=NORMAL)
 
-        elif int(skill_points) == 0:
+        elif int(base_skill_points) == 0:
             for entry in entry_list:
                 entry.configure(state="disabled")
-            points_entry.config(state="disabled")
+            base_points_entry.config(state="disabled")
+            button.config(state=NORMAL)
 
-        elif int(skill_points) > 0:
-            points_entry.config(state="normal")
+        elif int(base_skill_points) > 0:
+            base_points_entry.config(state="normal")
             for entry in entry_list:
                 entry.configure(state="normal")
 
-        points_entry.config(state="disabled")
+        base_points_entry.config(state="disabled")
 
-        return points_entry
+        return base_points_entry
 
 
     def update_any_skill_list(self, skill, index, combobox_dict):
@@ -122,6 +126,11 @@ class ComboboxesEntriesHelper:
 
         if len(sv.get()) < 2:
             return
+
+        if skill_enum == Skill.CTHULHU_MYTHOS:
+            sanity_points = Data.data[Ability.SANITY]
+            if sanity_points < int(sv.get()):
+                sv.set(sanity_points-1)
 
         if int(sv.get()) < min_skill_points:
             sv.set(f"{min_skill_points:02d}")
