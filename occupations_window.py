@@ -34,6 +34,7 @@ class OccupationsWindow(BaseWindow):
 
         info = occupation_info_extractor.get_infos()
         self.occupation_names_pl = [i.occupation_pl for i in info]
+        self.occupation_names_pl.sort()
 
 
         for i in self.occupation_names_pl:

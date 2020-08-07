@@ -96,7 +96,7 @@ class OccupationSkillsWindow(BaseWindow):
 
         self.combobox_dict = {}
 
-        skills_list = self.skill_formater.get_occupation_skills()
+        skills_list = self.skill_formater.get_occupation_skills_pl()
         skills_list.append("Majętność")
         for index, skill in enumerate(skills_list):
             if "lub" in skill:

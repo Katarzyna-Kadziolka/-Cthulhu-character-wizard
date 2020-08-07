@@ -35,13 +35,13 @@ class RandomCalculator:
         for num in range(15, 90):
             if num <= 20:
                 age_range.append(num)
-            elif 21 <= num <=35:
+            elif 21 <= num <= 35:
                 for i in range(1, 13):
                     age_range.append(num)
-            elif 36 <= num <= 60:
+            elif 36 <= num <= 50:
                 for i in range(1, 7):
                     age_range.append(num)
-            elif num >= 61:
+            elif num >= 51:
                 age_range.append(num)
 
         return int(random.choice(age_range))
@@ -386,9 +386,8 @@ class RandomCalculator:
             skill_dict[key] = current_points + up_to_five
 
         #credit_rating_min
-        credit_rating_min = int(credit_rating_min)
-        credit_rating_max = int(credit_rating_max)
         if type_base_points == "occupation_skill_points":
+            credit_rating_min = int(credit_rating_min)
             if base_skill_points >= credit_rating_min:
                 skill_dict[Skill.CREDIT_RATING] = credit_rating_min
                 base_skill_points = base_skill_points - credit_rating_min
@@ -406,6 +405,7 @@ class RandomCalculator:
                 else:
                     continue
             if type_base_points == "occupation_skill_points":
+                credit_rating_max = int(credit_rating_max)
                 if skill == Skill.CREDIT_RATING:
                     if skill_dict[skill] + 5 <= credit_rating_max:
                         skill_dict[skill] = skill_dict[skill] + 5
@@ -435,11 +435,12 @@ class RandomCalculator:
         all_skills_list = skills_info.SkillsInfo.get_all_skills_list()
         skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum)]
         all_skills_list = [skill for skill in all_skills_list if skill not in skills_from_data]
-        all_skills_list.remove(Skill.CTHULHU_MYTHOS)
+        if Skill.CTHULHU_MYTHOS in all_skills_list:
+            all_skills_list.remove(Skill.CTHULHU_MYTHOS)
         random_number_of_skills = random.randint(3, 5)
         skills_list = []
         skills_dict = {}
-        for n in range(1, random_number_of_skills):
+        for n in range(1, random_number_of_skills + 1):
             skill_enum = random.choice(all_skills_list)
             skills_list.append(skill_enum)
             all_skills_list.remove(skill_enum)

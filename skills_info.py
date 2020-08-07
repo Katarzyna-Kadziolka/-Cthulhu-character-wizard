@@ -168,3 +168,43 @@ class SkillsInfo():
             minimal_value = calculator.half_value(Data.data[Ability.DEXTERITY])
         return minimal_value
 
+    @staticmethod
+    def extend_skill_list(big_skill_list):
+        new_skill_list = []
+        for skill_list in big_skill_list:
+            if skill_list == []:
+                continue
+            skill_list_to_add = skill_list
+            for skill in skill_list.copy():
+                if skill == Skill.ART_CRAFT:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, ArtCraft, Skill.ART_CRAFT)
+                elif skill == Skill.OTHER_LANGUAGE:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Language, Skill.OTHER_LANGUAGE)
+                elif skill == Skill.FIGHTING:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Fighting, Skill.FIGHTING)
+                elif skill == Skill.FIREARMS:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Firearm, Skill.FIREARMS)
+                elif skill == Skill.SCIENCE:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Science, Skill.SCIENCE)
+                elif skill == Skill.PILOT:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Pilot, Skill.PILOT)
+                elif skill == Skill.SURVIVAL:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, Survival, Skill.SURVIVAL)
+                elif skill == Skill.UNCOMMON_SKILL:
+                    skill_list_to_add = SkillsInfo.add_custom_skill(skill_list_to_add, UncommonSkill, Skill.UNCOMMON_SKILL)
+
+            new_skill_list.append(skill_list_to_add)
+
+        return new_skill_list
+
+    @staticmethod
+    def add_custom_skill(skill_list_to_add, enum_type, skill_type_enum):
+        skill_list_to_add.extend([enum for skill, enum in enum_type.__members__.items()])
+        skill_list_to_add.remove(skill_type_enum)
+        return skill_list_to_add
+
+
+
+
+
+

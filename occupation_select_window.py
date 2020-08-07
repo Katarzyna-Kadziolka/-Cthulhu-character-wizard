@@ -50,7 +50,7 @@ class OccupationSelectWindow(BaseWindow):
 
         #frame_3
         label_skills_title = Label(frame_3, text="Umiejętności zawodowe", font=("Helvetica", 12))
-        label_skills = Label(frame_3, text=self.skill_formater.format_skills_list(self.skill_formater.get_occupation_skills()))
+        label_skills = Label(frame_3, text=self.skill_formater.format_skills_list(self.skill_formater.get_occupation_skills_pl()))
         label_skills_title.grid(row=0, column=0, pady=20)
         label_skills.grid(row=1, column=0)
 

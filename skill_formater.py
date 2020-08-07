@@ -13,7 +13,7 @@ class SkillFormater():
         infos = occupation_info_extractor.get_infos()
         self.info = [i for i in infos if i.occupation_enum == Data.data["occupation"]][0]
 
-    def get_occupation_skills(self):
+    def get_occupation_skills_pl(self):
         enum_skills_list = self.info.skills
         skills_list = []
         for lists in enum_skills_list:
