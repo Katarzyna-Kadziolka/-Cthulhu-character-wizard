@@ -59,7 +59,6 @@ class HomeWindow(BaseWindow):
         info = occupation_info_extractor.get_infos()
         occupation_names_enum = [i.occupation_enum for i in info]
         occupation = random.choice(occupation_names_enum)
-        occupation = Occupation.OCCULTIST
         self.save_data("occupation", occupation)
 
         info_occupation = [i for i in info if i.occupation_enum == Data.data["occupation"]][0]
