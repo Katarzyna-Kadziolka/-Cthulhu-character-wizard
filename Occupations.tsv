@@ -1,0 +1,112 @@
+			Occupation skills	Credit rating min	Credit rating max	Skills	
+	Accountant	Księgowy	EDU × 4	30	70	Accounting, Law, Library Use, Listen, Persuade, Spot Hidden, personal skill, personal skill	
+	Acrobat	Akrobata	EDU × 2 + DEX × 2	9	20	Climb, Dodge, Jump, Throw, Spot Hidden, Swim, personal skill, personal skill	
+	Stage Actor	Aktor scenowy	EDU × 2 + APP × 2	9	40	Art/Craft (Acting), Disguise, Fighting, History, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill	
+	Film Star	Gwiazda filmowa	EDU × 2 + APP × 2	20	90	Art/Craft (Acting), Disguise, Drive Auto, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill, personal skill	
+	Agency Detective	Detektyw z agencji	EDU × 2 + (STR × 2 or DEX × 2)	20	45	one interpersonal skill (Charm, Fast Talk, Intimidate or Persuade), Fighting (Brawl), Firearms, Law, Library Use, Psychology, Stealth, Track	
+	Alienist 	Alienista	EDU × 4	10	60	Law, Listen, Medicine, Other Language, Psychoanalysis, Psychology, Science (Biology, Chemistry)	
+	Animal Trainer	Trener zwierząt	EDU × 2 + (APP × 2 or POW × 2)	10	40	Jump, Listen, Natural World, Psychology, Science (Zoology), Stealth, Track, personal skill	
+	Antiquarian 	Antykwariusz	EDU × 4	30	70	Appraise, Art/Craft (any), History, Library Use, Other Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Spot Hidden, personal skill	
+	Antique Dealer	Sprzedawca antyków	EDU × 4	30	50	Accounting, Appraise, Drive Auto, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), History, Library Use, Navigate	
+	Archaeologis	Archeolog 	EDU × 4	10	40	Appraise, Archaeology, History, Other Language (any), Library Use, Spot Hidden, Mechanical Repair, Navigate or Science 	
+	Architect	Architekt	EDU × 4	30	70	Accounting, Art/Craft (Technical Drawing), Law, Own Language, Library Use, Persuade, Psychology, Science (Mathematics)	
+	Artist	Artysta	EDU × 2 + (DEX × 2 or POW × 2)	9	50	Art/Craft (any), History or Natural World, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Other Language, Psychology, Spot Hidden, personal skill, personal skill	
+	Asylum Attendant	Pacjent szpitala psychiatrycznego	EDU × 2 + (STR × 2 or DEX × 2)	8	20	Dodge, Fighting (Brawl), First Aid, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Listen, Psychology, Stealth	
+	Assassin 	Zabójca 	EDU × 2 + (DEX × 2 or STR × 2)	30	60	Disguise, Electrical Repair, Fighting, Firearms, Locksmith, Mechanical Repair, Stealth, Psychology	
+	Athlete	Atleta	EDU × 2 + (DEX × 2 or STR × 2)	9	70	Climb, Jump, Fighting (Brawl), Ride, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Swim, Throw, personal skill	
+	Author 	Pisarz	EDU × 4	9	30	Art/Craft (Literature), History, Library Use, Natural World or Occult, Other Language, Own Language, Psychology, personal skill	
+	Aviator 	Lotnik	EDU × 4	30	60	Accounting, Electrical Repair, Listen, Mechanical Repair, Navigate, Pilot (Aircraft), Spot Hidden, personal skill	
+	Bank Robber 	Kasiarz	EDU × 2 + (STR × 2 or DEX × 2)	5	75	Drive Auto, Electrical or Mechanical Repair, Fighting, Firearms, Intimidate, Locksmith, Operate Heavy Machinery, personal skill	
+	Bartender	Barman	EDU × 2 + APP × 2	8	25	Accounting, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Fighting (Brawl), Listen, Psychology, Spot Hidden, personal skill	
+	Big Game Hunter	Myśliwy	EDU × 2 + (DEX × 2 or STR × 2)	20	50	Firearms, Listen or Spot Hidden, Natural World, Navigate, Other Language or Survival, Science (Biology or Botany), Stealth, Track	
+	Book Dealer	Księgarz	EDU × 4	20	40	Accounting, Appraise, Drive Auto, History, Library Use, Own Language, Other Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade)	
+	Bootlegger 	Przemytnik	EDU × 2 + STR × 2	5	30	Drive Auto, Fighting, Firearms, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Stealth, Spot Hidden	
+	Bounty Hunter	Łowca nagród	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Drive Auto, Electrical Repair, Fighting or Firearms, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Law, Psychology, Track, Stealth	
+	Boxer	Bokser	EDU × 2 + STR × 2	9	60	Dodge, Fighting (Brawl), Intimidate, Jump, Psychology, Spot Hidden, personal skill, personal skill	
+	Burglar 	Włamywacz 	EDU × 2 + DEX × 2	5	40	Appraise, Climb, Electrical or Mechanical Repair, Listen, Locksmith, Sleight of Hand, Stealth, Spot Hidden	
+	Butler/Maid	Lokaj/Pokojówka	EDU × 4	9	40	Accounting or Appraise, Art/Craft (any, e.g. Cook, Tailor, Barber), First Aid, Listen, Other Language, Psychology, Spot Hidden, personal skill, personal skill	
+	Chauffeur 	Szofer	EDU × 2 + DEX × 2	10	40	Drive Auto, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Listen, Mechanical Repair, Navigate, Spot Hidden, personal skill	
+	Clergy	Kleryk	EDU × 4	9	60	Accounting, History, Library Use, Listen, Other Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill	
+	Conman 	Oszust	EDU × 2 + APP × 2	10	65	Appraise, Art/Craft (Acting), Law or Other Language, Listen, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Sleight of Hand	
+	Cowboy	Kowboj	EDU × 2 + (DEX × 2 or STR × 2)	9	20	Dodge, Fighting or Firearms, First Aid or Natural World, Jump, Ride, Survival, Throw, Track	
+	Craftsperson	Rzemieślnik	EDU × 2 + DEX × 2	10	40	Accounting, Art/Craft (any two), Mechanical Repair, Natural World, Spot Hidden, personal skill, personal skill	
+	Criminal	Przestępca 	EDU × 2 + (DEX × 2 or APP × 2)	5	65	Art/Craft (Acting) or Disguise, Appraise, one interpersonal skill (Charm, Fast Talk, Intimidate or Persuade), Fighting or Firearms, Locksmith or Mechanical Repair, Stealth, Psychology, Spot Hidden	
+	Cult Leader	Przywódca kultu	EDU x 2 + APP x 2	30	60	Accounting, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Occult, Psychology, Spot Hidden, personal skill, personal skill	
+	Designer	Projektant	EDU × 4	20	60	Accounting, Art/Craft (Photography), Art/Craft (any), Library Use, Mechanical Repair, Psychology, Spot Hidden, personal skill	
+	Dilettante	Dziedzic	EDU × 2 + APP × 2	50	99	Art/Craft (Any), Firearms, Other Language, Ride, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), personal skill, personal skill, personal skill	
+	Diver	Nurek	EDU × 2 + DEX × 2	9	30	Diving, First Aid, Mechanical Repair, Pilot (Boat), Science (Biology), Spot Hidden, Swim, personal skill	
+	Doctor of Medicine 	Doktor medycyny	EDU x 4	30	80	First Aid, Medicine, Other Language (Latin), Psychology, Science (Biology, Pharmacy), personal skill, personal skill	
+	Drifter	Włóczykij	EDU × 2 + (APP× 2 or DEX × 2 or STR × 2)	0	5	Climb, Jump, Listen, Navigate, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Stealth, personal skill, personal skill	
+	Driver	Kierowca	EDU × 2 + (DEX × 2 or STR × 2)	9	20	Accounting, Drive Auto, Listen, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Mechanical Repair, Navigate, Psychology, personal skill	
+	Editor	Redaktor	EDU × 4	10	30	Accounting, History, Own Language, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Spot Hidden, personal skill	
+	Elected Official	Urzędnik	EDU × 2 + APP × 2	50	90	Charm, History, Intimidate, Fast Talk, Listen, Own Language, Persuade, Psychology	
+	Engineer	Inżynier	EDU × 4	30	60	Art/Craft (Technical Drawing), Electrical Repair, Library Use, Mechanical Repair, Operate Heavy Machinery, Science (Engineering, Physics), personal skill	
+	Entertainer	Artysta sceniczny	EDU × 2 + APP × 2	9	70	Art/Craft (e.g. Acting, Singer, Comedian, etc.), Disguise, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Listen, Psychology, personal skill, personal skill	
+	Explorer	Odkrywca	EDU × 2 + (APP × 2 or DEX × 2 or STR × 2)	55	80	Climb or Swim, Firearms, History, Jump, Natural World, Navigate, Other Language, Survival	
+	Farmer	Rolnik	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Art/Craft (Farming), Drive Auto, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Mechanical Repair, Natural World, Operate Heavy Machinery, Track, personal skill	
+	Federal Agent	Agent federalny	EDU × 4	20	40	Drive Auto, Fighting (Brawl), Firearms, Law, Persuade, Stealth, Spot Hidden, personal skill	
+	Fence 	Paser	EDU × 2 + APP× 2	20	40	Accounting, Appraise, Art/Craft (Forgery), History, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Library Use, Spot Hidden, personal skill	
+	Firefighter	Strażak	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Climb, Dodge, Drive Auto, First Aid, Jump, Mechanical Repair, Operate Heavy Machinery, Throw	
+	Foreign Correspondent	Korespondent zagraniczny	EDU × 4	10	40	History, Other Language, Own Language, Listen, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill	
+	Forensic Surgeon	Patolog sądowy	EDU × 4	40	60	Other Language (Latin), Library Use, Medicine, Persuade, Science (Biology, Forensics, Pharmacy), Spot Hidden	
+	Forger	Fałszerz	EDU × 4	20	60	Accounting, Appraise, Art/Craft (Forgery), History, Library Use, Spot Hidden, Sleight of Hand, personal skill	
+	Gambler	Hazardzista	EDU × 2 + (APP × 2 or DEX × 2)	8	50	Accounting, Art/Craft (Acting), two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Listen, Psychology, Sleight of Hand, Spot Hidden	
+	Gangster Boss	Mafiozo	EDU × 2 + APP × 2	60	95	Fighting, Firearms, Law, Listen, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Spot Hidden	
+	Gangster Underling	Członek mafii	EDU × 2 + (DEX × 2 or STR × 2)	9	20	Drive Auto, Fighting, Firearms, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill, personal skill	
+	Gentleman/Lady	Dżentelmen/Dama	EDU × 2 + APP × 2	40	90	Art/Craft (any), two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Firearms (Rifle/Shotgun), History, Other Language (any), Navigate, Ride	
+	Gun Moll	Dziewczyna gangstera	EDU × 2 + APP × 2	10	80	Art/Craft (any), two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Fighting (Brawl) or Firearms (Handgun), Drive Auto, Listen, Stealth, personal skill	
+	Hobo	Bezdomny	EDU × 2 + (APP × 2 or DEX × 2)	0	5	Art/Craft (any), Climb, Jump, Listen, Locksmith or Sleight of Hand, Navigate, Stealth, personal skill	
+	Hospital Orderly	Pracownik szpitala	EDU × 2 + STR × 2	6	15	Electrical Repair, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Fighting (Brawl), First Aid, Listen, Mechanical Repair, Psychology, Stealth	
+	Investigative Journalist	Dziennikarz śledczy	EDU × 4	9	30	Art/Craft (Art or Photography), one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), History, Library Use, Own Language, Psychology, personal skill, personal skill	
+	Judge	Sędzia	EDU × 4	50	80	History, Intimidate, Law, Library Use, Listen, Own Language, Persuade, Psychology	
+	Laboratory Assistant	Laborant	EDU × 4	10	30	Library Use, Electrical Repair, Other Language, Science (Chemistry), Science, Science, Spot Hidden, personal skill	
+	Laborer	Robotnik	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Drive Auto, Electrical Repair, Fighting, First Aid, Mechanical Repair, Operate Heavy Machinery, Throw, personal skill	
+	Lawyer	Prawnik	EDU × 4	30	80	Accounting, Law, Library use, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill, personal skill	
+	Librarian	Bibliotekarz 	EDU × 4	9	35	Accounting, Library use, Other Language, Own Language, personal skill, personal skill, personal skill, personal skill	
+	Lumberjack 	Drwal	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Climb, Dodge, Fighting (Axe), First Aid, Jump, Mechanical Repair, Natural World or Science (Biology or Botany), Throw	
+	Mechanic 	Mechanik 	EDU × 4	9	40	Art/Craft (Carpentry, Welding, Plumbing, etc.), Climb, Drive Auto, Electrical Repair, Mechanical Repair, Operate Heavy Machinery, personal skill, personal skill	
+	Military Officer	Oficer Wojskowy	EDU × 2 + (DEX × 2 or STR × 2)	20	70	Accounting, Firearms, Navigate, First Aid, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill	
+	Miner 	Górnik 	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Climb, Science (Geology), Jump, Mechanical Repair, Operate Heavy Machinery, Stealth, Spot Hidden, personal skill	
+	Missionary	Misjonarz	EDU × 2 + APP × 2	0	30	Art/Craft (any), First Aid, Mechanical Repair, Medicine, Natural World, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), personal skill, personal skill	
+	Mountain Climber	Wspinacz górski	EDU × 2 + (DEX × 2 or STR × 2)	30	60	Climb, First Aid, Jump, Listen, Navigate, Other Language, Survival (Alpine), Track.	
+	Museum Curator	Kurator Muzeum	EDU × 4	10	30	Accounting, Appraise, Archaeology, History, Library Use, Occult, Other Language, Spot Hidden	
+	Musician	Muzyk	EDU × 2 + (APP × 2 or DEX × 2)	9	30	Art/Craft (Instrument), one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Listen, Psychology, personal skill, personal skill, personal skill, personal skill	
+	Nurse	Pielęgniarka	EDU × 4	9	30	First Aid, Listen, Medicine, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Science (Biology, Chemistry), Spot Hidden	
+	Occultist 	Okultysta	EDU × 4	9	65	Anthropology, History, Library Use, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Occult, Other Language, Science (Astronomy), personal skill	może mieć mity cthulhu w dowolnych 
+	Outdoorsman	Traper	EDU × 2 + (DEX × 2 or STR × 2)	5	20	Firearms, First Aid, Listen, Natural World, Navigate, Spot Hidden, Survival (any), Track	
+	Parapsychologist	Parapsycholog	EDU × 4	9	30	Anthropology, Art/Craft (Photography), History, Library Use, Occult, Other Language, Psychology, personal skill	
+	Pharmacist	Farmaceuta	EDU × 4	35	75	Accounting, First Aid, Other Language (Latin), Library Use, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Science (Pharmacy, Chemistry)	
+	Photographer	Fotograf	EDU × 4	9	30	Art/Craft (Photography), one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Science (Chemistry), Stealth, Spot Hidden, personal skill, personal skill 	
+	Photojournalist 	Fotoreporter 	EDU × 4	10	30	Art/Craft (Photography), Climb, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Other Language, Psychology, Science (Chemistry), personal skill, personal skill	
+	Pilot 	Pilot 	EDU × 2 + DEX × 2	20	70	Electrical Repair, Mechanical Repair, Navigate, Operate Heavy Machinery, Pilot (Aircraft), Science (Astronomy), personal skill, personal skill	
+	Police Detective/Officer	Detektyw policyjny/oficer	EDU × 2 + (DEX × 2 or STR × 2)	20	50	Art/Craft (Acting) or Disguise, Firearms, Law, Listen, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Spot Hidden, personal skill	
+	Uniformed Police Officer	Policjant	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Fighting (Brawl), Firearms, First Aid, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Law, Psychology, Spot Hidden, Drive Auto or Ride	
+	Private Investigator	Prywatny detektyw	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Art/Craft (Photography), Disguise, Law, Library Use, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Spot Hidden, personal skill	
+	Professor	Profesor 	EDU × 4	20	70	Library Use, Other Language, Own Language, Psychology, personal skill, personal skill, personal skill, personal skill	
+	Prospector	Poszukiwacz złota	EDU × 2 + (DEX × 2 or STR × 2)	0	10	Climb, First Aid, History, Mechanical Repair, Navigate, Science (Geology), Spot Hidden, personal skill	
+	Prostitute	Prostytutka	EDU × 2 + APP × 2	5	50	Art/Craft (any), two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Dodge, Psychology, Sleight of hand, Stealth, personal skill	
+	Psychiatrist	Psychiatra	EDU × 4	30	80	Other Language, Listen, Medicine, Persuade, Psychoanalysis, Psychology, Science (Biology, Chemistry)	
+	Psychologist/Psychoanalyst	Psycholog/psychoanalityk	EDU × 4	10	40	Accounting, Library Use, Listen, Persuade, Psychoanalysis, Psychology, personal skill, personal skill	
+	Reporter	Reporter 	EDU × 4	9	30	Art/Craft (Acting), History, Listen, Own Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Stealth, Spot Hidden	
+	Researcher	Badacz	EDU × 4	9	30	History, Library Use, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Other Language, Spot Hidden, Science, Science, Science	
+	Sailor, Naval	Marynarz wojskowy	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Electrical Repair or Mechanical Repair, Fighting, Firearms, First Aid, Navigate, Pilot (Boat), Survival (Sea), Swim	
+	Sailor, Commercial	Marynarz	EDU × 2 + (DEX × 2 or STR × 2)	20	40	First Aid, Mechanical Repair, Natural World, Navigate, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Pilot (Boat), Spot Hidden, Swim.	
+	Salesperson	Sprzedawca	EDU × 2 + APP × 2	9	40	Accounting, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Drive Auto, Listen, Psychology, Stealth or Sleight of Hand, personal skill	
+	Scientist	Naukowiec	EDU × 4	9	50	Science, Science, Science, Library Use, Other Language, Own Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Spot Hidden	
+	Secretary	Sekretarka	EDU × 2 + (DEX × 2 or APP × 2)	9	30	Accounting, Art/Craft (Typing or Short Hand), two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Own Language, Library Use, Psychology, personal skill	
+	Shopkeeper	Właściciel sklepu	EDU × 2 + (APP × 2 or DEX × 2)	20	40	Accounting, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Electrical Repair, Listen, Mechanical Repair, Psychology, Spot Hidden	
+	Smuggler 	Szmugler 	EDU × 2 + (APP × 2 or DEX × 2)	20	60	Firearms, Listen, Navigate, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Drive Auto or Pilot (Aircraft or Boat), Psychology, Sleight of Hand, Spot Hidden	
+	Soldier	Żołnierz	EDU × 2 + (DEX × 2 or STR × 2)	9	30	Climb or Swim, Dodge, Fighting, Firearms, Stealth, Survival, two any (First Aid, Mechanical Repair, Other Language)	
+	Spy	Szpieg	EDU × 2 + (APP × 2 or DEX × 2)	20	60	Art/Craft (Acting) or Disguise, Firearms, Listen, Other Language, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Sleight of Hand, Stealth	
+	Street Punk	Drab	EDU × 2 + (DEX × 2 or STR × 2)	3	10	Climb, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), Fighting, Firearms, Jump, Sleight of Hand, Stealth, Throw	
+	Student/Intern	Student/Stażysta	EDU × 4	5	10	Own Language or Other Language, Library Use, Listen, Science, Science, Science, personal skill, personal skill	
+	Stuntman	Kaskader	EDU × 2 + (DEX × 2 or STR × 2)	10	50	Climb, Dodge, Electrical Repair or Mechanical Repair, Fighting, First Aid, Jump, Swim, any( Diving, Drive Automobile, Pilot , Ride)	
+	Taxi Driver 	Kierowca taksówki 	EDU x 2 + DEX ×  2	9	30	Accounting, Drive Auto, Electrical Repair, Fast Talk, Mechanical Repair, Navigate, Spot Hidden, personal skill	
+	Tribe Member	Członek Plemienia	EDU × 2 + (DEX × 2 + STR × 2)	0	15	Climb, Fighting or Throw, Listen, Natural World, Occult, Spot Hidden, Swim, Survival 	
+	Undertaker	Grabarz	EDU × 4	20	40	Accounting, Drive Auto, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), History, Occult, Psychology, Science (Biology, Chemistry)	
+	Union Activist	Aktywista	EDU × 4	5	30	Accounting, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Fighting (Brawl), Law, Listen, Operate Heavy Machinery, Psychology	
+	Waiter	Kelner	EDU × 2 + (APP × 2 or DEX × 2)	9	20	Accounting, Art/Craft (any), Dodge, Listen, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill	
+	White-collar Worker	Pracownik biurowy	EDU × 4	9	20	Accounting, Other Language, Law, Library Use, Listen, one interpersonal skill (Charm, Fast Talk, Intimidate, or Persuade), personal skill, personal skill	
+	Manager	Manager	EDU × 4	20	80	Accounting, Other Language, Law, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, personal skill, personal skill	
+	Zealot	Fanatyk	EDU × 2 + (APP × 2 or POW × 2)	0	30	History, two interpersonal skills (Charm, Fast Talk, Intimidate, or Persuade), Psychology, Stealth, personal skill, personal skill, personal skill	
+	Zookeeper	Pracownik zoo	EDU × 4	9	40	Uncommon Skill (Animal Handling), Accounting, Dodge, First Aid, Natural World, Medicine, Science (Pharmacy, Zoology)	
