@@ -2,6 +2,7 @@ from enum import Enum
 from tkinter import *
 from tkinter.ttk import Combobox
 
+import occupation_info_extractor
 import skills_info
 import translator
 from Enums.ability import Ability
@@ -13,6 +14,8 @@ class ComboboxesEntriesHelper:
 
     def __init__(self):
         self.combobox_and_removed_skills = []
+        infos = occupation_info_extractor.get_infos()
+        self.info = [i for i in infos if i.occupation_enum == Data.data["occupation"]][0]
         self.skills_info = skills_info.SkillsInfo()
         self.translator = translator.Translator()
 
@@ -131,6 +134,12 @@ class ComboboxesEntriesHelper:
             sanity_points = Data.data[Ability.SANITY]
             if sanity_points < int(sv.get()):
                 sv.set(sanity_points-1)
+
+        if type_base_points == "occupation_skill_points":
+            if skill_enum == Skill.CREDIT_RATING:
+                max_credit_points = self.info.max_credit_rating
+                if int(sv.get()) > int(max_credit_points):
+                    sv.set(max_credit_points)
 
         if int(sv.get()) < min_skill_points:
             sv.set(f"{min_skill_points:02d}")

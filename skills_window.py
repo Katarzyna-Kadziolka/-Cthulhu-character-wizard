@@ -3,6 +3,7 @@ from tkinter.ttk import Combobox
 
 import comboboxes_entries_helper
 import occupation_skills_window
+import random_calculator
 import random_skills_points
 import skills_info
 import summary_window
@@ -25,6 +26,7 @@ class SkillsWindow(BaseWindow):
         self.translator = translator.Translator()
         self.skills_info = skills_info.SkillsInfo()
         self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
+        self.random_calculator = random_calculator.RandomCalculator()
         self.random_skills_points = random_skills_points.RandomSkillsPoints()
         self.create_content()
 
@@ -83,7 +85,8 @@ class SkillsWindow(BaseWindow):
         self.btn_next_window = Button(self.frame_4, text="Dalej", width=10, command=self.next_window, state=DISABLED)
         self.btn_next_window.grid(row=1, column=1, pady=20, padx=50, stick=E)
         btn_previous_window = Button(self.frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=1, column=0, pady=20, padx=50, stick=W)
-        btn_random = Button(self.frame_4, text="Random", width=20, command=self.random_button_click).grid(row=2, column=0, columnspan=2, pady=5)
+        self.btn_random = Button(self.frame_4, text="Random", width=20, command=self.random_button_click)
+        self.btn_random.grid(row=2, column=0, columnspan=2, pady=5)
         btn_reset = Button(self.frame_4, text="Reset", width=20, command=self.reset_skills_points).grid(row=3, column=0, columnspan=2, pady=5)
 
         personal_skill_points.trace("w", lambda _, __, ___, sv=personal_skill_points: self.helper.check_base_skill_points(self.entry_available_personal_skill_points, personal_skill_points.get(),self.entry_list, self.btn_next_window))
@@ -153,7 +156,7 @@ class SkillsWindow(BaseWindow):
         occupation_skills_window.OccupationSkillsWindow(self.root)
 
     def random_button_click(self):
-        skills_dict = self.random_skills_points.random_personal_skills_points(int(self.entry_available_personal_skill_points.get()))
+        skills_dict = self.random_calculator.random_personal_skills_points(int(self.entry_available_personal_skill_points.get()), "intelligence_skill_points")
         for skill_enum, skill_points in skills_dict.items():
             skill_pl = self.translator.get_translation_for_skill(skill_enum)
             if int(self.entry_list[0].get()) == self.get_minimal_skill_points(0):
@@ -161,9 +164,10 @@ class SkillsWindow(BaseWindow):
                 self.entry_list[0].insert(0, skill_points)
             else:
                 self.add_new_skill(skill_pl, skill_points)
-
+        self.btn_random.config(state=DISABLED)
 
     def reset_skills_points(self):
+        self.btn_random.config(state=NORMAL)
         self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_personal_skill_points, self.combobox_dict, self.label_dict, "intelligence_skill_points", self.btn_next_window)
         self.root.geometry("400x500")
 

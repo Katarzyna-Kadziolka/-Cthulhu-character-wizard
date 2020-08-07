@@ -1,7 +1,9 @@
+import enum
 import math
 import random
 import re
 
+import skills_info
 from Enums.ability import Ability
 from Enums.skill import Skill
 from data import Data
@@ -352,11 +354,13 @@ class RandomCalculator:
         return intelligence_points*2
 
 # occupation_skills_window
-    def get_random_skills_points(self, base_skill_points: int, skill_dict: dict, type_base_points):
+    def get_random_skills_points(self, base_skill_points: int, skill_dict: dict, type_base_points, credit_rating_min, credit_rating_max):
 
         # choose specialization
         if type_base_points == "occupation_skill_points":
             specialization = random.choice(list(skill_dict.keys()))
+            while specialization == Skill.CREDIT_RATING or specialization == Skill.CTHULHU_MYTHOS:
+                specialization = random.choice(list(skill_dict.keys()))
             specialization_points = random.choice([70, 75, 80])
             if max(skill_dict.values()) < specialization_points:
                 if skill_dict[specialization] > specialization_points:
@@ -381,6 +385,17 @@ class RandomCalculator:
             base_skill_points = base_skill_points - up_to_five
             skill_dict[key] = current_points + up_to_five
 
+        #credit_rating_min
+        credit_rating_min = int(credit_rating_min)
+        credit_rating_max = int(credit_rating_max)
+        if type_base_points == "occupation_skill_points":
+            if base_skill_points >= credit_rating_min:
+                skill_dict[Skill.CREDIT_RATING] = credit_rating_min
+                base_skill_points = base_skill_points - credit_rating_min
+            else:
+                skill_dict[Skill.CREDIT_RATING] = base_skill_points
+                base_skill_points = base_skill_points - credit_rating_min
+
         while base_skill_points >= 5:
             skill = random.choice(list(skill_dict.keys()))
             if skill == Skill.CTHULHU_MYTHOS:
@@ -390,6 +405,14 @@ class RandomCalculator:
                     base_skill_points -= 5
                 else:
                     continue
+            if type_base_points == "occupation_skill_points":
+                if skill == Skill.CREDIT_RATING:
+                    if skill_dict[skill] + 5 <= credit_rating_max:
+                        skill_dict[skill] = skill_dict[skill] + 5
+                        base_skill_points -= 5
+                        continue
+                    else:
+                        continue
 
             if skill_dict[skill] == 90:
                 continue
@@ -398,11 +421,41 @@ class RandomCalculator:
                 base_skill_points -= 5
 
         if base_skill_points > 0:
-            the_lowest_point_value = min(list(skill_dict.values()))
-            skill_with_the_lowest_point_value = [key for key in skill_dict if skill_dict[key] == the_lowest_point_value][0]
-            skill_dict[skill_with_the_lowest_point_value] = skill_dict[skill_with_the_lowest_point_value] + base_skill_points
+            skill_dict_without_credit_rating_and_cthulhu_mythos = skill_dict.copy()
+            skill_dict_without_credit_rating_and_cthulhu_mythos.pop(Skill.CTHULHU_MYTHOS, None)
+            skill_dict_without_credit_rating_and_cthulhu_mythos.pop(Skill.CREDIT_RATING, None)
+            the_lowest_point_value = min(list(skill_dict_without_credit_rating_and_cthulhu_mythos.values()))
+            skill_with_the_lowest_point_value = [key for key in skill_dict_without_credit_rating_and_cthulhu_mythos if skill_dict_without_credit_rating_and_cthulhu_mythos[key] == the_lowest_point_value][0]
+            skill_dict[skill_with_the_lowest_point_value] = skill_dict_without_credit_rating_and_cthulhu_mythos[skill_with_the_lowest_point_value] + base_skill_points
 
         return skill_dict
+
+    #personal_skills_window
+    def random_personal_skills_points(self, available_personal_points, type_base_points):
+        all_skills_list = skills_info.SkillsInfo.get_all_skills_list()
+        skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum)]
+        all_skills_list = [skill for skill in all_skills_list if skill not in skills_from_data]
+        all_skills_list.remove(Skill.CTHULHU_MYTHOS)
+        random_number_of_skills = random.randint(3, 5)
+        skills_list = []
+        skills_dict = {}
+        for n in range(1, random_number_of_skills):
+            skill_enum = random.choice(all_skills_list)
+            skills_list.append(skill_enum)
+            all_skills_list.remove(skill_enum)
+        for skill_enum in skills_list:
+            if type_base_points == "intelligence_skill_points":
+                try:
+                    min_skill_points = Data.data[skill_enum]
+                except:
+                    min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
+            elif type_base_points == "occupation_skill_points":
+                min_skill_points = skills_info.SkillsInfo.get_minimal_skill_points(skill_enum)
+            else:
+                raise ValueError(f"Type {type_base_points} of points  is incorrect")
+            skills_dict[skill_enum] = min_skill_points
+        skills_dict = self.get_random_skills_points(available_personal_points, skills_dict, "intelligence_skill_points", None, None)
+        return skills_dict
 
     #summary_window
     def get_sanity_corrected_by_mythos(self, sanity_points, cthulhu_mythos_value):

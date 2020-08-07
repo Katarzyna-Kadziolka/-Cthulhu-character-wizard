@@ -44,21 +44,5 @@ class RandomSkillsPoints:
 
         return combobox_dict, entry_list
 
-    def random_personal_skills_points(self, available_personal_points):
-        all_skills_list = skills_info.SkillsInfo.get_all_skills_list()
-        skills_from_data = [key for key, value in Data.data.items() if isinstance(key, enum.Enum)]
-        all_skills_list = [skill for skill in all_skills_list if skill not in skills_from_data]
-        all_skills_list.remove(Skill.CTHULHU_MYTHOS)
-        random_number_of_skills = random.randint(3, 5)
-        skills_list = []
-        skills_dict = {}
-        for n in range(1, random_number_of_skills):
-            skill_enum = random.choice(all_skills_list)
-            skills_list.append(skill_enum)
-            all_skills_list.remove(skill_enum)
-        for skill_enum in skills_list:
-            skill_min_value = self.helper.get_min_skill_points(skill_enum, "intelligence_skill_points")
-            skills_dict[skill_enum] = skill_min_value
-        skills_dict = self.calculator.get_random_skills_points(available_personal_points, skills_dict, "intelligence_skill_points")
-        return skills_dict
+
 

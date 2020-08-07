@@ -4,6 +4,7 @@ from tkinter.ttk import Combobox
 import operator
 
 import comboboxes_entries_helper
+import occupation_info_extractor
 import occupation_select_window
 import random_calculator
 import random_skills_points
@@ -31,6 +32,8 @@ class OccupationSkillsWindow(BaseWindow):
         super().__init__(root)
         self.entry_list = []
         self.combobox_and_removed_skills = []
+        infos = occupation_info_extractor.get_infos()
+        self.info = [i for i in infos if i.occupation_enum == Data.data["occupation"]][0]
         self.helper = comboboxes_entries_helper.ComboboxesEntriesHelper()
         self.random_skills_points = random_skills_points.RandomSkillsPoints()
         self.calculator = random_calculator.RandomCalculator()
@@ -70,7 +73,8 @@ class OccupationSkillsWindow(BaseWindow):
         self.btn_next_window = Button(frame_4, text="Dalej", width=10, command=self.next_window, state=DISABLED)
         self.btn_next_window.grid(row=0, column=1, pady=20, padx=50, stick=E)
         btn_previous_window = Button(frame_4, text="Cofnij", width=10, command=self.previous_window).grid(row=0, column=0, pady=20, padx=50, stick=W)
-        btn_random = Button(frame_4, text="Random", width=20, command=self.random_button_click).grid(row=1, column=0, columnspan=2, pady=5)
+        self.btn_random = Button(frame_4, text="Random", width=20, command=self.random_button_click)
+        self.btn_random.grid(row=1, column=0, columnspan=2, pady=5)
         btn_reset = Button(frame_4, text="Reset", width=20, command=self.reset_skills_points).grid(row=2, column=0, columnspan=2, pady=5)
 
         occupation_skill_points.trace("w", lambda _, __, ___, sv=occupation_skill_points: self.helper.check_base_skill_points(self.entry_available_occupation_skill_points, occupation_skill_points.get(), self.entry_list, self.btn_next_window))
@@ -93,6 +97,7 @@ class OccupationSkillsWindow(BaseWindow):
         self.combobox_dict = {}
 
         skills_list = self.skill_formater.get_occupation_skills()
+        skills_list.append("Majętność")
         for index, skill in enumerate(skills_list):
             if "lub" in skill:
                 or_skills = skill.split(" lub ")
@@ -209,6 +214,7 @@ class OccupationSkillsWindow(BaseWindow):
         return entry_skill_points
 
     def reset_skills_points(self):
+        self.btn_random.config(state=NORMAL)
         self.combobox_dict, self.entry_list = self.random_skills_points.reset_skills_points(self.entry_list, self.entry_available_occupation_skill_points, self.combobox_dict, self.label_dict, "occupation_skill_points", self.btn_next_window)
 
     def set_random_skills_from_comboboxes(self):
@@ -238,7 +244,9 @@ class OccupationSkillsWindow(BaseWindow):
         self.entry_available_occupation_skill_points.config(state="normal")
         all_occupation_skills_points = int(self.entry_available_occupation_skill_points.get())
         self.entry_available_occupation_skill_points.config(state="disabled")
-        new_skill_dict = self.calculator.get_random_skills_points(all_occupation_skills_points, old_skill_dict.copy(), "occupation_skill_points")
+        credit_rating_min = int(self.info.min_credit_rating)
+        credit_rating_max = int(self.info.max_credit_rating)
+        new_skill_dict = self.calculator.get_random_skills_points(all_occupation_skills_points, old_skill_dict.copy(), "occupation_skill_points", credit_rating_min, credit_rating_max)
         labels_text = [self.label_dict[key].cget("text") for key in self.label_dict]
         comboboxes_text = [self.combobox_dict[key].get() for key in self.combobox_dict]
         for key in new_skill_dict:
@@ -256,6 +264,7 @@ class OccupationSkillsWindow(BaseWindow):
 
             skill_entry = self.entry_list[index]
             self.set_text(skill_entry, new_skill_dict[key])
+        self.btn_random.config(state=DISABLED)
 
     def next_window(self):
         self.helper.save_data(self.entry_list, self.combobox_dict, self.label_dict)
