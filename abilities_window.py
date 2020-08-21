@@ -36,7 +36,7 @@ class AbilitiesWindow(BaseWindow):
         sv_strenght.trace("w", lambda name, index, mode, sv=sv_strenght: self.update_ability(sv, e_strength, e_half_strength, e_one_fifth_strength, Ability.STRENGTH))
 
         sv_condition = StringVar()
-        sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: self.update_ability(sv, e_condition, e_half_condition,e_one_fifth_condition, Ability.STRENGTH))
+        sv_condition.trace("w", lambda name, index, mode, sv=sv_condition: self.update_ability(sv, e_condition, e_half_condition,e_one_fifth_condition, Ability.CONDITION))
 
         sv_size = StringVar()
         sv_size.trace("w", lambda name, index, mode, sv=sv_size: self.update_ability(sv, e_size, e_half_size, e_one_fifth_size, Ability.SIZE))
