@@ -14,7 +14,7 @@ Następnie trzeba ją wypakować i wybrać plik o nazwie <b>cthulhu_creator</b>.
 # Użytkowanie
 ![Z1](https://github.com/Katarzyna-Kadziolka/Cthulhu-character-wizard/blob/master/docs/1.png)
 
-Możliwe jest samodzielne tworzenie postaci krok po kroku, wykorzystywanie funkcji random tylko przy wybranych elementach, <br>
+Możliwe jest samodzielne tworzenie postaci krok po kroku, wykorzystywanie funkcji random tylko przy wybranych elementach, 
 jak również całkowita randomizacja postaci.
 <br>
 <br>
@@ -31,7 +31,7 @@ W przypadku wybrania funkcji random, wiek postaci jest wybierany z następujący
 
 ![Z3](https://github.com/Katarzyna-Kadziolka/Cthulhu-character-wizard/blob/master/docs/3.png)
 
-Przy wykonywaniu samodzielnych rzutów kośćmi należy również samodzielnie rpzeliczyć uzyskane wartości<br>
+Przy wykonywaniu samodzielnych rzutów kośćmi należy również samodzielnie przeliczyć uzyskane wartości<br>
 zgodnie z podanymi wzorami.
 <br>
 <br>
