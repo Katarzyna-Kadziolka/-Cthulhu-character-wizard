@@ -4,7 +4,7 @@
 # Kreator postaci Cthulhu
 
 Program ułatwiający tworzenie postaci badacza w RPG Cthulhu, napisany na podstawie podręcznika do 7 edycji gry.<br>
-Został napisany w tkinter.
+Został napisany w Pythonie przy użyciu tkinter.
 
 # Instalacja
 
